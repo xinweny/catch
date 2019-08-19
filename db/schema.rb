@@ -10,10 +10,70 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_074108) do
+ActiveRecord::Schema.define(version: 2019_08_19_083305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "associations", force: :cascade do |t|
+    t.boolean "admin", default: false
+    t.bigint "colony_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["colony_id"], name: "index_associations_on_colony_id"
+    t.index ["user_id"], name: "index_associations_on_user_id"
+  end
+
+  create_table "cats", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "sex"
+    t.integer "age"
+    t.string "photo"
+    t.text "health"
+    t.string "microchip_id"
+    t.integer "status", default: 0
+    t.float "longitude"
+    t.float "latitude"
+    t.bigint "colony_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["colony_id"], name: "index_cats_on_colony_id"
+  end
+
+  create_table "colonies", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "description"
+    t.float "radius"
+    t.float "longitude"
+    t.float "latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.string "address"
+    t.datetime "start"
+    t.datetime "end"
+    t.text "description"
+    t.integer "phase"
+    t.bigint "colony_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["colony_id"], name: "index_events_on_colony_id"
+  end
+
+  create_table "participations", force: :cascade do |t|
+    t.bigint "event_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_participations_on_event_id"
+    t.index ["user_id"], name: "index_participations_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -21,10 +81,22 @@ ActiveRecord::Schema.define(version: 2019_08_19_074108) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "gender"
+    t.integer "age"
+    t.string "phone_number"
+    t.string "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "associations", "colonies"
+  add_foreign_key "associations", "users"
+  add_foreign_key "cats", "colonies"
+  add_foreign_key "events", "colonies"
+  add_foreign_key "participations", "events"
+  add_foreign_key "participations", "users"
 end
