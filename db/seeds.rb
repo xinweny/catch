@@ -8,7 +8,7 @@ def cat_stats(colony)
   return {
   name: Faker::Creature::Cat.name,
   description: Faker::Creature::Cat.breed,
-  sex: ['Male', 'Female'].sample,
+  sex: rand(0..1),
   age: rand(0..10),
   status: rand(0..5),
   remote_photo_url: 'https://cataas.com/cat',
@@ -47,7 +47,7 @@ end
 
 puts 'Creating volunteers...'
 other_users = []
-10.times do
+15.times do
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -82,6 +82,8 @@ shibuya = Colony.create!(
   radius: 9
   )
 
+colonies = [shinagawa, meguro, shibuya]
+
 puts 'Adding cats...'
 5.times do
   Cat.create!(cat_stats(shinagawa))
@@ -98,12 +100,32 @@ end
 
 puts 'Assigning admins to each colony...'
 admins.each_with_index do |admin, index|
-  admin.colonies = [Colony.all[index]]
+  admin.associations = [Association.create!(admin: true, user: admin, colony: colonies[index])]
 end
 
-puts 'Assigning volunteers...'
+puts 'Assigning volunteers to each colony...'
 other_users.each do |user|
   Colony.all.sample.users << user
+end
+
+puts 'Creating events...'
+colonies.each do |colony|
+  Event.create!(
+    title: 'TNR Meetup',
+    description: "Gotta catch 'em all!",
+    address: colony.address,
+    start: DateTime.now,
+    end: (DateTime.now.to_time + rand(3..8).hours).to_datetime,
+    colony: colony,
+    phase: 0)
+  Event.create!(
+    title: 'Monthly checkup',
+    description: "Kitty roundup for the monthly checkup.",
+    address: colony.address,
+    start: DateTime.now,
+    end: (DateTime.now.to_time + rand(3..8).hours).to_datetime,
+    colony: colony,
+    phase: 3)
 end
 
 puts 'All seeded!'
