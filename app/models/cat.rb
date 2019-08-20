@@ -4,6 +4,7 @@ class Cat < ApplicationRecord
   mount_uploader :photo, PhotoUploader
 
   enum status: %i[spotted trapped at_vet neutered released adopted deceased]
+  enum sex: %i[male female]
 
   validates :name, presence: true
   validates :description, presence: true

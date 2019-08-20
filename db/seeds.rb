@@ -8,7 +8,7 @@ def cat_stats(colony)
   return {
   name: Faker::Creature::Cat.name,
   description: Faker::Creature::Cat.breed,
-  sex: ['Male', 'Female'].sample,
+  sex: rand(0..1),
   age: rand(0..10),
   status: rand(0..5),
   remote_photo_url: 'https://cataas.com/cat',

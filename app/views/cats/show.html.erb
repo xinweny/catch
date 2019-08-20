@@ -1,0 +1,8 @@
+<h2><%= @cat.name %></h2>
+<%= cl_image_tag @cat.photo %>
+
+<h3>About me</h3>
+<p><%= @cat.description %></p>
+<p><%= @cat.sex.capitalize %></p>
+<p><%= @cat.age %> years old</p>
+<p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
