@@ -31,6 +31,18 @@ class CatsController < ApplicationController
   end
 
   def update
+    @cat.update(cat_params)
+    if @cat.save
+      redirect_to cat_path(@cat)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    colony = @cat.colony
+    @cat.destroy
+    redirect_to colony_path(colony)
   end
 
   private
