@@ -1,32 +1,60 @@
-<h2><%= @colony.name %></h2>
-<% if policy(@colony).update? %>
-  <p><%= link_to 'Edit', edit_colony_path(@colony) %></p>
-<% end %>
-<% if policy(@colony).destroy? %>
-  <p><%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' } %></p>
-<% end %>
+<div class="container">
+  <div class="container d-flex justify-content-around mx-auto mt-5">
+    <div class="container">
+      <h2><%= @colony.name %></h2>
+    </div>
+    <div class="container d-flex justify-content-end">
+      <% if policy(@colony).update? %>
+        <%= link_to 'Edit', edit_colony_path(@colony), class: "btn btn-primary btn-round mx-1" %>
+      <% end %>
+      <% if policy(@colony).destroy? %>
+        <%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' }, class: "btn btn-danger btn-round"  %>
+      <% end %>
+    </div>
+  </div>
+  <div class="grid-container m-4">
+    <div class="item1 p-4" style="background-color: white; border-radius: 10px">
+      <h4>About this colony</h4>
+      <div class="content p-3" style="background-color: #fcf5f4">
+        <p>Founded: <%= @colony.created_at %></p>
+        <p><%= @colony.description %></p>
+        <p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
+        <p>Cats (<%= @colony.cats.length %>)</p>
+        <p>Members (<%= @colony.users.length %>)</p>
+      </div>
+      <div class="d-flex justify-content-between mt-5">
+        <div class="content">
+          <h4>Cats</h4>
+        </div>
+        <div class="content">
+          <% if policy(@cat).create? %>
+            <%= link_to '+ Add a cat', new_colony_cat_path(@colony), class: "btn btn-success" %>
+          <% end %>
+        </div>
+     </div>
+       <div class="content p-3" style="background-color: #fcf5f4">
+        <% @colony.cats.each do |cat| %>
+          <p><%= link_to cat.name, cat_path(cat) %></p>
+          <p><%= cat.status %></p>
+        <% end %>
+      </div>
+    </div>
 
-<h3>About this colony</h3>
-<p><%= @colony.description %></p>
-<p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
-<p>Cats (<%= @colony.cats.length %>)</p>
-<p>Members (<%= @colony.users.length %>)</p>
-<p>Founded: <%= @colony.created_at %></p>
+    <div class="item2 p-4" style="background-color: white; border-radius: 10px">
+      <div class="d-flex justify-content-between">
+        <div class="content">
+          <h4>Events</h4>
+        </div>
+        <div class="content">
+          <% if policy(@event).create? %>
+            <%= link_to '+ Create new event', new_colony_event_path(@colony), class: "btn btn-success" %>
+          <% end %>
+        </div>
+      </div>
+      <% @colony.events.each do |event| %>
+        <p><%= link_to event.title, event_path(event) %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<h3>Events</h3>
-<% if policy(@event).create? %>
-  <p><%= link_to 'Create new event', new_colony_event_path(@colony) %></p>
-<% end %>
-<% @colony.events.each do |event| %>
-  <p><%= link_to event.title, event_path(event) %></p>
-<% end %>
-
-<h3>Cats</h3>
-<% if policy(@cat).create? %>
-  <p><%= link_to 'Add a cat', new_colony_cat_path(@colony) %></p>
-<% end %>
-
-<% @colony.cats.each do |cat| %>
-  <p><%= link_to cat.name, cat_path(cat) %></p>
-  <p><%= cat.status %></p>
-<% end %>
