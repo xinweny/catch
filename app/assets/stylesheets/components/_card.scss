@@ -1,0 +1,35 @@
+.card {
+  border: none;
+  margin: 10px;
+}
+
+.join-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.card-subtitle {
+  color: $blue;
+}
+
+.event-card {
+  background-color: #f7765f;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.members-list-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+}
+
+.confirm-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+}
