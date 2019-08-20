@@ -1,12 +1,20 @@
 <h2><%= @cat.name %></h2>
+<p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
+
+<% if policy(@cat).update? %>
+  <p><%= link_to 'Edit', edit_cat_path(@cat) %></p>
+<% end %>
+<% if policy(@cat).destroy? %>
+  <p><%= link_to 'Delete', cat_path(@cat), method: :delete, data: { confirm: "Permanently remove #{@cat.name}?" } %></p>
+<% end %>
+
 <%= cl_image_tag @cat.photo %>
 
 <h3>About me</h3>
 <p><%= @cat.description %></p>
 <p><%= @cat.sex.nil? ? 'N/A' : @cat.sex.capitalize %></p>
-<p><%= @cat.age %> years old</p>
-<p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
+<p><%= @cat.age.nil? ? 'Unknown age' : "#{@cat.age} years old" %></p>
 <p>Current status: <%= @cat.status %></p>
 
 <h3>Health</h3>
-<p><%= @cat.health.nil? ? 'No information available.' : @cat.health %></p>
+<p><%= @cat.health.nil? || @cat.health.blank? ? 'No information available.' : @cat.health %></p>

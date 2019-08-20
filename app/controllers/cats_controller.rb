@@ -12,13 +12,25 @@ class CatsController < ApplicationController
   end
 
   def new
-    @cat = Cat.new
-    @cat.colony = @colony
+    @cat = Cat.new(colony: @colony)
     authorize @cat
   end
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.colony = @colony
+    authorize @cat
+    if @cat.save
+      redirect_to cat_path(@cat)
+    else
+      render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
   end
 
   private
