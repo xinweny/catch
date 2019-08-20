@@ -3,6 +3,7 @@ class ColoniesController < ApplicationController
 
   def index
     @colonies = Colony.all
+    authorize @colonies
   end
 
   private

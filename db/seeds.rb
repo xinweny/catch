@@ -47,7 +47,7 @@ end
 
 puts 'Creating volunteers...'
 other_users = []
-10.times do
+15.times do
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -100,10 +100,10 @@ end
 
 puts 'Assigning admins to each colony...'
 admins.each_with_index do |admin, index|
-  admin.colonies = [Colony.all[index]]
+  admin.associations = [Association.create!(admin: true, user: admin, colony: colonies[index])]
 end
 
-puts 'Assigning volunteers...'
+puts 'Assigning volunteers to each colony...'
 other_users.each do |user|
   Colony.all.sample.users << user
 end
