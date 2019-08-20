@@ -1,0 +1,2 @@
+class ColoniesController < ApplicationController
+end
