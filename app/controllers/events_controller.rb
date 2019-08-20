@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show]
+  before_action :set_event, only: %i[show edit update]
   before_action :set_colony, only: %i[new create]
 
   def show
@@ -12,11 +12,24 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.colony = @colony
     authorize @event
     if @event.save
       redirect_to event_path(@event)
     else
       render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    @event.update(event_params)
+    if @event.save
+      redirect_to event_path(@event)
+    else
+      render :edit
     end
   end
 

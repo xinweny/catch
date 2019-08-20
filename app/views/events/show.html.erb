@@ -1,4 +1,7 @@
 <h2><%= @event.title %></h2>
+<% if policy(@event).update? %>
+  <p><%= link_to 'Edit', edit_event_path(@event) %></p>
+<% end %>
 <p><%= link_to @event.colony.name, colony_path(@event.colony) %></p>
 <p>Started: <%= @event.start %></p>
 <p>Estimated end: <%= @event.end %></p>
