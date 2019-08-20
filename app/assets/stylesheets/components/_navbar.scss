@@ -1,6 +1,10 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background-color: #6dd3d6;
+  font-size: 14px;
+  font-family: "Montserrat", "sans-serif";
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -9,4 +13,36 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+}
+
+//Inactive nav-bar button
+.navbar-light .navbar-nav .nav-link {
+  color: $gray-dark;
+}
+
+//Active nav-bar button
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+  color: $white;
+}
+
+//Drop-down menu
+.dropdown-menu {
+  border: none;
+}
+
+
+//Each item on drop-down menu
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 500;
+    color: #212529;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
 }
