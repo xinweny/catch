@@ -1,0 +1,20 @@
+<h2><%= @event.title %></h2>
+<p><%= link_to @event.colony.name, colony_path(@event.colony) %></p>
+<p>Started: <%= @event.start %></p>
+<p>Estimated end: <%= @event.end %></p>
+<p>Status: <%= @event.phase %></p>
+
+<h3>Description</h3>
+<p><%= @event.description %></p>
+
+<h3>Participants</h3>
+<% if @event.users.empty? %>
+  <p>No participants yet.</p>
+<% else %>
+  <% @events.users.each do |user| %>
+    <%= link_to user.full_name, user_path(user) %>
+  <% end %>
+<% end %>
+
+<h3>Updates</h3>
+<p>No updates yet.</p>

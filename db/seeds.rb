@@ -115,7 +115,7 @@ colonies.each do |colony|
     description: "Gotta catch 'em all!",
     address: colony.address,
     start: DateTime.now,
-    end: (DateTime.now.to_time - rand(3..8).hours).to_datetime,
+    end: (DateTime.now.to_time + rand(3..8).hours).to_datetime,
     colony: colony,
     phase: 0)
   Event.create!(
@@ -123,7 +123,7 @@ colonies.each do |colony|
     description: "Kitty roundup for the monthly checkup.",
     address: colony.address,
     start: DateTime.now,
-    end: (DateTime.now.to_time - rand(3..8).hours).to_datetime,
+    end: (DateTime.now.to_time + rand(3..8).hours).to_datetime,
     colony: colony,
     phase: 3)
 end
