@@ -1,0 +1,10 @@
+<%= simple_form_for [colony, event] do |f| %>
+  <%= f.input :title %>
+
+  <%= f.input :address, label: 'Meeting point' %>
+  <% if event.id.nil? %>
+    <%= f.submit 'Create' %>
+  <% else %>
+  <%= f.submit 'Update' %>
+  <% end %>
+<% end %>

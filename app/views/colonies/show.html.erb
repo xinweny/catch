@@ -14,6 +14,9 @@
 <p>Founded: <%= @colony.created_at %></p>
 
 <h3>Events</h3>
+<% if policy(@event).create? %>
+  <p><%= link_to 'Create new event', new_colony_event_path(@colony) %></p>
+<% end %>
 <% @colony.events.each do |event| %>
   <p><%= link_to event.title, event_path(event) %></p>
 <% end %>

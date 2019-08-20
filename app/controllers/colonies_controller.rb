@@ -9,6 +9,7 @@ class ColoniesController < ApplicationController
 
   def show
     @cat = Cat.new(colony: @colony)
+    @event = Event.new(colony: @colony)
   end
 
   def new
