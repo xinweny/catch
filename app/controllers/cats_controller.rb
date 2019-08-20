@@ -32,6 +32,7 @@ class CatsController < ApplicationController
 
   def update
     @cat.update(cat_params)
+    authorize @cat
     if @cat.save
       redirect_to cat_path(@cat)
     else

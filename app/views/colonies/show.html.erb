@@ -6,11 +6,20 @@
   <p><%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' } %></p>
 <% end %>
 
+<h3>About this colony</h3>
 <p><%= @colony.description %></p>
 <p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
 <p>Cats (<%= @colony.cats.length %>)</p>
 <p>Members (<%= @colony.users.length %>)</p>
 <p>Founded: <%= @colony.created_at %></p>
+
+<h3>Events</h3>
+<% if policy(@event).create? %>
+  <p><%= link_to 'Create new event', new_colony_event_path(@colony) %></p>
+<% end %>
+<% @colony.events.each do |event| %>
+  <p><%= link_to event.title, event_path(event) %></p>
+<% end %>
 
 <h3>Cats</h3>
 <% if policy(@cat).create? %>
