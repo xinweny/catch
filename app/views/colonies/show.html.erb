@@ -3,7 +3,7 @@
   <p><%= link_to 'Edit', edit_colony_path(@colony) %></p>
 <% end %>
 <% if policy(@colony).destroy? %>
-  <p><%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' }%></p>
+  <p><%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' } %></p>
 <% end %>
 
 <p><%= @colony.description %></p>
@@ -11,3 +11,13 @@
 <p>Cats (<%= @colony.cats.length %>)</p>
 <p>Members (<%= @colony.users.length %>)</p>
 <p>Founded: <%= @colony.created_at %></p>
+
+<h3>Cats</h3>
+<% if policy(@cat).create? %>
+  <p><%= link_to 'Add a cat', new_colony_cat_path(@colony) %></p>
+<% end %>
+
+<% @colony.cats.each do |cat| %>
+  <p><%= link_to cat.name, cat_path(cat) %></p>
+  <p><%= cat.status %></p>
+<% end %>
