@@ -8,6 +8,7 @@ class ColoniesController < ApplicationController
   end
 
   def show
+    @cat = Cat.new(colony: @colony)
   end
 
   def new

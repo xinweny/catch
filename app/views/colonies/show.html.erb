@@ -11,3 +11,8 @@
 <p>Cats (<%= @colony.cats.length %>)</p>
 <p>Members (<%= @colony.users.length %>)</p>
 <p>Founded: <%= @colony.created_at %></p>
+
+<h3>Cats</h3>
+<% if policy(@cat).create? %>
+  <p><%= link_to 'Add a cat', new_colony_cat_path(@colony) %></p>
+<% end %>

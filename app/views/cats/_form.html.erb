@@ -1,0 +1,8 @@
+<%= simple_form_for [colony, cat] do |f| %>
+  <%= f.input :name %>
+  <% if cat.id.nil? %>
+    <%= f.submit 'Add' %>
+  <% else %>
+    <%= f.submit 'Update' %>
+  <% end %>
+<% end %>
