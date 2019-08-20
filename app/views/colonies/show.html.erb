@@ -1,0 +1,7 @@
+<h2><%= @colony.name %></h2>
+
+<p><%= @colony.description %></p>
+<p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
+<p>Cats (<%= @colony.cats.length %>)</p>
+<p>Members (<%= @colony.users.length %>)</p>
+<p>Founded: <%= @colony.created_at %></p>

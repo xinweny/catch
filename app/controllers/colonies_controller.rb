@@ -1,9 +1,13 @@
 class ColoniesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
+  before_action :set_colony, only: %i[show]
 
   def index
-    @colonies = Colony.all
+    @colonies = policy_scope(Colony)
     authorize @colonies
+  end
+
+  def show
   end
 
   private
