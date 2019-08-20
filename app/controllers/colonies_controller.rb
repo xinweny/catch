@@ -3,8 +3,17 @@ class ColoniesController < ApplicationController
   before_action :set_colony, only: %i[show edit update destroy]
 
   def index
-    @colonies = policy_scope(Colony)
+    @colonies = policy_scope(Colony).geocoded
     authorize @colonies
+
+    @markers = @colonies.map do |colony|
+      {
+        lat: colony.latitude,
+        lng: colony.longitude,
+        infoWindow: render_to_string(partial: "/colonies/info_window", locals: { colony: colony })
+        # image_url: helpers.asset_url(‘file in the assets/images folder’)
+      }
+    end
   end
 
   def show

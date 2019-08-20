@@ -1,10 +1,4 @@
 <h2>All cats</h2>
-
-<% @cats.each do |cat| %>
-  <p><%= link_to cat.name, cat_path(cat) %></p>
-  <p><%= link_to cat.colony.name, colony_path(cat.colony) %></p>
-<% end %>
-
 <div
   id="map"
   style="width: 100%;

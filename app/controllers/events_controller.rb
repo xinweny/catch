@@ -3,6 +3,11 @@ class EventsController < ApplicationController
   before_action :set_colony, only: %i[new create]
 
   def show
+    @markers = [{
+      lat: @event.latitude,
+      lng: @event.longitude,
+      infoWindow: render_to_string(partial: 'events/info_window', locals: { event: @event })
+    }]
   end
 
   def new

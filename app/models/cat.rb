@@ -1,7 +1,5 @@
 class Cat < ApplicationRecord
   belongs_to :colony, optional: true
-  geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?
 
   mount_uploader :photo, PhotoUploader
 
@@ -13,4 +11,7 @@ class Cat < ApplicationRecord
   validates :address, presence: true
   validates :status, presence: true
   validates :sex, presence: true
+
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 end

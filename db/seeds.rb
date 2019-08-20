@@ -4,6 +4,10 @@
 # event - 2 each
 require 'faker'
 
+shinagawa_addresses = []
+meguro_addresses = []
+shibuya_addresses = []
+
 def cat_stats(colony, address)
   return {
   name: Faker::Creature::Cat.name,
