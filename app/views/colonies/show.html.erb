@@ -1,0 +1,13 @@
+<h2><%= @colony.name %></h2>
+<% if policy(@colony).update? %>
+  <p><%= link_to 'Edit', edit_colony_path(@colony) %></p>
+<% end %>
+<% if policy(@colony).destroy? %>
+  <p><%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' }%></p>
+<% end %>
+
+<p><%= @colony.description %></p>
+<p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
+<p>Cats (<%= @colony.cats.length %>)</p>
+<p>Members (<%= @colony.users.length %>)</p>
+<p>Founded: <%= @colony.created_at %></p>

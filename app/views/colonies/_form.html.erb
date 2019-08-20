@@ -1,0 +1,11 @@
+<%= simple_form_for colony do |f| %>
+  <%= f.input :name %>
+  <%= f.input :address, label: 'Area' %>
+  <%= f.input :radius %>
+  <%= f.input :description, as: :text %>
+  <% if colony.id.nil? %>
+    <%= f.submit 'Create' %>
+  <% else %>
+    <%= f.submit 'Update' %>
+  <% end %>
+<% end %>

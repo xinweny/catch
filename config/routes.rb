@@ -9,5 +9,5 @@ Rails.application.routes.draw do
 
   resources :cats, only: %i[index edit update destroy]
   resources :events, only: %i[edit update]
-  resources :users, only: %i[show]
+  resources :users, only: %i[index show]
 end
