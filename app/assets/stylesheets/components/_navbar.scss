@@ -28,8 +28,8 @@
 //Drop-down menu
 .dropdown-menu {
   border: none;
+  border-radius: 10px;
 }
-
 
 //Each item on drop-down menu
 .dropdown-item {
@@ -45,4 +45,8 @@
     white-space: nowrap;
     background-color: transparent;
     border: 0;
+}
+
+.dropdown-item:active {
+    background-color: $yellow;
 }
