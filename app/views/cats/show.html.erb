@@ -3,6 +3,10 @@
 
 <h3>About me</h3>
 <p><%= @cat.description %></p>
-<p><%= @cat.sex.capitalize %></p>
+<p><%= @cat.sex.nil? ? 'N/A' : @cat.sex.capitalize %></p>
 <p><%= @cat.age %> years old</p>
 <p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
+<p>Current status: <%= @cat.status %></p>
+
+<h3>Health</h3>
+<p><%= @cat.health.nil? ? 'No information available.' : @cat.health %></p>
