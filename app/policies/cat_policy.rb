@@ -14,7 +14,7 @@ class CatPolicy < ApplicationPolicy
   end
 
   def create?
-    user_is_admin?
+    true
   end
 
   def update?

@@ -22,10 +22,6 @@
 <% end %>
 
 <h3>Cats</h3>
-<% if policy(@cat).create? %>
-  <p><%= link_to 'Add a cat', new_colony_cat_path(@colony) %></p>
-<% end %>
-
 <% @colony.cats.each do |cat| %>
   <p><%= link_to cat.name, cat_path(cat) %></p>
   <p><%= cat.status %></p>
