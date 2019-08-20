@@ -19,4 +19,10 @@ class User < ApplicationRecord
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
+
+  def admin_groups
+    admin_associations = associations.select { |association| association.admin == true }
+    colonies = admin_associations.map(&:colony)
+    return colonies
+  end
 end
