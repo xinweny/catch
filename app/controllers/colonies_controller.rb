@@ -33,6 +33,7 @@ class ColoniesController < ApplicationController
 
   def update
     @colony.update(colony_params)
+    authorize @colony
     if @colony.save
       redirect_to colony_path(@colony)
     else

@@ -17,6 +17,10 @@ class EventPolicy < ApplicationPolicy
     user_is_admin?
   end
 
+  def destroy?
+    user_is_admin?
+  end
+
   private
 
   def user_is_admin?
