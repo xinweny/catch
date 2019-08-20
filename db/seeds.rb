@@ -82,6 +82,8 @@ shibuya = Colony.create!(
   radius: 9
   )
 
+colonies = [shinagawa, meguro, shibuya]
+
 puts 'Adding cats...'
 5.times do
   Cat.create!(cat_stats(shinagawa))
@@ -104,6 +106,26 @@ end
 puts 'Assigning volunteers...'
 other_users.each do |user|
   Colony.all.sample.users << user
+end
+
+puts 'Creating events...'
+colonies.each do |colony|
+  Event.create!(
+    title: 'TNR Meetup',
+    description: "Gotta catch 'em all!",
+    address: colony.address,
+    start: DateTime.now,
+    end: (DateTime.now.to_time - rand(3..8).hours).to_datetime,
+    colony: colony,
+    phase: 0)
+  Event.create!(
+    title: 'Monthly checkup',
+    description: "Kitty roundup for the monthly checkup.",
+    address: colony.address,
+    start: DateTime.now,
+    end: (DateTime.now.to_time - rand(3..8).hours).to_datetime,
+    colony: colony,
+    phase: 3)
 end
 
 puts 'All seeded!'
