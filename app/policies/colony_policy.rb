@@ -14,7 +14,7 @@ class ColonyPolicy < ApplicationPolicy
   end
 
   def create?
-    user_is_admin?
+    true
   end
 
   def update?
@@ -22,12 +22,12 @@ class ColonyPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user_is_admin
+    user_is_admin?
   end
 
   private
 
   def user_is_admin?
-    record.associations.find_by_user(user).admin?
+    record.admins.include?(user)
   end
 end

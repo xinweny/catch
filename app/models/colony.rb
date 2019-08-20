@@ -4,8 +4,9 @@ class Colony < ApplicationRecord
   has_many :users, through: :associations
   has_many :events, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :address, presence: true
+  validates :radius, presence: true, numericality: true
 
   def admins
     admin_associations = associations.select { |association| association.admin == true }
