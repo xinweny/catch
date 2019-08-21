@@ -1,9 +1,7 @@
 <h2>All colonies</h2>
-<% @colonies.each do |colony| %>
-  <h3><%= link_to colony.name, colony_path(colony) %></h3>
-  <p><%= colony.description %></p>
-  <p>Admin: <%= colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
-  <p>Cats: <%= colony.cats.length %></p>
-  <p>Members: <%= colony.users.length %></p>
-  <p>Founded: <%= colony.created_at %></p>
-<% end %>
+<div
+  id="map"
+  style="width: 100%;
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>"
+></div>

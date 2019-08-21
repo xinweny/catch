@@ -4,8 +4,17 @@ class CatsController < ApplicationController
   before_action :set_colony, only: %i[new create]
 
   def index
-    @cats = policy_scope(Cat)
+    @cats = policy_scope(Cat).geocoded
     authorize @cats
+
+    @markers = @cats.map do |cat|
+      {
+        lat: cat.latitude,
+        lng: cat.longitude,
+        infoWindow: { content: render_to_string(partial: "/cats/info_window", locals: { cat: cat }) }
+        # image_url: helpers.asset_url(‘file in the assets/images folder’)
+      }
+    end
   end
 
   def show
@@ -49,7 +58,7 @@ class CatsController < ApplicationController
   private
 
   def cat_params
-    params.require(:cat).permit(:name, :description, :sex, :age, :photo, :health, :microchip_id, :status, :longitude, :latitude)
+    params.require(:cat).permit(:name, :description, :sex, :age, :photo, :health, :microchip_id, :status, :longitude, :latitude, :address)
   end
 
   def set_colony

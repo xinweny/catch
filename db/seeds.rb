@@ -4,10 +4,15 @@
 # event - 2 each
 require 'faker'
 
-def cat_stats(colony)
+shinagawa_addresses = []
+meguro_addresses = []
+shibuya_addresses = []
+
+def cat_stats(colony, address)
   return {
   name: Faker::Creature::Cat.name,
   description: Faker::Creature::Cat.breed,
+  address: address,
   sex: rand(0..1),
   age: rand(0..10),
   status: rand(0..5),
@@ -71,14 +76,14 @@ shinagawa = Colony.create!(
 meguro = Colony.create!(
   name: 'Meguro Cat Colony',
   address: 'Meguro',
-  description: "A medium sized colony of 12 cats. Newly established. These cats are very wary of people and can become aggressive when confronted.",
+  description: "A medium sized colony of 8 cats. Newly established. These cats are very wary of people and can become aggressive when confronted.",
   radius: 6
   )
 
 shibuya = Colony.create!(
   name: 'Shibuya Cat Colony',
   address: 'Shibuya',
-  description: "A large colony of 15 cats, growing due to abundance of food scraps from tourists. They mostly hang out around the back alleys of izakayas in the area.",
+  description: "A large colony of 12 cats, growing due to abundance of food scraps from tourists. They mostly hang out around the back alleys of izakayas in the area.",
   radius: 9
   )
 
@@ -86,15 +91,15 @@ colonies = [shinagawa, meguro, shibuya]
 
 puts 'Adding cats...'
 5.times do
-  Cat.create!(cat_stats(shinagawa))
+  Cat.create!(cat_stats(shinagawa, 'Shinagawa'))
+end
+
+8.times do
+  Cat.create!(cat_stats(meguro, 'Meguro'))
 end
 
 12.times do
-  Cat.create!(cat_stats(meguro))
-end
-
-15.times do
-  Cat.create!(cat_stats(shibuya))
+  Cat.create!(cat_stats(shibuya, 'Shibuya'))
 end
 
 

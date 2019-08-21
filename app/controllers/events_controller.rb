@@ -3,6 +3,10 @@ class EventsController < ApplicationController
   before_action :set_colony, only: %i[new create]
 
   def show
+    @markers = [{
+      lat: @event.latitude,
+      lng: @event.longitude
+    }]
   end
 
   def new
