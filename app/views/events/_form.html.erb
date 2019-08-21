@@ -1,7 +1,7 @@
 <%= simple_form_for [colony, event] do |f| %>
   <%= f.input :title %>
-  <%= f.input :start %>
-  <%= f.input :end, label: 'Estimated end time' %>
+  <%= f.input :start, as: :string, input_html: { class: "datepicker_start" } %>
+  <%= f.input :end, label: 'Estimated end time', as: :string, input_html: { class: "datepicker_end" } %>
   <%= f.input :address, label: 'Meeting point' %>
   <%= f.input :description %>
   <%= f.input :phase, collection: Event.phases.keys %>

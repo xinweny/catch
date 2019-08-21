@@ -1,7 +1,6 @@
 class CatsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_cat, only: %i[show edit update destroy]
-  before_action :set_colony, only: %i[new create]
 
   def index
     if params[:query].present?
@@ -33,7 +32,6 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
-    @cat.colony = @colony
     authorize @cat
     if @cat.save
       redirect_to cat_path(@cat)
@@ -65,11 +63,6 @@ class CatsController < ApplicationController
 
   def cat_params
     params.require(:cat).permit(:name, :description, :sex, :age, :photo, :health, :microchip_id, :status, :longitude, :latitude, :address)
-  end
-
-  def set_colony
-    @colony = Colony.find(params[:colony_id])
-    authorize @colony
   end
 
   def set_cat
