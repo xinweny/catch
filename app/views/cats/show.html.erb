@@ -1,5 +1,9 @@
 <h2><%= @cat.name %></h2>
-<p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
+<% if @cat.colony.nil? %>
+  <p>This cat does not belong to any colony yet.</p>
+<% else %>
+  <p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
+<% end %>
 <p>Current status: <%= @cat.status %></p>
 
 <% if policy(@cat).update? %>
