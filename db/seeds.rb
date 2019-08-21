@@ -5,7 +5,7 @@
 require 'faker'
 
 shinagawa_addresses = []
-meguro_addresses = []
+meguro_addresses = ['Meguro City Hall', 'Yutenji Temple']
 shibuya_addresses = []
 
 def cat_stats(colony, address)
