@@ -1,9 +1,19 @@
+.form-container {
+  width: 500px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.header-container {
+  background-color: $yellow;
+  color: $gray-dark;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
 textarea.form-control {
   padding: 10px 18px;
   height: auto;
 }
 
-.form-group {
-  width: 100%;
-}
 

@@ -9,8 +9,10 @@
   <%= f.input :health %>
   <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
   <% if cat.id.nil? %>
-    <%= f.submit 'Add' %>
+    <%= f.submit 'Add', class: "btn btn-success" %>
   <% else %>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update', class: "btn btn-success" %>
   <% end %>
+    <%= link_to "Back", root_path, class: "btn btn-search" %>
 <% end %>
+

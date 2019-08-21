@@ -4,8 +4,10 @@
   <%= f.input :radius %>
   <%= f.input :description, as: :text %>
   <% if colony.id.nil? %>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Create', class: "btn btn-success" %>
   <% else %>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update', class: "btn btn-primary" %>
   <% end %>
+    <%= link_to "Back", root_path, class: "btn btn-search" %>
 <% end %>
+
