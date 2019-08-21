@@ -14,7 +14,7 @@ class CatPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    record.colony.nil? ? true : user_is_admin?
   end
 
   def update?
