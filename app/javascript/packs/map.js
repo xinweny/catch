@@ -24,8 +24,8 @@ if (mapElement) {
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
         strokeWeight: 0,
-        fillColor: '#f7765f',
-        fillOpacity: 0.35,
+        fillColor: '#ff3fb2',
+        fillOpacity: 0.20,
         map: map.map,
         center: { lat: marker.lat, lng: marker.lng },
         radius: marker.radius * 1000
