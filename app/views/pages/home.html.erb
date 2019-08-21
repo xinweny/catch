@@ -1,13 +1,18 @@
-<div class="banner d-flex align-items-center justify-content-around" style= "background-image: url(<%= image_url("cat3.jpg") %>)">
-  <div class="banner-content">
-    <h1>CATCH</h1>
+<div class="banner d-flex" style= "background-image: url(<%= image_url("kittfinal.jpg") %>); height: calc(100vh - 120px); background-size: cover; background-position: center;" >
 
-    <%= form_tag colonies_path, method: :get do %>
-      <%= text_field_tag :query, params[:query], placeholder: "Search colonies" %>
-      <%= submit_tag "Search", class: "btn btn-search" %>
-    <% end%>
-
-    <p><%= link_to 'Create a new colony', new_colony_path %></p>
-    <p><%= link_to 'Report a sighting', new_cat_path %></p>
+  <div class="banner-content d-flex flex-column justify-content-center ml-5" style="background-color: #f4f3eb; height:100%">
+    <div class="banner-content p-5 d-flex flex-column justify-content-center" style= "background-color: white; height: calc(100vh - 300px);">
+      <h1>CATCH</h1>
+      <h4>Save some cats</h4>
+      <%= form_tag colonies_path, method: :get do %>
+        <%= text_field_tag :query, params[:query], placeholder: "Search colonies" %>
+        <%= submit_tag "Search", class: "btn btn-danger" %>
+      <% end%>
+      <div class="banner-content d-inline-flex">
+        <p><%= link_to 'Create a new colony', new_colony_path, class: "mr-3" %></p>
+        <p><%= link_to 'Report a sighting', new_cat_path %></p>
+      </div>
+    </div>
   </div>
 </div>
+

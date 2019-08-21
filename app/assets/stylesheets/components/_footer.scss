@@ -1,11 +1,11 @@
 .footer {
-  background: #a09c97;
+  background: $teal;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   height: 60px;
-  padding: 0px 50px;
-  color: white;
+  padding: 0 50px;
+  color: $gray-dark;
 }
 
 .footer .fa-heart {
