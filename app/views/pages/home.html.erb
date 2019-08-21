@@ -1,9 +1,13 @@
-<h1>CATCH</h1>
-<%= form_tag colonies_path, method: :get do %>
-    <%= text_field_tag :query, params[:query] %>
-    <%= submit_tag "Search colonies" %>
-<% end%>
+<div class="banner d-flex align-items-center justify-content-around" style= "background-image: url(<%= image_url("cat3.jpg") %>)">
+  <div class="banner-content">
+    <h1>CATCH</h1>
 
-<p><%= link_to 'All users', users_path %></p>
-<p><%= link_to 'Create a new colony', new_colony_path %></p>
-<p><%= link_to 'Report a sighting', new_cat_path %></p>
+    <%= form_tag colonies_path, method: :get do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Search colonies" %>
+      <%= submit_tag "Search", class: "btn btn-search" %>
+    <% end%>
+
+    <p><%= link_to 'Create a new colony', new_colony_path %></p>
+    <p><%= link_to 'Report a sighting', new_cat_path %></p>
+  </div>
+</div>
