@@ -3,10 +3,7 @@
     <%= text_field_tag :query, params[:query] %>
     <%= submit_tag "Search colonies" %>
 <% end%>
-<%= form_tag cats_path, method: :get do %>
-    <%= text_field_tag :query, params[:query] %>
-    <%= submit_tag "Search cats" %>
-<% end%>
+
 <p><%= link_to 'All users', users_path %></p>
 <p><%= link_to 'Create a new colony', new_colony_path %></p>
-<p><%= link_to 'Add a cat', new_cat_path %></p>
+<p><%= link_to 'Report a sighting', new_cat_path %></p>
