@@ -62,7 +62,7 @@ class ColoniesController < ApplicationController
   private
 
   def colony_params
-    params.require(:colony).permit(:name, :address, :description, :radius)
+    params.require(:colony).permit(:name, :address, :description, :radius, :photo)
   end
 
   def set_colony

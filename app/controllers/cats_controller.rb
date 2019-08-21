@@ -11,6 +11,7 @@ class CatsController < ApplicationController
     end
 
     authorize @cats
+    @cats = @cats.reject { |cat| cat.status == 'adopted' || cat.status == 'deceased' }
 
     @markers = @cats.map do |cat|
       {
