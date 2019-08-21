@@ -28,6 +28,8 @@ class CatPolicy < ApplicationPolicy
   private
 
   def user_is_admin?
+    return false if record.colony.nil?
+
     record.colony.admins.include?(user)
   end
 end
