@@ -26,7 +26,7 @@ if (mapElement) {
         fillOpacity: 0.35,
         map: map.map,
         center: { lat: marker.lat, lng: marker.lng },
-        radius: marker.radius
+        radius: marker.radius * 1000
       });
     });
   }
