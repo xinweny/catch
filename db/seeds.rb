@@ -4,9 +4,10 @@
 # event - 2 each
 require 'faker'
 
-shinagawa_addresses = []
-meguro_addresses = ['Meguro City Hall', 'Yutenji Temple']
-shibuya_addresses = []
+shinagawa_addresses = ['Oimachi Station', 'Shinagawa Post Office', 'Soyokaze Park', 'Osaki Station', 'Takioji Nursery', 'Shiki Theatre Natsu', 'Shinagawa Central Park']
+meguro_addresses = ['Meguro City Hall', 'Yutenji Temple', 'Nakameguro Elementary School', 'Shokakuji Temple', 'Nakameguro Station Post Office', 'Naka-Meguro Station']
+shibuya_addresses = ['Shibuya 101', 'Ichiran Shibuya', 'Tokyu Hands Shibuya', 'Hachiko Memorial Statue', 'Aoyama Gakuin University', 'Shibuya Post Office', 'Cat Street Gallery', 'NHK Hall', 'Shibuya Mark City', 'Josenji Temple']
+random_addresses = ['Ueno Toshogu Shrine', 'Ueno Zoo', 'Ueno Station', 'Okachimachi Station', 'Tokyo National Museum', 'Yamabushi Park', 'Uenonomori Christian Church', 'Ueno Fire Station', 'Ueno Police Station', 'Shinobazu Pond']
 
 def cat_stats(colony, address)
   return {
@@ -70,38 +71,42 @@ shinagawa = Colony.create!(
   name: 'Shinagawa Cat Colony',
   address: 'Shinagawa',
   description: "A small colony of 5 cats. They're very used to people but because of that they're all pretty fat from all the food they receive from old ladies.",
-  radius: 3
+  radius: 1
   )
 
 meguro = Colony.create!(
   name: 'Meguro Cat Colony',
   address: 'Meguro',
   description: "A medium sized colony of 8 cats. Newly established. These cats are very wary of people and can become aggressive when confronted.",
-  radius: 6
+  radius: 1.5
   )
 
 shibuya = Colony.create!(
   name: 'Shibuya Cat Colony',
   address: 'Shibuya',
   description: "A large colony of 12 cats, growing due to abundance of food scraps from tourists. They mostly hang out around the back alleys of izakayas in the area.",
-  radius: 9
+  radius: 3
   )
 
 colonies = [shinagawa, meguro, shibuya]
 
-puts 'Adding cats...'
+puts 'Adding untracked cats...'
+random_addresses.each do |address|
+  Cat.create!(cat_stats(nil, address))
+end
+
+puts 'Adding cats to colonies...'
 5.times do
-  Cat.create!(cat_stats(shinagawa, 'Shinagawa'))
+  Cat.create!(cat_stats(shinagawa, shinagawa_addresses.sample))
 end
 
 8.times do
-  Cat.create!(cat_stats(meguro, 'Meguro'))
+  Cat.create!(cat_stats(meguro, meguro_addresses.sample))
 end
 
 12.times do
-  Cat.create!(cat_stats(shibuya, 'Shibuya'))
+  Cat.create!(cat_stats(shibuya, shibuya_addresses.sample))
 end
-
 
 puts 'Assigning admins to each colony...'
 admins.each_with_index do |admin, index|
