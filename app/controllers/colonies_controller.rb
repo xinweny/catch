@@ -3,9 +3,12 @@ class ColoniesController < ApplicationController
   before_action :set_colony, only: %i[show edit update destroy]
 
   def index
-    @colonies = policy_scope(Colony).geocoded
+    if params[:query].present?
+      @colonies = policy_scope(Colony).near(params[:query], 5)
+    else
+      @colonies = policy_scope(Colony).geocoded
+    end
     authorize @colonies
-
     @markers = @colonies.map do |colony|
       {
         lat: colony.latitude,

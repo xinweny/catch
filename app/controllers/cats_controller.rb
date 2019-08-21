@@ -4,7 +4,12 @@ class CatsController < ApplicationController
   before_action :set_colony, only: %i[new create]
 
   def index
-    @cats = policy_scope(Cat).geocoded
+    if params[:query].present?
+      @cats = policy_scope(Cat).near(params[:query], 5)
+    else
+      @cats = policy_scope(Cat).geocoded
+    end
+
     authorize @cats
 
     @markers = @cats.map do |cat|
