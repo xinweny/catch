@@ -2,7 +2,7 @@
   justify-content: space-between;
   background-color: #6dd3d6;
   font-size: 14px;
-  font-family: "Montserrat", "sans-serif";
+  font-family: "Quicksand", "sans-serif";
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -28,8 +28,8 @@
 //Drop-down menu
 .dropdown-menu {
   border: none;
+  border-radius: 10px;
 }
-
 
 //Each item on drop-down menu
 .dropdown-item {
@@ -45,4 +45,8 @@
     white-space: nowrap;
     background-color: transparent;
     border: 0;
+}
+
+.dropdown-item:active {
+    background-color: $yellow;
 }

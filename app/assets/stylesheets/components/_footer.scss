@@ -1,0 +1,25 @@
+.footer {
+  background: #F4F4F4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 60px;
+  padding: 0px 50px;
+  color: rgba(0,0,0,0.3);
+}
+
+.footer .fa-heart {
+  color: #f5593d;
+}
+
+//Makes footer sticky
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}
