@@ -14,8 +14,6 @@ if (mapElement) {
     map.fitLatLngBounds(markers);
   }
 
-  console.log(markers[0].radius)
-
   if (markers[0].radius !== undefined) {
     markers.forEach((marker) => {
       let colonyRadius = new google.maps.Circle({
