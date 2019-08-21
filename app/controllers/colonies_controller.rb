@@ -78,7 +78,8 @@ class ColoniesController < ApplicationController
     @markers = @cats.map do |cat|
       {
         lat: cat.latitude,
-        lng: cat.longitude
+        lng: cat.longitude,
+        infoWindow: { content: render_to_string(partial: "/colonies/form_info_window", locals: { cat: cat }) }
         # image_url: helpers.asset_url(‘file in the assets/images folder’)
       }
     end
