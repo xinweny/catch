@@ -1,4 +1,6 @@
 class Colony < ApplicationRecord
+  before_destroy :remove_colony_from_cats
+
   has_many :cats
   has_many :associations, dependent: :destroy
   has_many :users, through: :associations
@@ -18,5 +20,22 @@ class Colony < ApplicationRecord
     admins = admin_associations.map(&:user)
 
     return admins
+  end
+
+  def update_cats(ids)
+    ids.each do |id|
+      cat = Cat.find(id)
+      cat.colony = self
+      cat.save
+    end
+  end
+
+  private
+
+  def remove_colony_from_cats
+    cats.each do |cat|
+      cat.colony = nil
+      cat.save
+    end
   end
 end

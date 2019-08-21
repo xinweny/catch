@@ -1,6 +1,7 @@
 class ColoniesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_colony, only: %i[show edit update destroy]
+  before_action :set_cat_markers, only: %i[new create]
 
   def index
     if params[:query].present?
@@ -27,16 +28,6 @@ class ColoniesController < ApplicationController
 
   def new
     @colony = Colony.new
-    @cats = Cat.where(colony_id: nil).geocoded
-
-    @markers = @cats.map do |cat|
-      {
-        lat: cat.latitude,
-        lng: cat.longitude
-        # image_url: helpers.asset_url(‘file in the assets/images folder’)
-      }
-    end
-
     authorize @colony
   end
 
@@ -45,6 +36,7 @@ class ColoniesController < ApplicationController
     authorize @colony
     Association.create!(admin: true, user: current_user, colony: @colony)
     if @colony.save
+      @colony.update_cats(params[:colony][:cat_ids])
       redirect_to colony_path(@colony)
     else
       render :new
@@ -72,11 +64,23 @@ class ColoniesController < ApplicationController
   private
 
   def colony_params
-    params.require(:colony).permit(:name, :address, :description, :radius, :photo)
+    params.require(:colony).permit(:name, :address, :description, :radius, :photo, :cats)
   end
 
   def set_colony
     @colony = Colony.find(params[:id])
     authorize @colony
+  end
+
+  def set_cat_markers
+    @cats = Cat.where(colony_id: nil).geocoded
+
+    @markers = @cats.map do |cat|
+      {
+        lat: cat.latitude,
+        lng: cat.longitude
+        # image_url: helpers.asset_url(‘file in the assets/images folder’)
+      }
+    end
   end
 end

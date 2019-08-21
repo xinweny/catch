@@ -5,10 +5,14 @@
   <%= f.input :description, as: :text %>
   <%= f.input :photo %>
   <%= f.input :photo_cache, as: :hidden %>
+  <%= f.label :cats, label: 'Add cats' %>
+  <%#= f.association :cats, as: :check_boxes, collection: @cats %>
+
   <div class="d-flex">
     <div class="sighted-cats">
       <% @cats.each do |cat| %>
         <div class="sighted-cat d-flex justify-content-between align-items-center">
+          <%= check_box_tag 'colony[cat_ids][]', cat.id %>
           <p><%= cat.name %></p>
           <% if cat.photo %>
             <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle' %>
