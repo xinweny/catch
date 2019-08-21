@@ -27,6 +27,8 @@ class ColoniesController < ApplicationController
 
   def new
     @colony = Colony.new
+    @cats = Cat.where(colony_id: nil)
+
     authorize @colony
   end
 
