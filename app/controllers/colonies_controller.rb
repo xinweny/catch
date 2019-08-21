@@ -27,7 +27,15 @@ class ColoniesController < ApplicationController
 
   def new
     @colony = Colony.new
-    @cats = Cat.where(colony_id: nil)
+    @cats = Cat.where(colony_id: nil).geocoded
+
+    @markers = @cats.map do |cat|
+      {
+        lat: cat.latitude,
+        lng: cat.longitude
+        # image_url: helpers.asset_url(‘file in the assets/images folder’)
+      }
+    end
 
     authorize @colony
   end

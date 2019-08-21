@@ -1,1 +1,28 @@
 <h2><%= @user.full_name %></h2>
+<% if @user == current_user %>
+  <p><%= link_to 'Edit profile', edit_user_registration_path %></p>
+<% end %>
+
+<%= image_tag user_avatar(@user) %>
+
+<p>Joined: <%= @user.created_at %></p>
+<% if @user.age %>
+  <p>Age: <%= @user.age %></p>
+<% end %>
+
+<% if @user.gender %>
+  <p>Gender: <%= @user.gender %></p>
+<% end %>
+
+
+<h3>Contact</h3>
+<p>Email: <%= @user.email %></p>
+<p>Phone number: <%= @user.phone_number %></p>
+
+<h3>Colonies</h3>
+<% @user.colonies.each do |colony| %>
+  <%= link_to colony.name, colony_path(colony) %>
+  <% if @user.admin_groups.include?(colony) %>
+    <p>^ ADMIN</p>
+  <% end %>
+<% end %>
