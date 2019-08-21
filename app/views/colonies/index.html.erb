@@ -1,7 +1,7 @@
 <% if params[:query].present? %>
   <h2><%= @colonies.length %> colonies near <%= params[:query].capitalize %></h2>
 <% else %>
-  <h2>All colonies</h2>
+  <h2>All colonies (<%= @colonies.length %>)</h2>
 <% end %>
 <div
   id="map"
