@@ -5,8 +5,7 @@ class EventsController < ApplicationController
   def show
     @markers = [{
       lat: @event.latitude,
-      lng: @event.longitude,
-      infoWindow: render_to_string(partial: 'events/info_window', locals: { event: @event })
+      lng: @event.longitude
     }]
   end
 
