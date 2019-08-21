@@ -1,16 +1,14 @@
-<div class="banner d-flex" style= "background-image: url(<%= image_url("kittfinal.jpg") %>); height: calc(100vh - 120px); background-size: cover; background-position: center;" >
+<div class="banner d-flex" style= "background-image: url(<%= image_url("sniff.jpg") %>); height: calc(100vh - 120px); background-size: cover; background-position: bottom;" >
 
-  <div class="banner-content d-flex flex-column justify-content-center ml-5" style="background-color: #f4f3eb; height:100%">
-    <div class="banner-content p-5 d-flex flex-column justify-content-center" style= "background-color: white; height: calc(100vh - 300px)">
+  <div class="banner-content d-flex flex-column" style="background-color: #f4f3eb; height:100%; margin-left: 100px;">
+    <div class="banner-content p-5 d-flex flex-column justify-content-end" style= "background-color: white; height: calc(100vh - 250px)">
       <h1>CATCH</h1>
       <h4>Save some cats</h4>
       <%= form_tag colonies_path, method: :get do %>
         <%= text_field_tag :query, params[:query], placeholder: "Search colonies" %>
         <%= submit_tag "Search", class: "btn btn-danger" %>
       <% end%>
-      <div class="banner-content d-inline-flex">
-        <p><%= link_to 'Report a sighting', new_cat_path %></p>
-      </div>
+      <p><%= link_to 'Report a sighting', new_cat_path %></p>
     </div>
   </div>
 </div>
