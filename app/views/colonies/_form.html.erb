@@ -6,7 +6,6 @@
   <%= f.input :photo %>
   <%= f.input :photo_cache, as: :hidden %>
   <%= f.label :cats, label: 'Add cats' %>
-  <%#= f.association :cats, as: :check_boxes, collection: @cats %>
 
   <div class="d-flex">
     <div class="sighted-cats">
@@ -27,6 +26,7 @@
       data-markers="<%= @markers.to_json %>"
     ></div>
   </div>
+
   <% if colony.id.nil? %>
     <%= f.submit 'Create', class: "btn btn-success" %>
   <% else %>
