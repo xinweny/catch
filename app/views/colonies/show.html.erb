@@ -15,7 +15,7 @@
   <div class="grid-container m-4">
     <div class="item1 p-4" style="background-color: white; border-radius: 10px">
       <h4>About this colony</h4>
-      <div class="content p-3" style="background-color: #fcf5f4">
+      <div class="content p-3" style="background-color: #fcf5f4; border-radius: 10px;">
         <p>Founded: <%= @colony.created_at %></p>
         <p><%= @colony.description %></p>
         <p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
@@ -32,7 +32,7 @@
           <% end %>
         </div>
      </div>
-       <div class="content p-3" style="background-color: #fcf5f4">
+       <div class="content p-3" style="background-color: #fcf5f4; border-radius: 10px;">
         <% @colony.cats.each do |cat| %>
           <p><%= link_to cat.name, cat_path(cat) %></p>
           <p><%= cat.status %></p>

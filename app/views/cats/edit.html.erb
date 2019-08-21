@@ -1,2 +1,11 @@
-<h2>Update <%= link_to @cat.name, cat_path(@cat) %></h2>
-<%= render 'form', colony: @colony, cat: @cat %>
+<div class="container my-5">
+  <div class="form-container d-flex flex-column justify-content-center m-auto">
+    <div class="header-container pt-5 pb-3 text-center">
+      <h4>Update <%= link_to @cat.name, cat_path(@cat) %></h4>
+    </div>
+    <div class="content-container p-5">
+      <%= render 'form', colony: @colony, cat: @cat %>
+    </div>
+  </div>
+</div>
+
