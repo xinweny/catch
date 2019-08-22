@@ -1,11 +1,14 @@
 .footer {
-  background: #F4F4F4;
+  background: #448889;//#9e9e9e; //#aaaaa5;//#bfb7b7;//#939e9e; //#a8b5b5;//#afc9c9;//#938a80; //#9e9d99;//;#ada398;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   height: 60px;
-  padding: 0px 50px;
-  color: rgba(0,0,0,0.3);
+  padding: 0 50px;
+  color: white;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .footer .fa-heart {
