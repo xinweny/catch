@@ -1,12 +1,10 @@
-<% remote = colony.id.nil? %>
-
-<%= simple_form_for colony, remote: remote do |f| %>
+<%= simple_form_for colony, remote: false do |f| %>
   <%= f.input :name %>
   <%= f.input :address, label: 'Area' %>
 
   <%= render 'cat_map', cats: @cats %>
 
-  <%= f.input :radius %>
+  <%= f.input :radius, label: 'Radius (km)' %>
   <%= f.input :description, as: :text %>
   <%= f.input :photo %>
   <%= f.input :photo_cache, as: :hidden %>
