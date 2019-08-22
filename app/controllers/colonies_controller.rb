@@ -65,11 +65,9 @@ class ColoniesController < ApplicationController
   end
 
   def search_cats
-    # binding.pry
     authorize Colony.new
     respond_to do |format|
       format.js
-      # format.html { render 'colonies/cat_map' }
     end
   end
 
