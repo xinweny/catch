@@ -7,9 +7,17 @@ Rails.application.routes.draw do
   resources :colonies do
     resources :cats
     resources :events, only: %i[new create]
+    resources :associations, only: %i[create]
+  end
+
+  resources :events, only: %i[show edit update destroy] do
+    resources :participations, only: %i[create]
   end
 
   resources :cats, only: %i[index show new create edit update destroy]
-  resources :events, only: %i[show edit update destroy]
   resources :users, only: %i[index show]
+  resources :associations, only: %i[destroy]
+  resources :participations, only: %i[destroy]
+
+  get 'colonies/new/cats', to: 'colonies#search_cats', as: :search_cats
 end

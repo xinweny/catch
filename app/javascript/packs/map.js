@@ -1,10 +1,37 @@
 import GMaps from 'gmaps/gmaps.js';
 
+const catCards = document.querySelectorAll('.sighted-cat');
+
 const mapElement = document.getElementById('map');
 if (mapElement) {
   const map = new GMaps({ el: '#map', lat: 0, lng: 0 });
   const markers = JSON.parse(mapElement.dataset.markers);
-  map.addMarkers(markers);
+  const mapMarkers = [];
+  // map.addMarkers(markers);
+  markers.forEach((marker) => {
+    let infoWindow = new google.maps.InfoWindow({
+      content: marker.infoWindow.content
+    });
+
+    const mapMarker = new google.maps.Marker({
+      position: { lat: marker.lat, lng: marker.lng },
+      cat_id: marker.cat_id
+    });
+
+    console.log(mapMarker);
+    console.log(infoWindow);
+
+    mapMarker.addListener('click', function() {
+      infoWindow.open(map.map, mapMarker);
+    })
+    mapMarker.addListener('mouseenter', function() {
+      infoWindow.close();
+    })
+
+    mapMarkers.push(mapMarker);
+    mapMarker.setMap(map.map);
+  });
+
   if (markers.length === 0) {
     map.setZoom(2);
   } else if (markers.length === 1) {
@@ -28,6 +55,19 @@ if (mapElement) {
       });
     });
   }
+
+  if (catCards !== null) {
+    catCards.forEach((card, index) => {
+      card.addEventListener('mouseenter', (event) => {
+        google.maps.event.trigger(mapMarkers[index], 'click');
+      });
+
+      card.addEventListener('mouseleave', (event) => {
+        google.maps.event.trigger(mapMarkers[index], 'mouseenter');
+      });
+    });
+  }
+
   const styles = [
     {
         "featureType": "landscape.natural",
