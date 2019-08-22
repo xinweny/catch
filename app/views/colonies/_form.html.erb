@@ -1,7 +1,6 @@
-<%= simple_form_for colony do |f| %>
+<%= simple_form_for colony, remote: true do |f| %>
   <%= f.input :name %>
   <%= f.input :address, label: 'Area' %>
-  <%= f.label :cats, label: 'Add cats' %>
 
   <%= render 'cat_map', cats: @cats %>
 
