@@ -81,6 +81,7 @@ class ColoniesController < ApplicationController
       {
         lat: cat.latitude,
         lng: cat.longitude,
+        cat_id: cat.id,
         infoWindow: { content: render_to_string(partial: "/colonies/form_info_window", locals: { cat: cat }) }
         # image_url: helpers.asset_url(‘file in the assets/images folder’)
       }
