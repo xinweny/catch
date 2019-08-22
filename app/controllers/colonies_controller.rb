@@ -15,8 +15,8 @@ class ColoniesController < ApplicationController
         lat: colony.latitude,
         lng: colony.longitude,
         radius: colony.radius,
-        infoWindow: { content: render_to_string(partial: "/colonies/info_window", locals: { colony: colony }) }
-        # image_url: helpers.asset_url(‘file in the assets/images folder’)
+        infoWindow: { content: render_to_string(partial: "/colonies/info_window", locals: { colony: colony }) },
+        image_url: helpers.asset_url('parktwo.svg')
       }
     end
   end

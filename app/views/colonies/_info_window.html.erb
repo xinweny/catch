@@ -1,6 +1,27 @@
-<h3><%= link_to colony.name, colony_path(colony) %></h3>
-<p><%= colony.description %></p>
-<p>Admin: <%= colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
-<p>Cats: <%= colony.cats.length %></p>
-<p>Members: <%= colony.users.length %></p>
-<p>Founded: <%= colony.created_at %></p>
+<div class="info-grid-container">
+  <div class="d-flex flex-column justify-content-center p-5" style="background-color: #6bd098; color: white; text-align: center;">
+    <%= image_tag "park.svg" %>
+    <h5><%= colony.name %></h5>
+    <p>Founded <%= colony.created_at %></p>
+    <%= link_to "Take me there", colony_path(colony),   class:"btn btn-info "%>
+  </div>
+  <div class="d-flex flex-column justify-content-center p-4">
+    <div class="content my-2">
+
+      <h6><strong>Description</strong><br><%= colony.description %></h6>
+    </div>
+      <div class="box d-inline-flex mt-3 justify-content-around p-4" style="background-color: #eee; text-align: center;">
+        <div class="box-content">
+          <h6><strong>Admin</strong><br> <%= colony.admins.map { |admin| admin.full_name }.join(', ') %></h6>
+        </div>
+        <div class="box-content">
+          <h6><strong>Cats</strong><br> <%= colony.cats.length %></h6>
+        </div>
+        <div class="box-content">
+          <h6><strong>Members</strong><br> <%= colony.users.length %></h6>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

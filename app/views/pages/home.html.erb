@@ -4,10 +4,14 @@
     <div class="banner-content p-5 d-flex flex-column justify-content-end" style= "background-color: white; height: calc(100vh - 250px)">
       <h1>CATCH</h1>
       <h4>Save some cats</h4>
-      <div class="d-flex">
-        <%= form_tag colonies_path, method: :get do %>
-          <%= text_field_tag :query, params[:query], placeholder: "Search colonies" %>
-          <%= submit_tag "Search", class: "btn btn-danger" %>
+      <div class="form d-inline-flex py-1">
+        <div class="search-bar-content">
+          <%= form_tag colonies_path, method: :get do %>
+            <%= text_field_tag :query, params[:query], placeholder: "Search colonies", class: "form-control" %>
+        </div>
+        <div class="search-bar-content">
+          <%= submit_tag "Search", class: "btn btn-danger ml-2" %>
+        </div>
       </div>
       <% end%>
       <%= link_to 'Report a sighting', new_cat_path, class: "btn-link"%>
