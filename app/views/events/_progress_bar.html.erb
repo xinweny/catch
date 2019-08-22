@@ -1,8 +1,16 @@
 <div class="progress-container" id="progress-bar">
   <h4> Progress </h4>
+  <h5>Phase: <%= @event.phase %></h5>
   <div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 30%;"></div>
-    <p id="event-phase"><%= event.phase %></p>
+    <% if @event.phase == Event.phases.keys[0] %>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 0%;"></div>
+    <% elsif @event.phase == Event.phases.keys[1] %>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 33%;"></div>
+    <% elsif @event.phase == Event.phases.keys[2] %>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 66%;"></div>
+    <% elsif @event.phase == Event.phases.keys.last %>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 100%;"></div>
+    <% end %>
   </div>
 
   <div class="update-buttons">
