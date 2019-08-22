@@ -3,7 +3,7 @@
     <div class="container my-5">
       <div class="container d-flex justify-content-between">
         <div class="content">
-          <%= link_to "Back", root_path, class: "btn btn-search" %>
+          <%= link_to "Back", colony_path(@event.colony), class: "btn btn-search" %>
         </div>
         <div class="content">
           <% if policy(@event).update? %>
