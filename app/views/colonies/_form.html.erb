@@ -1,4 +1,6 @@
-<%= simple_form_for colony, remote: true do |f| %>
+<% remote = colony.id.nil? %>
+
+<%= simple_form_for colony, remote: remote do |f| %>
   <%= f.input :name %>
   <%= f.input :address, label: 'Area' %>
 
