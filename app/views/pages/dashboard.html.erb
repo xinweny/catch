@@ -1,0 +1,12 @@
+<h2>Dashboard</h2>
+<h3>Colonies</h3>
+<% current_user.colonies.each do |colony| %>
+  <p><%= link_to colony.name, colony_path(colony) %></p>
+<% end %>
+
+<h3>Events</h3>
+<% current_user.events.each do |event| %>
+  <p><%= link_to event.title, event_path(event) %></p>
+  <p>In <%= event.colony.name %></p>
+  <p><%= event.phase %></p>
+<% end %>

@@ -25,6 +25,16 @@ class CatPolicy < ApplicationPolicy
     user_is_admin?
   end
 
+  # def search_cats?
+  #   binding.pry
+  #   true
+  # end
+
+  # def set_cat_markers
+  #   binding.pry
+  #   true
+  # end
+
   private
 
   def user_is_admin?

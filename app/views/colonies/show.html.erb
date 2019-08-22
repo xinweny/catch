@@ -110,5 +110,18 @@
           </div>
       <% end %>
     </div>
+<<<<<<< HEAD
+=======
+
+    <% if policy(@association).create? %>
+      <%= simple_form_for [@colony, @association] do |f| %>
+        <%= f.submit 'Join', class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+
+    <% if policy(@association).destroy? %>
+      <%= link_to 'Leave', association_path(@association), method: :delete, data: { confirm: 'Leave this group?'}, class: "btn btn-danger" %>
+    <% end %>
+>>>>>>> master
   </div>
 </div>

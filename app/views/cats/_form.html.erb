@@ -3,12 +3,14 @@
   <%= f.input :photo %>
   <%= f.input :photo_cache, as: :hidden %>
   <%= f.input :address, label: 'Sighted at' %>
-  <%= f.input :status, collection: Cat.statuses.keys %>
   <%= f.input :description %>
-  <%= f.input :sex, as: :radio_buttons, collection: Cat.sexes.keys, wrapper: :vertical_collection_inline %>
-  <%= f.input :age, hint: 'In years' %>
-  <%= f.input :health %>
-  <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
+  <% unless cat.colony.nil? %>
+    <%= f.input :status, collection: Cat.statuses.keys %>
+    <%= f.input :sex, as: :radio_buttons, collection: Cat.sexes.keys, wrapper: :vertical_collection_inline %>
+    <%= f.input :age, hint: 'In years' %>
+    <%= f.input :health %>
+    <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
+  <% end %>
   <% if cat.id.nil? %>
     <%= f.submit 'Add', class: "btn btn-success" %>
   <% else %>

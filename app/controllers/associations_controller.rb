@@ -10,7 +10,8 @@ class AssociationsController < ApplicationController
   def destroy
     @association = Association.find(params[:id])
     authorize @association
+    colony = @association.colony
     @association.destroy
-    redirect_to root_path
+    redirect_to colony_path(colony)
   end
 end
