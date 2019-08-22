@@ -24,12 +24,25 @@
     <div class="column p-4" style="background-color: white; border-radius: 10px">
       <h4 class="mb-4">About this colony</h4>
       <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
+
         <p>Founded: <%= @colony.created_at.strftime("%-d %B %Y") %></p>
         <p><%= @colony.description %></p>
         <p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
-        <p>Cats (<%= @colony.cats.length %>)</p>
-        <p>Members (<%= @colony.users.length %>)</p>
+
+<!-- working on incorporating
+ -->
+
+      <div class="card d-flex flex-row m-3 justify-content-around p-4" style="text-align: center; background: none;">
+        <div class="box-content">
+          <h4><%= @colony.cats.length %></h4><h6><strong>Cats</strong></h6>
+          <h4><i class="fas fa-paw"></i><h4>
+        </div>
+        <div class="box-content">
+          <h4><%= @colony.users.length %></h4><h6><strong>Members</strong></h6>
+          <h4><i class="fas fa-user-circle"></i></h4>
+        </div>
       </div>
+    </div>
 
     <!-- member section -->
 
@@ -58,9 +71,15 @@
      </div>
        <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
         <% @colony.cats.each do |cat| %>
-          <%= image_tag cat.photo.url(:thumbnail), class: 'rounded' %>
-          <p><%= link_to cat.name, cat_path(cat) %></p>
-          <p><%= cat.status %></p>
+          <div class="container d-flex py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px;">
+            <div class="content">
+              <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle' %>
+            </div>
+            <div class="content ml-4">
+              <p><%= link_to cat.name, cat_path(cat) %><br>
+              Status: <%= cat.status %></p>
+            </div>
+         </div>
         <% end %>
       </div>
     </div>
@@ -81,16 +100,15 @@
      <!--  event list -->
 
       <% @colony.events.each do |event| %>
-        <div class="card join-card my-5" style="width: 30em; background-color: #fcf5f4;">
-          <div class="card-body">
-            <h4 class="card-title"> <%=event.title %> </h4>
-            <h5 class="card-subtitle"> <%=event.start.strftime("%-d %B %Y") %> to <%=event.end.strftime("%-d %B %Y") %> </h5>
-            <p class="card-text"><%=event.description %></p>
-            <%= link_to "Join", event_path(event), class: "btn btn-success btn-round" %>
+        <div class="card join-card my-5 shadow" style="width: 40em;">
+            <div class="card-body">
+              <h4 class="card-title"> <%=event.title %> </h4>
+              <h5 class="card-subtitle"> <%=event.start.strftime("%-d %B %Y") %> to <%=event.end.strftime("%-d %B %Y") %> </h5>
+              <p class="card-text"><%=event.description %></p>
+              <%= link_to "Details", event_path(event), class: "btn btn-success btn-round" %>
+            </div>
           </div>
-        </div>
       <% end %>
-
     </div>
   </div>
 </div>
