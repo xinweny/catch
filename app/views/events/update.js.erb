@@ -1,0 +1,6 @@
+function refreshBar(innerHTML) {
+  const newProgressBar = document.getElementById('progress-bar');
+  newProgressBar.innerHTML = innerHTML;
+}
+
+refreshBar("<%= j render 'progress_bar', colony: @colony, event: @event %>");
