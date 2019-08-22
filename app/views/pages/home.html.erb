@@ -4,11 +4,13 @@
     <div class="banner-content p-5 d-flex flex-column justify-content-end" style= "background-color: white; height: calc(100vh - 250px)">
       <h1>CATCH</h1>
       <h4>Save some cats</h4>
-      <%= form_tag colonies_path, method: :get do %>
-        <%= text_field_tag :query, params[:query], placeholder: "Search colonies" %>
-        <%= submit_tag "Search", class: "btn btn-danger" %>
+      <div class="d-flex">
+        <%= form_tag colonies_path, method: :get do %>
+          <%= text_field_tag :query, params[:query], placeholder: "Search colonies" %>
+          <%= submit_tag "Search", class: "btn btn-danger" %>
+      </div>
       <% end%>
-      <p><%= link_to 'Report a sighting', new_cat_path %></p>
+      <%= link_to 'Report a sighting', new_cat_path, class: "btn-link"%>
     </div>
   </div>
 </div>
