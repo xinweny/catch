@@ -1,7 +1,7 @@
 class ColoniesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_colony, only: %i[show edit update destroy]
-  before_action :set_cat_markers, only: %i[new create]
+  before_action :set_cat_markers, only: %i[new create edit update]
 
   def index
     if params[:query].present?
