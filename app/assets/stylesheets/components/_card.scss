@@ -3,6 +3,12 @@
   margin: 10px;
 }
 
+.card-image {
+  width: 250px;
+  height: auto;
+  object-fit: cover;
+}
+
 .join-card {
   background-color: white;
   border-radius: 10px;
