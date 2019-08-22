@@ -17,7 +17,7 @@ class CatsController < ApplicationController
         lat: cat.latitude,
         lng: cat.longitude,
         infoWindow: { content: render_to_string(partial: "/cats/info_window", locals: { cat: cat }) }
-        # image_url: helpers.asset_url(‘file in the assets/images folder’)
+        # image_url: helpers.asset_url('parktwo.svg')
       }
     end
   end
