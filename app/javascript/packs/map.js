@@ -3,30 +3,30 @@ import GMaps from 'gmaps/gmaps.js';
 const catCards = document.querySelectorAll('.sighted-cat');
 
 const mapElement = document.getElementById('map');
+
 if (mapElement) {
   const map = new GMaps({ el: '#map', lat: 0, lng: 0 });
   const markers = JSON.parse(mapElement.dataset.markers);
   const mapMarkers = [];
   // map.addMarkers(markers);
   markers.forEach((marker) => {
-    let infoWindow = new google.maps.InfoWindow({
-      content: marker.infoWindow.content
-    });
-
     const mapMarker = new google.maps.Marker({
       position: { lat: marker.lat, lng: marker.lng },
       cat_id: marker.cat_id
     });
+    if (marker.infoWindow) {
+      let infoWindow = new google.maps.InfoWindow({
+        content: marker.infoWindow.content
+      });
 
-    console.log(mapMarker);
-    console.log(infoWindow);
+      mapMarker.addListener('click', function() {
+        infoWindow.open(map.map, mapMarker);
+      })
 
-    mapMarker.addListener('click', function() {
-      infoWindow.open(map.map, mapMarker);
-    })
-    mapMarker.addListener('mouseenter', function() {
-      infoWindow.close();
-    })
+      mapMarker.addListener('mouseenter', function() {
+        infoWindow.close();
+      })
+    }
 
     mapMarkers.push(mapMarker);
     mapMarker.setMap(map.map);
@@ -138,13 +138,13 @@ if (mapElement) {
             }
         ]
     }
-];
+  ];
 
-map.addStyle({
-  styles: styles,
-  mapTypeId: 'map_style'
-});
-map.setStyle('map_style');
+  map.addStyle({
+    styles: styles,
+    mapTypeId: 'map_style'
+  });
+  map.setStyle('map_style');
 
 }
 

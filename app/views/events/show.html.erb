@@ -3,7 +3,7 @@
     <div class="container my-5">
       <div class="container d-flex justify-content-between">
         <div class="content">
-          <%= link_to "Back", root_path, class: "btn btn-search" %>
+          <%= link_to "Back", colony_path(@event.colony), class: "btn btn-search" %>
         </div>
         <div class="content">
           <% if policy(@event).update? %>
@@ -44,14 +44,7 @@
             </div>
           </div>
           <div class="column p-5">
-        <!-- Progress bar -->
-            <div class="progress-container">
-              <h4> Progress </h4>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="min-width: 100px;"></div>
-              </div>
-            </div>
-          <!-- Progress bar -->
+            <%= render 'progress_bar', colony: @colony, event: @event %>
           </div>
         </div>
       </div>

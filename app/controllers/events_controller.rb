@@ -32,9 +32,15 @@ class EventsController < ApplicationController
     @event.update(event_params)
     authorize @event
     if @event.save
-      redirect_to event_path(@event)
+      respond_to do |format|
+        format.js
+        format.html { redirect_to event_path(@event) }
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.js
+        format.html { render 'events/show' }
+      end
     end
   end
 

@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
 
-  enum phase: %i[trap neuter release check_up other]
+  enum phase: %i[trap neuter release check_up other complete]
 
   validates :title, presence: true
   validates :description, presence: true
