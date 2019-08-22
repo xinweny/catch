@@ -63,6 +63,13 @@ class ColoniesController < ApplicationController
     redirect_to(colonies_path)
   end
 
+  def search_cats
+    respond_to do |format|
+      format.js
+      format.html { render 'colonies/cat_map' }
+    end
+  end
+
   private
 
   def colony_params
