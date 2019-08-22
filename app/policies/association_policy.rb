@@ -18,10 +18,14 @@ class AssociationPolicy < ApplicationPolicy
   private
 
   def user_is_member?
+    return false if user.nil?
+
     Association.all.include?(record)
   end
 
   def user_is_admin?
+    return false if user.nil?
+
     user.admin_groups.include?(record.colony)
   end
 end
