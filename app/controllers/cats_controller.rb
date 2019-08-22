@@ -26,7 +26,7 @@ class CatsController < ApplicationController
   end
 
   def new
-    @cat = Cat.new(colony: @colony)
+    @cat = params[:colony_id] ? Cat.new(colony: Colony.find(params[:colony_id])) : Cat.new
     authorize @cat
   end
 
