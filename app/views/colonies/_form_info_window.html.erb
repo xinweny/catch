@@ -1,10 +1,10 @@
 <div class="card" style="width: 15rem;">
   <%= image_tag cat.photo.url, class: 'card-image' %>
-  <div class="card-body" style=>
-    <p class="card-title"><%= cat.name %></h6>
-    <p class="card-text">
-    Age: <%= cat.age %><br>
-    Sex: <%= cat.sex %><br>
-    Description: <%=cat.description %></p>
+  <div class="card-body" style="background-color: #eee; width: 250px; text-align:center;">
+    <p class="card-title" style="font-size: 15px; text-transform: uppercase;"><strong><%= cat.name %></strong></p>
+    <p class="card-text" style="font-size: 15px;">
+      <strong>Spotted:</strong><br> <%= cat.created_at %><br>
+      <strong>Sex:</strong> <%= cat.sex %><br>
+      <strong>Description:</strong><br> <%=cat.description %></p>
   </div>
 </div>
