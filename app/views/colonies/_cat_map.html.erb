@@ -1,3 +1,9 @@
+<div id="cat-map">
+  <% if params[:location].nil? %>
+    <h4 class="search-cats-title">All cats</h4>
+  <% else %>
+    <h4 class="search-cats-title">Cats near <%= params[:location].nil? %></h4>
+  <% end %>
   <div class="d-flex my-4">
     <div class="sighted-cats p-5" style = "background-color: #f4f3eb;">
       <% cats.each do |cat| %>
@@ -25,3 +31,4 @@
       data-markers="<%= @markers.to_json %>"
     ></div>
   </div>
+</div>

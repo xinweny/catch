@@ -1,7 +1,8 @@
 class ColoniesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_before_action :authenticate_user!, only: %i[index show search_cats]
   before_action :set_colony, only: %i[show edit update destroy]
-  before_action :set_cat_markers, only: %i[new create]
+  before_action :set_cat_markers, only: %i[new create edit update search_cats]
+  protect_from_forgery except: :search_cats
 
   def index
     if params[:query].present?
@@ -64,9 +65,9 @@ class ColoniesController < ApplicationController
   end
 
   def search_cats
+    authorize Colony.new
     respond_to do |format|
       format.js
-      format.html { render 'colonies/cat_map' }
     end
   end
 
@@ -82,13 +83,17 @@ class ColoniesController < ApplicationController
   end
 
   def set_cat_markers
-    @cats = Cat.where(colony_id: nil).geocoded
+    p params
+    if params[:location].nil?
+      @cats = Cat.where(colony_id: nil).geocoded
+    else
+      @cats = Cat.where(colony_id: nil).geocoded.near(params[:location], 5)
+    end
 
     @markers = @cats.map do |cat|
       {
         lat: cat.latitude,
         lng: cat.longitude,
-        cat_id: cat.id,
         infoWindow: { content: render_to_string(partial: "/colonies/form_info_window", locals: { cat: cat }) }
         # image_url: helpers.asset_url(‘file in the assets/images folder’)
       }

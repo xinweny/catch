@@ -3,6 +3,8 @@ class EventsController < ApplicationController
   before_action :set_colony, only: %i[new create]
 
   def show
+    @participation = Participation.find_by(user: current_user, event: @event)
+    @participation = Participation.new(user: current_user, event: @event) if @participation.nil?
     @markers = [{
       lat: @event.latitude,
       lng: @event.longitude
@@ -17,6 +19,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.colony = @colony
+    Participation.create!(event: @event, user: current_user)
     authorize @event
     if @event.save
       redirect_to event_path(@event)

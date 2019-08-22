@@ -12,7 +12,6 @@ if (mapElement) {
   markers.forEach((marker) => {
     const mapMarker = new google.maps.Marker({
       position: { lat: marker.lat, lng: marker.lng },
-      cat_id: marker.cat_id
     });
     if (marker.infoWindow) {
       let infoWindow = new google.maps.InfoWindow({
