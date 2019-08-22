@@ -25,6 +25,10 @@ class ColonyPolicy < ApplicationPolicy
     user_is_admin?
   end
 
+  def search_cats?
+    true
+  end
+
   private
 
   def user_is_admin?

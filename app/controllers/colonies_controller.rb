@@ -24,6 +24,8 @@ class ColoniesController < ApplicationController
   def show
     @cat = Cat.new(colony: @colony)
     @event = Event.new(colony: @colony)
+    @association = Association.find_by(user: current_user, colony: @colony)
+    @association = Association.new(user: current_user, colony: @colony) if @association.nil?
   end
 
   def new
@@ -61,6 +63,13 @@ class ColoniesController < ApplicationController
     redirect_to(colonies_path)
   end
 
+  def search_cats
+    respond_to do |format|
+      format.js
+      format.html { render 'colonies/cat_map' }
+    end
+  end
+
   private
 
   def colony_params
@@ -79,6 +88,7 @@ class ColoniesController < ApplicationController
       {
         lat: cat.latitude,
         lng: cat.longitude,
+        cat_id: cat.id,
         infoWindow: { content: render_to_string(partial: "/colonies/form_info_window", locals: { cat: cat }) }
         # image_url: helpers.asset_url(‘file in the assets/images folder’)
       }
