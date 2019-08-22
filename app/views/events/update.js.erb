@@ -3,9 +3,4 @@ function refreshBar(innerHTML) {
   newProgressBar.innerHTML = innerHTML;
 }
 
-function updateProgress(innerHTML) {
-  const phase = document.getElementById('event-phase');
-  phase.innerHTML = innerHTML;
-}
-
 refreshBar("<%= j render 'progress_bar', colony: @colony, event: @event %>");
