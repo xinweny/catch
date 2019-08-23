@@ -7,7 +7,7 @@
   <% unless cat.colony.nil? %>
     <%= f.input :status, collection: Cat.statuses.keys %>
     <%= f.input :sex, as: :radio_buttons, collection: Cat.sexes.keys, wrapper: :vertical_collection_inline %>
-    <%= f.input :age, hint: 'In years' %>
+    <%= f.input :age, label: 'Age (years)' %>
     <%= f.input :health %>
     <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
   <% end %>

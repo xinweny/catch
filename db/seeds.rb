@@ -1,7 +1,3 @@
-# 3 colonies - meguro, shinagawa, shibuya
-# cats - 5, 12, 15
-# user - 4 admins, 10 users
-# event - 2 each
 require 'faker'
 
 shinagawa_addresses = ['Oimachi Station', 'Shinagawa Post Office', 'Soyokaze Park', 'Osaki Station', 'Takioji Nursery', 'Shiki Theatre Natsu', 'Shinagawa Central Park']
@@ -9,14 +5,14 @@ meguro_addresses = ['Meguro City Hall', 'Yutenji Temple', 'Nakameguro Elementary
 shibuya_addresses = ['Shibuya 101', 'Ichiran Shibuya', 'Tokyu Hands Shibuya', 'Hachiko Memorial Statue', 'Aoyama Gakuin University', 'Shibuya Post Office', 'Cat Street Gallery', 'NHK Hall', 'Shibuya Mark City', 'Josenji Temple']
 random_addresses = ['Ueno Toshogu Shrine', 'Ueno Zoo', 'Ueno Station', 'Okachimachi Station', 'Tokyo National Museum', 'Yamabushi Park', 'Uenonomori Christian Church', 'Ueno Fire Station', 'Ueno Police Station', 'Shinobazu Pond']
 
-def cat_stats(colony, address)
+def cat_stats(colony, address, status = 0)
   return {
   name: Faker::Creature::Cat.name,
   description: Faker::Creature::Cat.breed,
   address: address,
   sex: rand(0..1),
   age: rand(0..10),
-  status: rand(0..5),
+  status: status,
   remote_photo_url: 'https://cataas.com/cat',
   colony: colony
   }
@@ -97,15 +93,15 @@ end
 
 puts 'Adding cats to colonies...'
 5.times do
-  Cat.create!(cat_stats(shinagawa, shinagawa_addresses.sample))
+  Cat.create!(cat_stats(shinagawa, shinagawa_addresses.sample, rand(0..5)))
 end
 
 8.times do
-  Cat.create!(cat_stats(meguro, meguro_addresses.sample))
+  Cat.create!(cat_stats(meguro, meguro_addresses.sample, rand(0..5)))
 end
 
 12.times do
-  Cat.create!(cat_stats(shibuya, shibuya_addresses.sample))
+  Cat.create!(cat_stats(shibuya, shibuya_addresses.sample, rand(0..5)))
 end
 
 puts 'Assigning admins to each colony...'
