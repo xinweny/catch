@@ -1,11 +1,8 @@
 function refreshMap(innerHTML) {
   const newMap = document.getElementById('cat-map');
-  console.log(newMap);
   newMap.innerHTML = innerHTML;
-  console.log(innerHTML);
 }
 
-console.log('hello');
-
 refreshMap("<%= j render 'colonies/cat_map', cats: @cats %>");
+googleMaps();
 
