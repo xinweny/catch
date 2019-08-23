@@ -6,7 +6,7 @@
   <%= f.input :description %>
   <%= f.input :phase, collection: Event.phases.keys %>
   <% if event.id.nil? %>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Create', class: "btn btn-success mt-2" %>
   <% else %>
   <%= f.submit 'Update' %>
   <% end %>

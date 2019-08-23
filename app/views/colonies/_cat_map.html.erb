@@ -14,13 +14,13 @@
             <div class="checkbox-list mx-3">
               <%= check_box_tag 'colony[cat_ids][]', cat.id %>
             </div>
-            <div class="cat">
-              <%= cat.name %>
-            </div>
             <div class="cat ml-2">
               <% if cat.photo %>
                 <%= image_tag cat.photo.url(:thumbnail), class: 'rounded' %>
               <% end %>
+            </div>
+            <div class="cat ml-2 mr-5">
+              <%= cat.name %>
             </div>
           </div>
         <% end %>
