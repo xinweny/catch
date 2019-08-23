@@ -27,7 +27,6 @@
 
         <p>Founded: <%= @colony.created_at.strftime("%-d %B %Y") %></p>
         <p><%= @colony.description %></p>
-        <p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
 
 <!-- working on incorporating
  -->
@@ -53,7 +52,16 @@
       </div>
       <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
         <% @colony.users.each do |user| %>
-          <p><%= link_to user.full_name, user_path(user) %></p>
+          <div class="update-grid-container py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px;">
+            <div class="column d-flex ml-2 align-items-center justify-content-center">
+              <div class="card-content">
+                <%= image_tag user_avatar(user), class: "ml-2 w-100 h-auto rounded-circle"%>
+              </div>
+            </div>
+            <div class="column d-flex flex-column justify-content-center mt-3 ml-2">
+              <p><%= link_to user.full_name, user_path(user) %></p>
+            </div>
+            </div>
         <% end %>
       </div>
 
@@ -72,10 +80,10 @@
        <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
         <% @colony.cats.each do |cat| %>
           <div class="container d-flex py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px;">
-            <div class="content">
+            <div class="content mt-2">
               <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle' %>
             </div>
-            <div class="content ml-4">
+            <div class="content mt-2 ml-4">
               <p><%= link_to cat.name, cat_path(cat) %><br>
               Status: <%= cat.status %></p>
             </div>

@@ -1,12 +1,9 @@
 class ColoniesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show search_cats]
   before_action :set_colony, only: %i[show edit update destroy]
-<<<<<<< HEAD
-  before_action :set_cat_markers, only: %i[new create edit update]
-=======
   before_action :set_cat_markers, only: %i[new create edit update search_cats]
   protect_from_forgery except: :search_cats
->>>>>>> master
+
 
   def index
     if params[:query].present?

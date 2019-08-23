@@ -42,11 +42,13 @@
         ></div>
       </div>
 
+<!-- Update section -->
+
       <div class="container my-4">
         <div class="update-grid-container" style="background-color: white; border-radius: 10px;">
           <div class="column">
-            <div class="content d-flex flex-column justify-content-center" style="background-color: #fbc658; border-bottom-left-radius: 10px; border-top-left-radius: 10px; height: 100%; text-align: center;">
-              <h4>Updates</h4>
+            <div class="content d-flex flex-column justify-content-center" style="background-color: #51cbce; border-bottom-left-radius: 10px; border-top-left-radius: 10px; height: 100%; text-align: center;">
+              <h4 style="color: white;">Updates</h4>
             </div>
           </div>
           <div class="column p-5">
@@ -57,17 +59,35 @@
     </div>
   </div>
 
-  <div class="column" style="background-color: #f7f5ed; height: calc(100vh - 20px - 20px);">
+<!-- Participants List -->
+
+  <div class="column" style="background-color: #f7f5ed; height: calc(100vh - 10px);">
     <div class="container d-flex flex-column p-4">
       <h3>Participants</h3>
       <% if @event.users.empty? %>
         <p>No participants yet.</p>
       <% else %>
         <% @event.users.each do |user| %>
-          <%= link_to user.full_name, user_path(user) %>
+          <div class="update-grid-container py-2 my-3 shadow-sm" style="background-color: white; border-radius: 10px;">
+            <div class="column d-flex ml-2 align-items-center justify-content-center">
+              <div class="card-content">
+                <%= image_tag user_avatar(user), class: "ml-2 w-100 h-auto rounded-circle"%>
+              </div>
+            </div>
+            <div class="column d-flex flex-column justify-content-center mt-3 ml-2">
+              <h5><%= link_to user.full_name, user_path(user) %></h5>
+              <p>
+              <i class="fas fa-phone"></i> <%=user.phone_number %><br>
+              <i class="far fa-envelope"></i> <%=user.email %>
+              </p>
+            </div>
+            </div>
+          </div>
         <% end %>
       <% end %>
     </div>
   </div>
 </div>
+
+
 

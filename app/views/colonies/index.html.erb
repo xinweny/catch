@@ -2,14 +2,14 @@
     <div class="ml-5 py-4">
       <h3 style="color: #f5593d"><strong>Your results</strong></h3>
       <h3><%= @colonies.length %> colonies near <%= params[:query].capitalize %></h3>
-    </div>
-  <% else %>
-    <h3>All colonies (<%= @colonies.length %>)</h3>
-  <% end %>
-  <%= form_tag colonies_path, method: :get do %>
-    <div class="d-flex align-items-center">
-      <%= text_field_tag :query, params[:query], placeholder: "Enter an address", class: "form-control mr-2" %>
-      <%= submit_tag "Search", class: "btn btn-danger m-0" %>
+    <% else %>
+      <h3>All colonies (<%= @colonies.length %>)</h3>
+    <% end %>
+    <%= form_tag colonies_path, method: :get do %>
+      <div class="d-flex align-items-center" style="width:500px;">
+        <%= text_field_tag :query, params[:query], placeholder: "Enter another address", class: "form-control mr-2 mt-2" %>
+        <%= submit_tag "Search", class: "btn btn-danger m-0 mt-2" %>
+      </div>
     </div>
   <% end%>
   <div
