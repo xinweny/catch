@@ -3,3 +3,7 @@
 @import "colonies/show";
 @import "colonies/infowindow";
 @import "events/show";
+
+html {
+  scroll-behavior: smooth;
+}
