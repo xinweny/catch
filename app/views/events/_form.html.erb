@@ -1,7 +1,13 @@
 <%= simple_form_for [colony, event] do |f| %>
   <%= f.input :title %>
-  <%= f.input :start, as: :string, input_html: { class: "datepicker_start" } %>
-  <%= f.input :end, label: 'Estimated end time', as: :string, input_html: { class: "datepicker_end" } %>
+  <div class="d-flex flex-wrap">
+    <div class="mr-3">
+      <%= f.input :start, label: 'Event start', as: :string, input_html: { class: "datepicker_start" } %>
+    </div>
+    <div>
+      <%= f.input :end, label: 'Estimated event end', as: :string, input_html: { class: "datepicker_end" } %>
+    </div>
+  </div>
   <%= f.input :address, label: 'Meeting point' %>
   <%= f.input :description %>
   <%= f.input :phase, collection: Event.phases.keys %>

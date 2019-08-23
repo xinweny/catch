@@ -9,11 +9,19 @@
   <%= f.input :photo %>
   <%= f.input :photo_cache, as: :hidden %>
 
-  <% if colony.id.nil? %>
-    <%= f.submit 'Create', class: "btn btn-success" %>
-  <% else %>
-    <%= f.submit 'Update', class: "btn btn-primary" %>
-  <% end %>
-    <%= link_to "Back", root_path, class: "btn btn-search" %>
+  <div class="colony-buttons d-flex justify-content-between">
+    <% if colony.id.nil? %>
+      <div>
+        <%= f.submit 'Create', class: "btn btn-success" %>
+      </div>
+    <% else %>
+      <div>
+        <%= f.submit 'Update', class: "btn btn-primary" %>
+      </div>
+    <% end %>
+    <div>
+      <%= link_to 'Cancel', root_path, class: "btn btn-danger" %>
+    </div>
+  </div>
 <% end %>
 

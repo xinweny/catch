@@ -4,9 +4,8 @@
 }
 
 .card-image {
-  width: 250px;
-  height: auto;
-  object-fit: cover;
+  width: 200px;
+  height: 200px;
 }
 
 .join-card {
@@ -38,4 +37,9 @@
   border-radius: 10px;
   padding: 30px;
   text-align: center;
+}
+
+.sighted-cat-card {
+  background-color: white;
+  border-radius: 10px;
 }
