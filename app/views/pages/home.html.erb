@@ -5,7 +5,7 @@
       <div class="banner-content mb-3">
         <h1>CATCH</h1>
         <h4 class= "pb-2" style="border-bottom: solid 3px #f5593d;">THE TNR PLATFORM</h4>
-        <h6><%= Cat.all.length %> cats tracked</h6>
+        <h5><%= Cat.all.length %> cats tracked</h5>
       </div>
 
       <%= form_tag colonies_path, method: :get do %>
@@ -20,22 +20,41 @@
 </div>
 <div id="tnr">
   <div class="tnr-description">
-    <h2 class="text-center">What is TNR?</h2>
-    <p>asdkjfalsdfjhalsdfgalsdfghajkshfgjkasfgdkj</p>
+    <h2 class="text-center" style="background-color: #448789; height: 60px;"><!-- <i class="fas fa-angle-down" style="color: white; margin-top: 15px;"></i> --></h2>
+
+    <h2 class="text-center mb-4" style="padding-top: 130px;">What is TNR?</h2>
+    <div class="container text-center mt-3" style= "width: 700px; padding-bottom: 100px;">
+      <h5> Trap-Neuter-Return, or "TNR," is the most humane and effective method known for managing feral and stray cats and reducing their numbers. </h5>
+    </div>
+    <h2 class="text-center mb-5">The Process</h2>
   </div>
+
+  <div data-aos="fade-up"
+  data-aos-offset="200"
+  data-aos-delay="50"
+  data-aos-duration="1000"
+  >
+
   <div class="tnr-cards d-flex flex-wrap align-items-center justify-content-around">
-    <div class="tnr-card">
-      <h2 class="text-center">Trap</h2>
-      <p>description</p>
+    <div class="card tnr-card shadow" style="padding: 50px; width: 300px; height: 400px; border-radius: 10px;">
+      <h2 class="text-center pb-2" style="border-bottom: solid 2px;">Trap</h2>
+      <p style="padding-top: 10px; text-align: justify;">
+      The cats, who typically live together in a group called a colony, are trapped and brought to a veterinary clinic.</p>
     </div>
-    <div class="tnr-card">
-      <h2 class="text-center">Neuter</h2>
-      <p>description</p>
+    <div class="card tnr-card shadow" style="padding: 50px; width: 300px; height: 400px; border-radius: 10px;">
+      <h2 class="text-center pb-2" style="border-bottom: solid 2px;">Neuter</h2>
+      <p style="padding-top: 10px; text-align: justify;">They're then spayed or neutered, vaccinated for rabies where appropriate and eartipped. </p>
     </div>
-    <div class="tnr-card">
-      <h2 class="text-center">Release</h2>
-      <p>description</p>
+    <div class="card tnr-card shadow" style="padding: 50px; width: 300px; height: 400px; border-radius: 10px;">
+      <h2 class="text-center pb-2" style="border-bottom: solid 2px;">Release</h2>
+      <p style="padding-top: 10px; text-align: justify;">After they've recovered from their surgeries, the cats are returned back to their original territory where a caretaker provides regular food and shelter.</p>
     </div>
+    </div>
+    <div class= "content" style="padding-top: 100px;">
+        <h4 class="text-center">Make a difference today.</h4>
+    </div>
+  <div class="space-bottom d-flex justify-content-center mb-4" style="padding-bottom: 100px;">
+
+    <%= link_to 'Create a colony', new_colony_path, class: "btn btn-success btn-round my-3" %>
   </div>
-  <%= link_to 'Create a colony', new_colony_path %>
 </div>
