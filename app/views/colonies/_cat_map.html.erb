@@ -2,33 +2,37 @@
   <% if params[:location].nil? %>
     <h4 class="search-cats-title">All cats</h4>
   <% else %>
-    <h4 class="search-cats-title">Cats near <%= params[:location].nil? %></h4>
+    <h4 class="search-cats-title">Cats near <%= params[:location].capitalize %></h4>
   <% end %>
-  <div class="d-flex my-4">
-    <div class="sighted-cats p-5" style = "background-color: #f4f3eb;">
-      <% cats.each do |cat| %>
-        <div class="sighted-cat d-flex justify-content-between align-items-center my-2">
-          <div class="checkbox-list mx-3">
-            <%= check_box_tag 'colony[cat_ids][]', cat.id %>
+  <% if @cats.empty? %>
+    <p>No cats found.</p>
+  <% else %>
+    <div class="d-flex my-4">
+      <div class="sighted-cats p-5" style = "background-color: #f4f3eb;">
+        <% cats.each do |cat| %>
+          <div class="sighted-cat d-flex justify-content-between align-items-center my-2">
+            <div class="checkbox-list mx-3">
+              <%= check_box_tag 'colony[cat_ids][]', cat.id %>
+            </div>
+            <div class="cat">
+              <%= cat.name %>
+            </div>
+            <div class="cat ml-2">
+              <% if cat.photo %>
+                <%= image_tag cat.photo.url(:thumbnail), class: 'rounded' %>
+              <% end %>
+            </div>
           </div>
-          <div class="cat">
-            <%= cat.name %>
-          </div>
-          <div class="cat ml-2">
-            <% if cat.photo %>
-              <%= image_tag cat.photo.url(:thumbnail), class: 'rounded' %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+      <div
+        id="map"
+        style="width: 100%;
+        height: auto;
+        position: sticky;
+        top: 0;"
+        data-markers="<%= @markers.to_json %>"
+      ></div>
     </div>
-    <div
-      id="map"
-      style="width: 100%;
-      height: auto;
-      position: sticky;
-      top: 0;"
-      data-markers="<%= @markers.to_json %>"
-    ></div>
-  </div>
+  <% end %>
 </div>

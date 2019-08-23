@@ -68,6 +68,7 @@ class ColoniesController < ApplicationController
     authorize Colony.new
     respond_to do |format|
       format.js
+      format.html { render 'colonies/cat_map' }
     end
   end
 
@@ -83,7 +84,6 @@ class ColoniesController < ApplicationController
   end
 
   def set_cat_markers
-    p params
     if params[:location].nil?
       @cats = Cat.where(colony_id: nil).geocoded
     else
@@ -98,5 +98,6 @@ class ColoniesController < ApplicationController
         # image_url: helpers.asset_url(‘file in the assets/images folder’)
       }
     end
+    p @markers
   end
 end
