@@ -2,7 +2,6 @@ class ColoniesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show search_cats]
   before_action :set_colony, only: %i[show edit update destroy]
   before_action :set_cat_markers, only: %i[new create edit update search_cats]
-  protect_from_forgery except: :search_cats
 
 
   def index
@@ -69,6 +68,7 @@ class ColoniesController < ApplicationController
     authorize Colony.new
     respond_to do |format|
       format.js
+      format.html { render 'colonies/cat_map' }
     end
   end
 
@@ -84,7 +84,6 @@ class ColoniesController < ApplicationController
   end
 
   def set_cat_markers
-    p params
     if params[:location].nil?
       @cats = Cat.where(colony_id: nil).geocoded
     else
@@ -99,5 +98,6 @@ class ColoniesController < ApplicationController
         # image_url: helpers.asset_url(‘file in the assets/images folder’)
       }
     end
+    p @markers
   end
 end

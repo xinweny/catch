@@ -1,8 +1,8 @@
 const colonyAddress = document.getElementById('colony_address');
+const hiddenForm = document.getElementById('location');
 let address = undefined;
 colonyAddress.addEventListener('blur', (event) => {
   address = event.currentTarget.value;
-  const url = `/colonies/new/cats?location=${address}`
-  console.log(url)
-  fetch(url).then(response => console.log(response));
+  hiddenForm.value = address;
+  document.querySelector('.submit-button').click();
 });
