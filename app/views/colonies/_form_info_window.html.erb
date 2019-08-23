@@ -1,10 +1,10 @@
-<div class="card" style="width: 15rem;">
-  <%= image_tag cat.photo.url, class: 'card-image' %>
-  <div class="card-body" style="background-color: #eee; width: 250px; text-align:center;">
+<div class="d-flex rounded">
+  <div class="cat-image">
+    <%= image_tag cat.photo.url, class: 'card-image' %>
+  </div>
+  <div class="card-body" style="background-color: #eee; width: 250px;">
     <p class="card-title" style="font-size: 15px; text-transform: uppercase;"><strong><%= cat.name %></strong></p>
-    <p class="card-text" style="font-size: 15px;">
-      <strong>Spotted:</strong><br> <%= cat.created_at.strftime("%-l:%M %p, %-d.%-m.%Y") %><br>
-      <strong>Sex:</strong> <%= cat.sex %><br>
-      <strong>Description:</strong><br> <%= cat.description %></p>
+    <p class="card-description" style="font-size: 15px;"><%= cat.description %></p>
+    <p>Spotted <%= cat.created_at.strftime("%-l:%M %p, %-d.%-m.%Y") %> at <%= cat.address %></p>
   </div>
 </div>
