@@ -84,7 +84,6 @@
       </div>
     </div>
 
-
     <div class="column p-4" style="background-color: white; border-radius: 10px">
       <div class="d-flex justify-content-between">
         <div class="content">
@@ -110,18 +109,5 @@
           </div>
       <% end %>
     </div>
-<<<<<<< HEAD
-=======
-
-    <% if policy(@association).create? %>
-      <%= simple_form_for [@colony, @association] do |f| %>
-        <%= f.submit 'Join', class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-
-    <% if policy(@association).destroy? %>
-      <%= link_to 'Leave', association_path(@association), method: :delete, data: { confirm: 'Leave this group?'}, class: "btn btn-danger" %>
-    <% end %>
->>>>>>> master
   </div>
 </div>
