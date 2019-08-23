@@ -19,9 +19,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.colony = @colony
-    Participation.create!(event: @event, user: current_user) unless current_user.nil?
     authorize @event
     if @event.save
+      Participation.create!(event: @event, user: current_user) unless current_user.nil?
       redirect_to event_path(@event)
     else
       render :new

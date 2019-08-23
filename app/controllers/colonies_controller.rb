@@ -37,9 +37,9 @@ class ColoniesController < ApplicationController
   def create
     @colony = Colony.new(colony_params)
     authorize @colony
-    Association.create!(admin: true, user: current_user, colony: @colony)
     if @colony.save
       @colony.update_cats(params[:colony][:cat_ids])
+      Association.create!(admin: true, user: current_user, colony: @colony)
       redirect_to colony_path(@colony)
     else
       render :new
