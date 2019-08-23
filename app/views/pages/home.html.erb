@@ -5,14 +5,13 @@
       <div class="banner-content mb-3">
         <h1>CATCH</h1>
         <h4 class= "pb-2" style="border-bottom: solid 3px #f5593d;">THE TNR PLATFORM</h4>
-        <h6>Support your local cat colony today.</h6>
-
+        <h6><%= Cat.all.length %> cats tracked</h6>
       </div>
 
       <%= form_tag colonies_path, method: :get do %>
         <div class="d-flex align-items-center">
           <%= text_field_tag :query, params[:query], placeholder: "Enter an address", class: "form-control mr-2" %>
-          <%= submit_tag "Search", class: "btn btn-danger m-0" %>
+          <%= submit_tag "Find a colony", class: "btn btn-danger m-0" %>
         </div>
       <% end%>
       <a href="#tnr">Learn more</a>
@@ -38,4 +37,5 @@
       <p>description</p>
     </div>
   </div>
+  <%= link_to 'Create a colony', new_colony_path %>
 </div>
