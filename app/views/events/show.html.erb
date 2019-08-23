@@ -5,21 +5,34 @@
         <div class="content">
           <%= link_to "Back", colony_path(@event.colony), class: "btn btn-search" %>
         </div>
-        <div class="content">
+        <div class="content d-inline-flex">
           <% if policy(@participation).create? %>
             <%= simple_form_for [@event, @participation] do |f| %>
-              <%= f.submit 'Join', class: "btn btn-primary" %>
+              <%= f.submit 'Join', class: "btn btn-primary mr-2" %>
             <% end %>
           <% end %>
           <% if policy(@participation).destroy? %>
-            <%= link_to 'Leave', participation_path(@participation), method: :delete, data: { confirm: 'Leave this event?'}, class: "btn btn-danger" %>
+            <%= link_to 'Leave', participation_path(@participation), method: :delete, data: { confirm: 'Leave this event?'}, class: "btn btn-danger mr-2" %>
           <% end %>
           <% if policy(@event).update? %>
-            <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-primary" %>
+            <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-primary mr-2" %>
           <% end %>
           <% if policy(@event).destroy? %>
             <%= link_to 'Delete', event_path(@event), method: :delete, data: { confirm: "Delete this event?" }, class: "btn btn-danger" %>
           <% end %>
+        </div>
+      </div>
+
+      <div class="container my-4">
+        <div class="update-grid-container" style="background-color: white; border-radius: 10px;">
+          <div class="column">
+            <div class="content d-flex flex-column justify-content-center" style="background-color: #51cbce; border-bottom-left-radius: 10px; border-top-left-radius: 10px; height: 100%; text-align: center;">
+              <h4 style="color: white;">Updates</h4>
+            </div>
+          </div>
+          <div class="column p-5">
+            <%= render 'progress_bar', colony: @colony, event: @event %>
+          </div>
         </div>
       </div>
 
@@ -42,32 +55,40 @@
         ></div>
       </div>
 
-      <div class="container my-4">
-        <div class="update-grid-container" style="background-color: white; border-radius: 10px;">
-          <div class="column">
-            <div class="content d-flex flex-column justify-content-center" style="background-color: #fbc658; border-bottom-left-radius: 10px; border-top-left-radius: 10px; height: 100%; text-align: center;">
-              <h4>Updates</h4>
-            </div>
-          </div>
-          <div class="column p-5">
-            <%= render 'progress_bar', colony: @colony, event: @event %>
-          </div>
-        </div>
-      </div>
+<!-- Update section -->
+
     </div>
   </div>
 
-  <div class="column" style="background-color: #f7f5ed; height: calc(100vh - 20px - 20px);">
+<!-- Participants List -->
+
+  <div class="column" style="background-color: #f7f5ed; height: calc(100vh - 10px);">
     <div class="container d-flex flex-column p-4">
       <h3>Participants</h3>
       <% if @event.users.empty? %>
         <p>No participants yet.</p>
       <% else %>
         <% @event.users.each do |user| %>
-          <%= link_to user.full_name, user_path(user) %>
+          <div class="update-grid-container py-2 my-3 shadow-sm" style="background-color: white; border-radius: 10px;">
+            <div class="column d-flex ml-2 align-items-center justify-content-center">
+              <div class="card-content">
+                <%= image_tag user_avatar(user), class: "ml-2 w-100 h-auto rounded-circle"%>
+              </div>
+            </div>
+            <div class="column d-flex flex-column justify-content-center mt-3 ml-2">
+              <h5><%= link_to user.full_name, user_path(user) %></h5>
+              <p>
+              <i class="fas fa-phone"></i> <%=user.phone_number %><br>
+              <i class="far fa-envelope"></i> <%=user.email %>
+              </p>
+            </div>
+            </div>
+          </div>
         <% end %>
       <% end %>
     </div>
   </div>
 </div>
+
+
 

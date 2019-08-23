@@ -5,27 +5,69 @@
     </div>
     <div class="container d-flex justify-content-end">
       <% if policy(@colony).update? %>
-        <%= link_to 'Edit', edit_colony_path(@colony), class: "btn btn-primary btn-round mx-1" %>
+        <%= link_to 'Edit', edit_colony_path(@colony), class: "btn btn-primary" %>
+      <% end %>
+      <% if policy(@association).create? %>
+        <%= simple_form_for [@colony, @association] do |f| %>
+          <%= f.submit 'Join', class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <% if policy(@association).destroy? %>
+        <%= link_to 'Leave', association_path(@association), method: :delete, data: { confirm: 'Leave this group?'}, class: "btn btn-primary mx-1" %>
       <% end %>
       <% if policy(@colony).destroy? %>
-        <%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' }, class: "btn btn-danger btn-round"  %>
+        <%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' }, class: "btn btn-danger" %>
       <% end %>
     </div>
   </div>
   <div class="grid-container m-4">
     <div class="column p-4" style="background-color: white; border-radius: 10px">
-      <h4>About this colony</h4>
-      <div class="content p-3" style="background-color: #fcf5f4; border-radius: 10px;">
+      <h4 class="mb-4">About this colony</h4>
+      <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
+
         <p>Founded: <%= @colony.created_at.strftime("%-d %B %Y") %></p>
         <p><%= @colony.description %></p>
-        <p>Admin: <%= @colony.admins.map { |admin| admin.full_name }.join(', ') %></p>
-        <p>Cats (<%= @colony.cats.length %>)</p>
-        <p>Members (<%= @colony.users.length %>)</p>
+
+<!-- working on incorporating
+ -->
+
+      <div class="card d-flex flex-row m-3 justify-content-around p-4" style="text-align: center; background: none;">
+        <div class="box-content">
+          <h4><%= @colony.cats.length %></h4><h6><strong>Cats</strong></h6>
+          <h4><i class="fas fa-paw"></i><h4>
+        </div>
+        <div class="box-content">
+          <h4><%= @colony.users.length %></h4><h6><strong>Members</strong></h6>
+          <h4><i class="fas fa-user-circle"></i></h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- member section -->
+
+      <div class="d-flex justify-content-between mt-5 mb-3">
+        <div class="content">
+          <h4>Members</h4>
+        </div>
+      </div>
+      <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
         <% @colony.users.each do |user| %>
-          <p><%= link_to user.full_name, user_path(user) %></p>
+          <div class="update-grid-container py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px;">
+            <div class="column d-flex ml-2 align-items-center justify-content-center">
+              <div class="card-content">
+                <%= image_tag user_avatar(user), class: "ml-2 w-100 h-auto rounded-circle"%>
+              </div>
+            </div>
+            <div class="column d-flex flex-column justify-content-center mt-3 ml-2">
+              <p><%= link_to user.full_name, user_path(user) %></p>
+            </div>
+            </div>
         <% end %>
       </div>
-      <div class="d-flex justify-content-between mt-5">
+
+    <!-- cat section -->
+
+      <div class="d-flex justify-content-between mt-5 mb-3">
         <div class="content">
           <h4>Cats</h4>
         </div>
@@ -35,10 +77,17 @@
           <% end %>
         </div>
      </div>
-       <div class="content p-3" style="background-color: #fcf5f4; border-radius: 10px;">
+       <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
         <% @colony.cats.each do |cat| %>
-          <p><%= link_to cat.name, cat_path(cat) %></p>
-          <p><%= cat.status %></p>
+          <div class="container d-flex py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px;">
+            <div class="content mt-2">
+              <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle' %>
+            </div>
+            <div class="content mt-2 ml-4">
+              <p><%= link_to cat.name, cat_path(cat) %><br>
+              Status: <%= cat.status %></p>
+            </div>
+         </div>
         <% end %>
       </div>
     </div>
@@ -54,19 +103,19 @@
           <% end %>
         </div>
       </div>
+
+     <!--  event list -->
+
       <% @colony.events.each do |event| %>
-        <p><%= link_to event.title, event_path(event) %></p>
+        <div class="card join-card d-flex my-4 shadow align-items-center text-center" style="width: 40em;">
+            <div class="card-body mt-2">
+              <h4 class="card-title"> <%=event.title %> </h4>
+              <h5 class="card-subtitle"> <%=event.start.strftime("%-d %B %Y") %> to <%=event.end.strftime("%-d %B %Y") %> </h5>
+              <p class="card-text"><%=event.description %></p>
+              <%= link_to "Details", event_path(event), class: "btn btn-success btn-round" %>
+            </div>
+          </div>
       <% end %>
     </div>
-
-    <% if policy(@association).create? %>
-      <%= simple_form_for [@colony, @association] do |f| %>
-        <%= f.submit 'Join', class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-
-    <% if policy(@association).destroy? %>
-      <%= link_to 'Leave', association_path(@association), method: :delete, data: { confirm: 'Leave this group?'}, class: "btn btn-danger" %>
-    <% end %>
   </div>
 </div>

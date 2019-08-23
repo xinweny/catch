@@ -3,6 +3,7 @@ class ColoniesController < ApplicationController
   before_action :set_colony, only: %i[show edit update destroy]
   before_action :set_cat_markers, only: %i[new create edit update search_cats]
 
+
   def index
     if params[:query].present?
       @colonies = policy_scope(Colony).near(params[:query], 5)
