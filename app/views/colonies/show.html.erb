@@ -107,8 +107,8 @@
      <!--  event list -->
 
       <% @colony.events.each do |event| %>
-        <div class="card join-card my-5 shadow" style="width: 40em;">
-            <div class="card-body">
+        <div class="card join-card d-flex my-4 shadow align-items-center text-center" style="width: 40em;">
+            <div class="card-body mt-2">
               <h4 class="card-title"> <%=event.title %> </h4>
               <h5 class="card-subtitle"> <%=event.start.strftime("%-d %B %Y") %> to <%=event.end.strftime("%-d %B %Y") %> </h5>
               <p class="card-text"><%=event.description %></p>
