@@ -14,7 +14,7 @@
   </div>
 
   <div class="update-buttons">
-    <div class="d-flex">
+    <div class="d-flex justify-content-around">
       <% if policy(event).update? %>
         <%= simple_form_for [colony, event], remote: true do |f| %>
           <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[0] } %>

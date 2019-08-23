@@ -116,7 +116,7 @@ end
 
 puts 'Creating events...'
 colonies.each do |colony|
-  Event.create!(
+  event_1 = Event.create!(
     title: 'TNR Meetup',
     description: "Gotta catch 'em all!",
     address: colony.address,
@@ -124,7 +124,9 @@ colonies.each do |colony|
     end: (DateTime.now.to_time + rand(3..8).hours).to_datetime,
     colony: colony,
     phase: 0)
-  Event.create!(
+  Participation.create!(user: colony.admins.first, event: event_1)
+
+  event_2 = Event.create!(
     title: 'Monthly checkup',
     description: "Kitty roundup for the monthly checkup.",
     address: colony.address,
@@ -132,6 +134,7 @@ colonies.each do |colony|
     end: (DateTime.now.to_time + rand(3..8).hours).to_datetime,
     colony: colony,
     phase: 3)
+  Participation.create!(user: colony.admins.first, event: event_2)
 end
 
 puts 'All seeded!'
