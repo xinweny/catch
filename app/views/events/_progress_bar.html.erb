@@ -1,6 +1,6 @@
 <div class="progress-container" id="progress-bar">
   <h4> Progress </h4>
-  <h5>Phase: <%= @event.phase %></h5>
+  <h5 id="event-phase" data-phase="<%=  event.phase.capitalize %>">Phase: <%= event.phase %></h5>
   <div class="progress">
     <% if @event.phase == Event.phases.keys[0] %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 0%;"></div>
@@ -14,39 +14,25 @@
   </div>
 
   <div class="update-buttons">
-    <% if policy(@event).update? %>
-      <% if @event.phase == Event.phases.keys[0] %>
+    <div class="d-flex">
+      <% if policy(event).update? %>
+        <%= simple_form_for [colony, event], remote: true do |f| %>
+          <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[0] } %>
+          <%= f.submit 'Trap', class: "btn btn-warning update-button" %>
+        <% end %>
         <%= simple_form_for [colony, event], remote: true do |f| %>
           <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[1] } %>
-          <%= f.submit 'Neuter', class: "btn btn-success" %>
+          <%= f.submit 'Neuter', class: "btn btn-success update-button" %>
+        <% end %>
+        <%= simple_form_for [colony, event], remote: true do |f| %>
+          <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[2] } %>
+          <%= f.submit 'Release', class: "btn btn-success update-button" %>
+        <% end %>
+        <%= simple_form_for [colony, event], remote: true do |f| %>
+          <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys.last } %>
+          <%= f.submit 'Complete', class: "btn btn-success update-button" %>
         <% end %>
       <% end %>
-
-      <% if @event.phase == Event.phases.keys[1] %>
-        <div class="d-flex">
-          <%= simple_form_for [colony, event], remote: true do |f| %>
-            <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[0] } %>
-            <%= f.submit 'Trap', class: "btn btn-warning" %>
-          <% end %>
-          <%= simple_form_for [colony, event], remote: true do |f| %>
-            <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[2] } %>
-            <%= f.submit 'Release', class: "btn btn-success" %>
-          <% end %>
-        </div>
-      <% end %>
-
-      <% if event.phase == Event.phases.keys[2] %>
-        <div class="d-flex">
-          <%= simple_form_for [colony, event], remote: true do |f| %>
-            <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[1] } %>
-            <%= f.submit 'Neuter', class: "btn btn-warning" %>
-          <% end %>
-          <%= simple_form_for [colony, event], remote: true do |f| %>
-            <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys.last } %>
-            <%= f.submit 'Complete', class: "btn btn-success" %>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
