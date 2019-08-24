@@ -1,12 +1,26 @@
-<h2>Dashboard</h2>
-<h3>Colonies</h3>
-<% current_user.colonies.each do |colony| %>
-  <p><%= link_to colony.name, colony_path(colony) %></p>
-<% end %>
+<div class="container pt-5">
+  <div class="content">
+    <h2>Dashboard</h2>
+  </div>
+  <div class="dashboard-grid-container" style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 20px;">
+    <div class="column my-3 p-5" style="background-color: white; border-radius: 10px;">
+      <h4>My colonies</h4>
+      <% current_user.colonies.each do |colony| %>
+        <div class="card shadow-sm">
+          <p><%= link_to colony.name, colony_path(colony) %></p>
+        </div>
+      <% end %>
+    </div>
+    <div class="column my-3 p-5" style="background-color: white; border-radius: 10px;">
+      <h4>My events</h4>
+      <% current_user.events.each do |event| %>
+        <div class="card shadow-sm">
+          <p><%= link_to event.title, event_path(event) %>
+          <br><%= event.colony.name %>
+          <br>Phase: <%= event.phase %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<h3>Events</h3>
-<% current_user.events.each do |event| %>
-  <p><%= link_to event.title, event_path(event) %></p>
-  <p>In <%= event.colony.name %></p>
-  <p><%= event.phase %></p>
-<% end %>

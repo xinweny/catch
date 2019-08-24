@@ -1,26 +1,27 @@
 <div class="profile-grid-container">
-  <div class="column d-flex flex-column justify-content-center align-items-end pr-5" style="background-color: #f4f3eb; height: calc(100vh - 60px);">
-    <h2><%= @user.full_name %></h2>
-    <% if @user == current_user %>
-      <p><%= link_to 'Edit profile', edit_user_registration_path %></p>
-    <% end %>
+  <div class="column d-flex flex-column justify-content-center align-items-center" style="background-color: #f4f3eb; height: calc(100vh - 60px);">
+    <%= image_tag user_avatar(@user), class: "w-50 h-auto rounded-circle mb-4"%>
+    <div class="content">
+      <h2><%= @user.full_name %></h2>
+      <% if @user == current_user %>
+        <p><%= link_to 'Edit profile', edit_user_registration_path %></p>
+      <% end %>
 
-    <%= image_tag user_avatar(@user), class: "ml-2 w-25 h-auto rounded-circle"%>
+      <p>Joined: <%= @user.created_at %></p>
+      <% if @user.age %>
+        <p>Age: <%= @user.age %></p>
+      <% end %>
 
-    <p>Joined: <%= @user.created_at %></p>
-    <% if @user.age %>
-      <p>Age: <%= @user.age %></p>
-    <% end %>
-
-    <% if @user.gender %>
-      <p>Gender: <%= @user.gender %></p>
-    <% end %>
-    <h3>Contact</h3>
-    <p>Email: <%= @user.email %><br>
-    Phone number: <%= @user.phone_number %></p>
+      <% if @user.gender %>
+        <p>Gender: <%= @user.gender %></p>
+      <% end %>
+      <p><strong>Contact</strong></p>
+      <p>Email: <%= @user.email %><br>
+      Phone number: <%= @user.phone_number %></p>
+    </div>
   </div>
-  <div class="column d-flex flex-column justify-content-center align-items-center">
-    <h3>Colonies</h3>
+  <div class="column d-flex flex-column justify-content-center align-items-center" style="background-color: white; height: calc(100vh - 60px);">
+    <h4>Colonies</h4>
     <% @user.colonies.each do |colony| %>
       <%= link_to colony.name, colony_path(colony) %>
       <% if @user.admin_groups.include?(colony) %>
