@@ -101,10 +101,12 @@
   <% @event.colony.cats.each do |cat| %>
     <% if cat.versions.empty? %>
       <p>No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
-    <% else %>
+    <% elsif cat.last_version.event == 'update' %>
       <% cat.all_changes.each do |attribute, change| %>
-        <p><%= User.find(cat.last_version.whodunnit).full_name %> <%= cat.last_version.event %>d <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
+        <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
       <% end %>
+    <% elsif cat.last_version.event == 'create' %>
+        <p><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
     <% end %>
   <% end %>
 </div>
