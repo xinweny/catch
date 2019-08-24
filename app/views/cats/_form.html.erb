@@ -10,6 +10,7 @@
     <%= f.input :age, label: 'Age (years)' %>
     <%= f.input :health %>
     <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
+    <%= f.input :colony_id, as: :hidden, input_html: { value: cat.colony.id } %>
   <% end %>
   <% if cat.id.nil? %>
     <%= f.submit 'Add', class: "btn btn-success" %>
