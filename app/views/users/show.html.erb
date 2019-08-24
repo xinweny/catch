@@ -4,7 +4,7 @@
     <div class="content">
       <h2><%= @user.full_name %></h2>
       <% if @user == current_user %>
-        <p><%= link_to 'Edit profile', edit_user_registration_path %></p>
+        <p><%= link_to 'Edit', edit_user_registration_path, class: "btn btn-primary btn-round" %></p>
       <% end %>
 
       <p>Joined: <%= @user.created_at %></p>
