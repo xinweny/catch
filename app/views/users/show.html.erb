@@ -1,12 +1,13 @@
 <div class="profile-grid-container">
   <div class="column d-flex flex-column justify-content-center align-items-center" style="background-color: #f4f3eb; height: calc(100vh - 60px);">
-    <%= image_tag user_avatar(@user), class: "w-50 h-auto rounded-circle mb-4"%>
     <div class="content">
-      <h2><%= @user.full_name %></h2>
       <% if @user == current_user %>
         <p><%= link_to 'Edit', edit_user_registration_path, class: "btn btn-primary btn-round" %></p>
       <% end %>
-
+    </div>
+    <%= image_tag user_avatar(@user), class: "w-50 h-auto rounded-circle mb-4"%>
+    <div class="content">
+      <h2><%= @user.full_name %></h2>
       <p>Joined: <%= @user.created_at %></p>
       <% if @user.age %>
         <p>Age: <%= @user.age %></p>
@@ -25,7 +26,9 @@
     <% @user.colonies.each do |colony| %>
       <%= link_to colony.name, colony_path(colony) %>
       <% if @user.admin_groups.include?(colony) %>
-        <p>^ ADMIN</p>
+        <span style="background-color: #66615b; color:white; font-size: 12px; text-transform: uppercase; padding: 5px;">
+          <p>admin</p>
+        </span>
       <% end %>
     <% end %>
   </div>
