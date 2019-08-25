@@ -14,26 +14,16 @@ class CatPolicy < ApplicationPolicy
   end
 
   def create?
-    record.colony.nil? ? true : user_is_admin?
+    record.colony.nil? ? true : user_is_admin? || user_is_member?
   end
 
   def update?
-    user_is_admin?
+    user_is_admin? || user_is_member?
   end
 
   def destroy?
     user_is_admin?
   end
-
-  # def search_cats?
-  #   binding.pry
-  #   true
-  # end
-
-  # def set_cat_markers
-  #   binding.pry
-  #   true
-  # end
 
   private
 
@@ -41,5 +31,9 @@ class CatPolicy < ApplicationPolicy
     return false if record.colony.nil?
 
     record.colony.admins.include?(user)
+  end
+
+  def user_is_member?
+    user.colonies.include?(record.colony)
   end
 end

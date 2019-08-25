@@ -30,6 +30,10 @@ class Colony < ApplicationRecord
     end
   end
 
+  def has_admin?(user)
+    user.admin_groups.include?(self)
+  end
+
   private
 
   def remove_colony_from_cats

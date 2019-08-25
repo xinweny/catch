@@ -25,4 +25,8 @@ class User < ApplicationRecord
     colonies = admin_associations.map(&:colony)
     return colonies
   end
+
+  def is_admin?(colony)
+    colony.admins.include?(self)
+  end
 end
