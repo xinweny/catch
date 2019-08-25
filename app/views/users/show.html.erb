@@ -1,4 +1,7 @@
 <div class="profile-grid-container">
+
+<!-- User profile picture column  -->
+
   <div class="column d-flex flex-column justify-content-center align-items-center" style="background-color: #f4f3eb; height: calc(100vh - 60px);">
     <%= image_tag user_avatar(@user), class: "w-50 h-auto rounded-circle mb-4"%>
     <div class="content text-center">
@@ -17,26 +20,31 @@
       <a href="#"><i class="fab fa-linkedin" style="color: #66615b"></i></a>
     </div>
   </div>
+
   <div class="column" style="background-color: white; height: calc(100vh - 60px);">
-    <!-- Insert edit button here -->
     <div class="content d-flex justify-content-end align-items-end m-3 mb-5">
       <% if @user == current_user %>
         <p><%= link_to 'Edit', edit_user_registration_path, class: "btn btn-primary btn-round" %></p>
       <% end %>
     </div>
 
-  <div class="column d-flex flex-column justify-content-center align-items-center pt-5">
-    <div class="container pr-5 pl-5" style="width: 50rem;">
-      <h4>User info</h4><br>
+<!-- User info and Colonies column -->
 
-      <p>Member since <%= @user.created_at.strftime("%B %Y") %></p>
-      <p><i class="far fa-envelope"></i>  <%= @user.email %></p>
-      <p><i class="fas fa-phone"></i>  <%= @user.phone_number %>
-      </p>
+
+  <div class="column d-flex flex-column justify-content-center align-items-center pt-5">
+    <div class="container pr-5 pl-5" style="width: 30rem;">
+      <h4>User info</h4>
+      <div class="container mt-4" style="border-left: solid 5px #6bd098;">
+        <p>Member since <%= @user.created_at.strftime("%B %Y") %></p>
+        <p><i class="far fa-envelope"></i>  <%= @user.email %></p>
+        <p><i class="fas fa-phone"></i>  <%= @user.phone_number %>
+        </p>
+      </div>
     </div>
 
-    <div class="container p-5" style="width: 50rem;">
-      <h4>Colonies</h4><br>
+    <div class="container p-5" style="width: 30rem;">
+      <h4>Colonies</h4>
+      <div class="container mt-4" style="border-left: solid 5px #6bd098;">
       <% @user.colonies.each do |colony| %>
         <p><%= link_to colony.name, colony_path(colony) %>
         <% if @user.admin_groups.include?(colony) %>
@@ -45,6 +53,7 @@
           </span></p>
         <% end %>
       <% end %>
+      </div>
     </div>
 
 <!--
