@@ -1,12 +1,36 @@
-<h2>Dashboard</h2>
-<h3>Colonies</h3>
-<% current_user.colonies.each do |colony| %>
-  <p><%= link_to colony.name, colony_path(colony) %></p>
-<% end %>
+<div class="container pt-5 mb-5">
+  <div class="content">
+    <h2>Dashboard</h2>
+    <div class="container p-5 mt-4" style="background-color: #fbc658; border-radius: 10px;">
+      <p>User info here</p>
+  </div>
+  <div class="dashboard-grid-container pt-4" style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 20px;">
+    <div class="column mb-3 pb-5" style="background-color: white; border-radius: 10px;">
+      <div class="content text-center py-3" style= "background-color:#fbc658; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+        <h4>My colonies</h4>
+      </div>
+      <div class="container pr-5 pl-5 pt-4">
+        <% current_user.colonies.each do |colony| %>
+          <div class="card shadow-sm d-flex justify-content-center align-items-center text-center pt-3 px-2" style="width: 16rem; border-radius: 10px; height: 100px;">
+            <p><%= link_to colony.name, colony_path(colony) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="column mb-3 pb-5" style="background-color: white; border-radius: 10px;">
+      <div class="content text-center py-3" style= "background-color:#fbc658; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+        <h4>My events</h4>
+      </div>
+      <div class="content mt-4 px-4">
+        <% current_user.events.each do |event| %>
+          <div class="card shadow-sm justify-content-center align-items-center text-center pt-3">
+            <p><%= link_to event.title, event_path(event) %>
+            <br><%= event.colony.name %>
+            <br>Phase: <%= event.phase %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>Events</h3>
-<% current_user.events.each do |event| %>
-  <p><%= link_to event.title, event_path(event) %></p>
-  <p>In <%= event.colony.name %></p>
-  <p><%= event.phase %></p>
-<% end %>

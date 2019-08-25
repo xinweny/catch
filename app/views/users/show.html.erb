@@ -1,28 +1,55 @@
-<h2><%= @user.full_name %></h2>
-<% if @user == current_user %>
-  <p><%= link_to 'Edit profile', edit_user_registration_path %></p>
-<% end %>
+<div class="profile-grid-container">
+  <div class="column d-flex flex-column justify-content-center align-items-center" style="background-color: #f4f3eb; height: calc(100vh - 60px);">
+    <%= image_tag user_avatar(@user), class: "w-50 h-auto rounded-circle mb-4"%>
+    <div class="content text-center">
+      <h4><%= @user.full_name %></h4>
 
-<%= image_tag user_avatar(@user) %>
+      <% if @user.gender %>
+        <p><%= @user.gender %>,
+      <% if @user.age %>
+        <%= @user.age %></p>
+      <% end %>
+      <% end %>
+      <a href="#"><i class="fab fa-github" style="color: #66615b"></i></a>
+      <a href="#"><i class="fab fa-instagram" style="color: #66615b"></i></a>
+      <a href="#"><i class="fab fa-facebook" style="color: #66615b"></i></a>
+      <a href="#"><i class="fab fa-twitter" style="color: #66615b"></i></a>
+      <a href="#"><i class="fab fa-linkedin" style="color: #66615b"></i></a>
+    </div>
+  </div>
+  <div class="column" style="background-color: white; height: calc(100vh - 60px);">
+    <!-- Insert edit button here -->
+    <div class="content d-flex justify-content-end align-items-end m-3 mb-5">
+      <% if @user == current_user %>
+        <p><%= link_to 'Edit', edit_user_registration_path, class: "btn btn-primary btn-round" %></p>
+      <% end %>
+    </div>
 
-<p>Joined: <%= @user.created_at %></p>
-<% if @user.age %>
-  <p>Age: <%= @user.age %></p>
-<% end %>
+  <div class="column d-flex flex-column justify-content-center align-items-center pt-5">
+    <div class="container pr-5 pl-5" style="width: 50rem;">
+      <h4>User info</h4><br>
 
-<% if @user.gender %>
-  <p>Gender: <%= @user.gender %></p>
-<% end %>
+      <p>Member since <%= @user.created_at.strftime("%B %Y") %></p>
+      <p><i class="far fa-envelope"></i>  <%= @user.email %></p>
+      <p><i class="fas fa-phone"></i>  <%= @user.phone_number %>
+      </p>
+    </div>
 
+    <div class="container p-5" style="width: 50rem;">
+      <h4>Colonies</h4><br>
+      <% @user.colonies.each do |colony| %>
+        <p><%= link_to colony.name, colony_path(colony) %>
+        <% if @user.admin_groups.include?(colony) %>
+          <span style="background-color: #fbc658; font-size: 10px; text-transform: uppercase; padding: 5px 10px; border-radius: 10px; height: 30px;">
+            admin
+          </span></p>
+        <% end %>
+      <% end %>
+    </div>
 
-<h3>Contact</h3>
-<p>Email: <%= @user.email %></p>
-<p>Phone number: <%= @user.phone_number %></p>
-
-<h3>Colonies</h3>
-<% @user.colonies.each do |colony| %>
-  <%= link_to colony.name, colony_path(colony) %>
-  <% if @user.admin_groups.include?(colony) %>
-    <p>^ ADMIN</p>
-  <% end %>
-<% end %>
+<!--
+     -->
+   </div>
+    </div>
+  </div>
+</div>
