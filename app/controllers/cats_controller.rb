@@ -1,6 +1,7 @@
 class CatsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_cat, only: %i[show edit update destroy]
+  before_action :set_paper_trail_whodunnit, only: %i[create update destroy]
 
   # def index
   #   if params[:query].present?
@@ -62,7 +63,7 @@ class CatsController < ApplicationController
   private
 
   def cat_params
-    params.require(:cat).permit(:name, :description, :sex, :age, :photo, :health, :microchip_id, :status, :longitude, :latitude, :address)
+    params.require(:cat).permit(:name, :description, :sex, :age, :photo, :health, :microchip_id, :status, :longitude, :latitude, :address, :colony_id)
   end
 
   def set_cat

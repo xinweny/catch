@@ -88,5 +88,27 @@
   </div>
 </div>
 
+<div class="event-cats">
+  <% @event.colony.cats.each do |cat| %>
+    <%= link_to "Edit #{cat.name}", edit_cat_path(cat) %>
+  <% end %>
+</div>
+
+<div class="live-updates">
+  <h2>Live updates</h2>
+  <% @event.colony.cats.each do |cat| %>
+    <% if cat.versions.empty? %>
+      <p>No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
+    <% elsif cat.last_version.event == 'update' %>
+      <% cat.all_changes.each do |attribute, change| %>
+        <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
+      <% end %>
+    <% elsif cat.last_version.event == 'create' %>
+      <p><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
+    <% elsif cat.last_version.event == 'destroy' %>
+      <p><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
+    <% end %>
+  <% end %>
+</div>
 
 
