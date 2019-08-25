@@ -104,7 +104,9 @@
         <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
       <% end %>
     <% elsif cat.last_version.event == 'create' %>
-        <p><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
+      <p><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
+    <% elsif cat.last_version.event == 'destroy' %>
+      <p><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
     <% end %>
   <% end %>
 </div>
