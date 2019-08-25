@@ -97,7 +97,7 @@
 <div class="live-updates">
   <h2>Live updates</h2>
   <% @event.colony.cats.each do |cat| %>
-    <% if cat.versions.empty? %>
+    <% if cat.versions.empty? || cat.last_version.whodunnit.nil? %>
       <p>No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
     <% elsif cat.last_version.event == 'update' %>
       <% cat.all_changes.each do |attribute, change| %>
