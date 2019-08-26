@@ -86,6 +86,7 @@
             <div class="content mt-2 ml-4">
               <p><%= link_to cat.name, cat_path(cat) %><br>
               Status: <%= cat.status %></p>
+              <p><%= 'Edit', edit_cat_path(cat) %></p>
             </div>
          </div>
         <% end %>
