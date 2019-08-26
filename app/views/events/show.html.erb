@@ -40,9 +40,7 @@
                   <p><i class="fas fa-cat p-2 mr-2" style="background-color: #fbc658; border-radius: 10px;"></i> No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
                 <% elsif cat.last_version.event == 'update' %>
                   <% cat.all_changes.each do |attribute, change| %>
-                    <% unless attribute == :latitude || attribute == :longitude %>
-                      <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
-                    <% end %>
+                    <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
                   <% end %>
                 <% elsif cat.last_version.event == 'create' %>
                   <p><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
