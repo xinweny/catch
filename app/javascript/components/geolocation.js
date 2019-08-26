@@ -5,7 +5,9 @@ function success(position) {
   fetch(url).then(response => response.json())
   .then((data) => {
     const address = data.results[0].formatted_address;
-    addressField.value = address;
+    if (addressField.value === "") {
+      addressField.value = address;
+    }
   });
 }
 
