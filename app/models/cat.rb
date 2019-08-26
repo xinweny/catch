@@ -30,4 +30,8 @@ class Cat < ApplicationRecord
     end
     return changes
   end
+
+  def last_updated
+    last_version.changeset[:updated_at][1]
+  end
 end
