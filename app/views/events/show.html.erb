@@ -89,7 +89,7 @@
 
   <div class="column" style="background-color: #f7f5ed;">
     <div class="container d-flex flex-column p-4">
-      <h3>Participants</h3>
+      <h3>Participants (<%= @event.users.all.length %>)</h3>
       <% if @event.users.empty? %>
         <p>No participants yet.</p>
       <% else %>
