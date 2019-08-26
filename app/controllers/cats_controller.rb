@@ -48,7 +48,11 @@ class CatsController < ApplicationController
     @cat.update(cat_params)
     authorize @cat
     if @cat.save
-      redirect_to cat_path(@cat)
+      if params[:event_id]
+        redirect_to event_path(params[:event_id])
+      else
+        redirect_to cat_path(@cat)
+      end
     else
       render :edit
     end

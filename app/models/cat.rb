@@ -22,6 +22,12 @@ class Cat < ApplicationRecord
   end
 
   def all_changes
-    last_version.changeset.except(:updated_at)
+    return {} if last_version.nil?
+
+    changes = last_version.changeset.except(:updated_at, :colony_id, :longitude, :latitude)
+    changes.each do |attribute, change|
+      changes.delete(attribute) if change == [nil, ""]
+    end
+    return changes
   end
 end

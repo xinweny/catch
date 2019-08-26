@@ -1,16 +1,23 @@
 <%= simple_form_for [colony, cat] do |f| %>
-  <%= f.input :name, hint: 'Give a nickname!' %>
-  <%= f.input :photo %>
-  <%= f.input :photo_cache, as: :hidden %>
-  <%= f.input :address, label: 'Sighted at' %>
+  <div class="d-flex justify-content-between">
+    <%= f.input :name, hint: 'Give a nickname!' %>
+    <% sexes = [[('<i class="fas fa-mars"></i>').html_safe, Cat.sexes.keys[0]], [('<i class="fas fa-venus"></i>').html_safe, Cat.sexes.keys[1]], [('<i class="fas fa-question"></i>').html_safe, Cat.sexes.keys[2]]] %>
+    <%= f.input :sex, as: :radio_buttons, collection: sexes, wrapper: :vertical_collection_inline %>
+  </div>
   <%= f.input :description %>
+  <%= f.input :photo, label: cat.photo.url ? 'Update photo' : 'Photo' %>
+  <%= f.input :photo_cache, as: :hidden %>
+  <%= f.input :address, label: 'Last sighted at' %>
   <% unless cat.colony.nil? %>
     <%= f.input :status, collection: Cat.statuses.keys %>
-    <%= f.input :sex, as: :radio_buttons, collection: Cat.sexes.keys, wrapper: :vertical_collection_inline %>
+    <h3>For vet use</h3>
     <%= f.input :age, label: 'Age (years)' %>
     <%= f.input :health %>
     <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
     <%= f.input :colony_id, as: :hidden, input_html: { value: cat.colony.id } %>
+    <% if @event %>
+      <%= hidden_field_tag :event_id, @event.id %>
+    <% end %>
   <% end %>
   <div class="content d-flex justify-content-between">
     <%= link_to "Back", root_path, class: "btn btn-search" %>

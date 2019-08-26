@@ -36,10 +36,8 @@
             <div class="live-updates mt-5">
               <h4 class="mb-3 pb-2" style="border-bottom: solid 3px #f5593d;">Live updates</h4>
               <% @event.colony.cats.each do |cat| %>
-                <% if cat.versions.empty? || cat.last_version.whodunnit.nil? %>
-                  <p><i class="fas fa-cat p-2 mr-2" style="background-color: #fbc658; border-radius: 10px;"></i> No updates to show for <%= link_to cat.name, cat_path(cat) %>.
-                  <%= link_to "Edit #{cat.name}", edit_cat_path(cat) %>
-                  </p>
+                <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
+                  <p><i class="fas fa-cat p-2 mr-2" style="background-color: #fbc658; border-radius: 10px;"></i> No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
                 <% elsif cat.last_version.event == 'update' %>
                   <% cat.all_changes.each do |attribute, change| %>
                     <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
@@ -49,16 +47,28 @@
                 <% elsif cat.last_version.event == 'destroy' %>
                   <p><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
                 <% end %>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>">Edit</button>
+                <div id="<%= "catModal_#{cat.id}" %>" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><%= cat.name %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <% if cat.photo.url %>
+                          <%= cl_image_tag cat.photo %>
+                        <% end %>
+                        <%= render 'cats/form', colony: @event.colony, cat: cat %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               <% end %>
             </div>
-
-<!--             <div class="event-cats">
-              <% @event.colony.cats.each do |cat| %>
-                <%= link_to "Edit #{cat.name}", edit_cat_path(cat) %>
-              <% end %>
-            </div> -->
-
-
           </div>
         </div>
       </div>
@@ -113,5 +123,3 @@
     </div>
   </div>
 </div>
-
-
