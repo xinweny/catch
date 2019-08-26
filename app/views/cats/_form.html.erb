@@ -15,6 +15,9 @@
     <%= f.input :health %>
     <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
     <%= f.input :colony_id, as: :hidden, input_html: { value: cat.colony.id } %>
+    <% if @event %>
+      <%= hidden_field_tag :event_id, @event.id %>
+    <% end %>
   <% end %>
   <div class="content d-flex justify-content-between">
     <%= link_to "Back", root_path, class: "btn btn-search" %>
