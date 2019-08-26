@@ -53,6 +53,9 @@ class EventsController < ApplicationController
     redirect_to colony_path(colony)
   end
 
+  def search_cats
+  end
+
   private
 
   def event_params
