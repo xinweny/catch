@@ -1,6 +1,6 @@
-<div id="cat-map">
+<div class="cat-map my-5">
   <% if params[:location].nil? %>
-    <h4 class="search-cats-title">All cats (<%= cats.length %>)</h4>
+    <p class="search-cats-title">Sighted cats in the area</p>
   <% else %>
     <h4 class="search-cats-title">Cats near <%= params[:location].capitalize %> (<%= cats.length %>)</h4>
   <% end %>
