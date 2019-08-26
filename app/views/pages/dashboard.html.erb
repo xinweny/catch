@@ -27,9 +27,12 @@
       <div class="content mt-4 px-4">
         <% current_user.events.each do |event| %>
           <div class="card shadow-sm justify-content-center align-items-center text-center pt-3">
-            <p><%= link_to event.title, event_path(event) %>
-            <br><%= event.colony.name %>
-            <br>Phase: <%= event.phase %></p>
+            <div class="card-grid-container" style="display:grid; grid-template-columns: 1fr 1fr;">
+
+              <p style="border-right: 1px solid gray;"><%= link_to event.title, event_path(event) %><br>
+              <%= event.colony.name %></p>
+              Phase: <%= event.phase %></p>
+            </div>
           </div>
         <% end %>
       </div>
