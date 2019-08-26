@@ -32,7 +32,9 @@
 .dropdown-menu {
   border: none;
   border-radius: 10px;
-  //box-shadow:     0      2px      3px       #bfbfbf;
+  -webkit-box-shadow: 7px 10px 17px -4px rgba(130,130,130,1);
+  -moz-box-shadow: 7px 10px 17px -4px rgba(130,130,130,1);
+  box-shadow: 7px 10px 17px -4px rgba(130,130,130,1);
 }
 
 .logo {
