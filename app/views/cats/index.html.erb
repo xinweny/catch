@@ -1,7 +1,7 @@
 <% if params[:query].present? %>
   <h2><%= @cats.length %> cats near <%= params[:query].capitalize %></h2>
 <% else %>
-  <h2>All cats (<%= @cats.length %>)</h2>
+  <p>All cats (<%= @cats.length %>)</p>
 <% end %>
 <div
   id="map"

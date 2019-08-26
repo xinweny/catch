@@ -14,11 +14,11 @@
   </div>
 
   <div class="update-buttons">
-    <div class="d-flex justify-content-around">
+    <div class="d-flex justify-content-between">
       <% if policy(event).update? %>
         <%= simple_form_for [colony, event], remote: true do |f| %>
           <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[0] } %>
-          <%= f.submit 'Trap', class: "btn btn-warning update-button" %>
+          <%= f.submit 'Trap', class: "btn btn-success update-button" %>
         <% end %>
         <%= simple_form_for [colony, event], remote: true do |f| %>
           <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[1] } %>

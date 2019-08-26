@@ -1,24 +1,27 @@
-<div class="container pt-5 mb-5">
+<div class="container pt-5 mb-5 mt-5">
   <div class="content">
-    <h2>Dashboard</h2>
-    <div class="container p-5 mt-4" style="background-color: #fbc658; border-radius: 10px;">
-      <p>User info here</p>
-  </div>
+    <h2><i class="fas fa-user-circle"></i> <%= current_user.first_name %>'s Dashboard</h2>
+
   <div class="dashboard-grid-container pt-4" style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 20px;">
     <div class="column mb-3 pb-5" style="background-color: white; border-radius: 10px;">
-      <div class="content text-center py-3" style= "background-color:#fbc658; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+      <div class="content text-center pb-2 pt-4" style= "background-color:#fbc658; border-top-left-radius: 10px; border-top-right-radius: 10px;">
         <h4>My colonies</h4>
       </div>
-      <div class="container pr-5 pl-5 pt-4">
+      <div class="colonies-grid-container pr-3 pl-3 pt-3" style="display:grid; grid-template-columns: 1fr 1fr;">
         <% current_user.colonies.each do |colony| %>
-          <div class="card shadow-sm d-flex justify-content-center align-items-center text-center pt-3 px-2" style="width: 16rem; border-radius: 10px; height: 100px;">
-            <p><%= link_to colony.name, colony_path(colony) %></p>
+          <div class="card shadow-sm d-flex justify-content-center align-items-center text-center rounded-bottom" style="width: 9rem; height: auto;">
+            <img class="card-img-top">
+              <%= image_tag "sleeping.jpg", class: "w-100 h-auto rounded-top" %>
+            </img>
+            <p class="m-3"><%= link_to colony.name, colony_path(colony) %></p>
           </div>
         <% end %>
       </div>
     </div>
+
+
     <div class="column mb-3 pb-5" style="background-color: white; border-radius: 10px;">
-      <div class="content text-center py-3" style= "background-color:#fbc658; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+      <div class="content text-center pb-2 pt-4" style= "background-color:#fbc658; border-top-left-radius: 10px; border-top-right-radius: 10px;">
         <h4>My events</h4>
       </div>
       <div class="content mt-4 px-4">

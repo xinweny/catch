@@ -1,24 +1,32 @@
-<h2><%= @cat.name %></h2>
-<% if @cat.colony.nil? %>
-  <p>This cat does not belong to any colony yet.</p>
-<% else %>
-  <p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
-<% end %>
-<p>Current status: <%= @cat.status %></p>
+<div class="container my-5">
+  <div class="form-container new-colony-form d-flex flex-column justify-content-center m-auto">
+    <div class="header-container pt-5 pb-3 text-center">
+      <h2><%= @cat.name %></h2>
+    </div>
+    <div class="d-inline-flex m-4 justify-content-end">
+      <% if policy(@cat).update? %>
+        <p><%= link_to 'Edit', edit_cat_path(@cat), class: "btn btn-primary" %></p>
+      <% end %>
+      <% if policy(@cat).destroy? %>
+        <p><%= link_to 'Delete', cat_path(@cat), method: :delete, class: "btn btn-danger", data: { confirm: "Permanently remove #{@cat.name}?"} %></p>
+      <% end %>
+    </div>
+  <div class="content-container p-5">
+    <% if @cat.colony.nil? %>
+      <p>This cat does not belong to any colony yet.</p>
+    <% else %>
+      <p>Belongs to <%= link_to @cat.colony.name, colony_path(@cat.colony) %></p>
+    <% end %>
+    <p>Current status: <%= @cat.status %></p>
 
-<% if policy(@cat).update? %>
-  <p><%= link_to 'Edit', edit_cat_path(@cat) %></p>
-<% end %>
-<% if policy(@cat).destroy? %>
-  <p><%= link_to 'Delete', cat_path(@cat), method: :delete, data: { confirm: "Permanently remove #{@cat.name}?" } %></p>
-<% end %>
+    <%= cl_image_tag @cat.photo %>
 
-<%= cl_image_tag @cat.photo %>
+    <h3>About me</h3>
+    <p><%= @cat.description %></p>
+    <p><%= @cat.sex.nil? ? 'N/A' : @cat.sex.capitalize %></p>
+    <p><%= @cat.age.nil? ? 'Unknown age' : "#{@cat.age} years old" %></p>
 
-<h3>About me</h3>
-<p><%= @cat.description %></p>
-<p><%= @cat.sex.nil? ? 'N/A' : @cat.sex.capitalize %></p>
-<p><%= @cat.age.nil? ? 'Unknown age' : "#{@cat.age} years old" %></p>
-
-<h3>Health</h3>
-<p><%= @cat.health.nil? || @cat.health.blank? ? 'No information available.' : @cat.health %></p>
+    <h3>Health</h3>
+    <p><%= @cat.health.nil? || @cat.health.blank? ? 'No information available.' : @cat.health %></p>
+  </div>
+</div>
