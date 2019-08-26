@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :cats
     resources :events, only: %i[new create]
     resources :associations, only: %i[create]
+    resources :users, only: %i[index]
   end
 
   resources :events, only: %i[show edit update destroy] do
