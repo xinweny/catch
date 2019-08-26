@@ -47,16 +47,14 @@ class CatsController < ApplicationController
   def update
     @cat.update(cat_params)
     authorize @cat
-    if @model.save
-      respond_to do |format|
-        format.js    # renders app/views/models/method.js.erb
-        format.html { redirect_to model_path(@model) }
+    if @cat.save
+      if params[:event_id]
+        redirect_to event_path(params[:event_id])
+      else
+        redirect_to cat_path(@cat)
       end
     else
-      respond_to do |format|
-        format.js
-        format.html { render ‘models/action’ }
-      end
+      render :edit
     end
   end
 
