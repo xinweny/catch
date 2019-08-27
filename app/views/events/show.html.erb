@@ -39,7 +39,9 @@
           </div>
         </div>
       </div>
-
+      <%= form_tag update_cats_path(@event), method: :get, remote: true do %>
+        <%= submit_tag '', style: 'display: none', class: 'refresh-button' %>
+      <% end %>
       <div class="container d-flex">
         <div class="container p-5 d-flex flex-column justify-content-center" style="background-color: white; border-bottom-left-radius: 10px; border-top-left-radius: 10px;">
           <div class="content">

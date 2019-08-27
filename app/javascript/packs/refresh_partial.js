@@ -1,5 +1,9 @@
-const updates = document.querySelector(".live-updates")
+const refreshButton = document.querySelector(".refresh-button")
 
-function refreshUpdates() {
- // make new route send get request via form tag
+const clickRefresh = () => {
+  refreshButton.click();
+  console.log("!");
 }
+
+clickRefresh();
+setInterval(clickRefresh, 60 * 1000);

@@ -17,9 +17,10 @@ Rails.application.routes.draw do
     resources :participations, only: %i[create]
   end
 
+  get 'events/:id/updates', to: 'events#update_cats', as: :update_cats
+
   resources :cats, only: %i[index show new create edit update destroy]
   resources :users, only: %i[index show]
   resources :associations, only: %i[destroy]
   resources :participations, only: %i[destroy]
-
 end
