@@ -13,8 +13,8 @@
   <%= f.input :address, label: 'Last sighted at' %>
   <% unless cat.colony.nil? %>
     <%= f.input :status, collection: Cat.statuses.keys %>
-    <h5>For vet use</h5>
-    <div class="vet-container m-4 p-3" style=" border-radius: 10px; background-color: #f4f3eb;">
+    <div class="vet-container mx-1 my-5 p-3" style=" border-radius: 10px; background-color: #f4f3eb;">
+      <h5>For vet use</h5>
       <%= f.input :age, label: 'Age (years)' %>
       <%= f.input :health %>
       <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
