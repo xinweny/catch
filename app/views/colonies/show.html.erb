@@ -72,16 +72,25 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
+              <h4 class="modal-title p-3 pl-4">Members of <%= @colony.name %></h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Members of <%= @colony.name %></h4>
             </div>
             <div class="modal-body">
               <% @colony.users.each do |user| %>
-                <p><%= link_to user.full_name, user_path(user) %></p>
-                <% if current_user.colonies.include?(@colony) %>
-                  <p><%= user.phone_number %></p>
-                  <p><%= user.email %></p>
-                <% end %>
+                <div class="card shadow-sm">
+                  <div class="member-grid-container" style="display:grid; grid-template-columns: 1fr 2fr; background-color: #f4f3eb">
+                    <div class="column mt-2">
+                      <%= image_tag user_avatar(user), class: "ml-3 w-75 h-auto my-3 rounded-circle"%>
+                    </div>
+                    <div class="column mt-4">
+                      <p><%= link_to user.full_name, user_path(user) %></p>
+                      <% if current_user.colonies.include?(@colony) %>
+                        <p><i class="fas fa-phone mr-2"></i> <%= user.phone_number %></p>
+                        <p><i class="far fa-envelope mr-2"></i><%= user.email %></p>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               <% end %>
             </div>
             <div class="modal-footer">
@@ -130,10 +139,10 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
+            <h4 class="modal-title pl-5">Cats of <%= @colony.name %></h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Cats of <%= @colony.name %></h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body text-center mt-2">
             <% @colony.cats.each do |cat| %>
               <p><%= link_to cat.name, cat_path(cat) %></p>
             <% end %>
