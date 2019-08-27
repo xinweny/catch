@@ -2,7 +2,7 @@
   <div class="d-flex flex-column justify-content-center p-5" style="background-color: #6bd098; color: white; text-align: center;">
     <%= image_tag "park.svg" %>
     <h5><%= colony.name %></h5>
-    <p>Founded <%= colony.created_at %></p>
+    <p>Founded <%= colony.created_at.strftime("#{colony.created_at.day.ordinalize} %B %Y") %></p>
     <%= link_to "Take me there", colony_path(colony),   class:"btn btn-info "%>
   </div>
   <div class="d-flex flex-column justify-content-center p-4">
