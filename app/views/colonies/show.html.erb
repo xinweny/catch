@@ -63,7 +63,30 @@
             </div>
             </div>
         <% end %>
-        <p><%= link_to 'All members', colony_users_path(@colony) %></p>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#membersModal">All Members</button>
+      </div>
+
+      <div id="<%= "membersModal" %>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Members of <%= @colony.name %></h4>
+            </div>
+            <div class="modal-body">
+              <% @colony.users.each do |user| %>
+                <p><%= link_to user.full_name, user_path(user) %></p>
+                <% if current_user.colonies.include?(@colony) %>
+                  <p><%= user.phone_number %></p>
+                  <p><%= user.email %></p>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
 
     <!-- cat section -->
@@ -96,7 +119,26 @@
          </div>
         <% end %>
       </div>
-      <p><%= link_to 'All cats', colony_cats_path(@colony) %></p>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#catsModal">All Cats</button>
+    </div>
+
+    <div id="<%= "catsModal" %>" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cats of <%= @colony.name %></h4>
+          </div>
+          <div class="modal-body">
+            <% @colony.cats.each do |cat| %>
+              <p><%= link_to cat.name, cat_path(cat) %></p>
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="column p-4" style="background-color: white; border-radius: 10px">
