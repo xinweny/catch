@@ -16,7 +16,7 @@
   <div class="update-buttons">
     <div class="d-flex justify-content-between">
       <% if policy(event).update? %>
-        <% if (0..2).to_a.include?(@event.phase) %>
+        <% if (0..2).to_a.include?(event.phase) %>
           <%= simple_form_for [colony, event], remote: true do |f| %>
             <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[0] } %>
             <%= f.submit 'Trap', class: "btn btn-success update-button" %>
@@ -36,5 +36,18 @@
         <% end %>
       <% end %>
     </div>
+  </div>
+
+  <div class="cat-progress">
+    <% if event.phase == 0 %>
+      <p>Spotted cats:</p>
+      <% event.colony.cats.where(status: 0).each do |cat| %>
+        <%= link_to cat.name, cat_path(cat) %>
+      <% end %>
+    <% elsif event.phase == 1 %>
+
+    <% elsif event.phase == 2 %>
+
+    <% end %>
   </div>
 </div>

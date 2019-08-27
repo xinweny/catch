@@ -21,11 +21,11 @@
         </div>
       </div>
     </div>
-
-    <div class="column d-flex justify-content-end align-items-center mt-2">
-      <button type="button" class="btn btn-info btn-lg btn-round" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>">Edit</button>
-    </div>
-
+    <% if policy(cat).update? %>
+      <div class="column d-flex justify-content-end align-items-center mt-2">
+        <button type="button" class="btn btn-info btn-lg btn-round" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>">Edit</button>
+      </div>
+    <% end %>
   </div>
 
   <div id="<%= "catModal_#{cat.id}" %>" class="modal fade" role="dialog">
