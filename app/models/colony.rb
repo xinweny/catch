@@ -22,6 +22,13 @@ class Colony < ApplicationRecord
     return admins
   end
 
+  def non_admins
+    non_admin_associations = associations.select { |association| association.admin == false }
+    non_admins = non_admin_associations.map(&:user)
+
+    return non_admins
+  end
+
   def update_cats(ids)
     ids.each do |id|
       cat = Cat.find(id)
