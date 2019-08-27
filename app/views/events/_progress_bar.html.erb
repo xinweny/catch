@@ -2,13 +2,13 @@
   <h4> Progress </h4>
   <h5 id="event-phase" data-phase="<%=  event.phase.capitalize %>">Phase: <%= event.phase %></h5>
   <div class="progress">
-    <% if @event.phase == Event.phases.keys[0] %>
+    <% if event.phase == Event.phases.keys[0] %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 0%;"></div>
-    <% elsif @event.phase == Event.phases.keys[1] %>
+    <% elsif event.phase == Event.phases.keys[1] %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 33%;"></div>
-    <% elsif @event.phase == Event.phases.keys[2] %>
+    <% elsif event.phase == Event.phases.keys[2] %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 66%;"></div>
-    <% elsif @event.phase == Event.phases.keys.last %>
+    <% elsif event.phase == Event.phases.keys.last %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 100%;"></div>
     <% end %>
   </div>
@@ -16,7 +16,7 @@
   <div class="update-buttons">
     <div class="d-flex justify-content-between">
       <% if policy(event).update? %>
-        <% if (0..2).to_a.include?(@event.phase) %>
+        <% if (0..2).to_a.include?(event.phase) %>
           <%= simple_form_for [colony, event], remote: true do |f| %>
             <%= f.input :phase, as: :hidden, input_html: { value: Event.phases.keys[0] } %>
             <%= f.submit 'Trap', class: "btn btn-success update-button" %>

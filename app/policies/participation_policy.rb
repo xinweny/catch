@@ -8,7 +8,7 @@ class ParticipationPolicy < ApplicationPolicy
   def create?
     return false if user_joined?
 
-    true
+    user_is_member?
   end
 
   def destroy?
@@ -21,5 +21,9 @@ class ParticipationPolicy < ApplicationPolicy
     return false if user.nil?
 
     Participation.all.include?(record)
+  end
+
+  def user_is_member?
+    record.event.colony.users.include?(user)
   end
 end

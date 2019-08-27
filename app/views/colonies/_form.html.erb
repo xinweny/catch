@@ -2,7 +2,9 @@
   <%= f.input :name %>
   <%= f.input :address, label: 'Area' %>
 
-  <%= render 'cat_map', cats: @cats %>
+  <div id="cat-map">
+    <%= render 'cat_map', cats: @cats %>
+  </div>
 
   <%= f.input :radius, label: 'Radius (km)' %>
   <%= f.input :description, as: :text %>
