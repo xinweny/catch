@@ -33,14 +33,8 @@ def generate_description
     "Our community believes in providing the five-star experience that our cats deserve.",
     "These cats are very friendly and not afraid of humans, please treat them nicely!"]
 
-    sentences.sample(3..9).join(" ")
+    sentences.sample(rand(3..9)).join(" ")
 end
-
-puts 'Scraping Google Map addresses...'
-# shinagawa_addresses = ['Oimachi Station', 'Shinagawa Post Office', 'Soyokaze Park', 'Osaki Station', 'Takioji Nursery', 'Shiki Theatre Natsu', 'Shinagawa Central Park']
-# meguro_addresses = ['Meguro City Hall', 'Yutenji Temple', 'Nakameguro Elementary School', 'Shokakuji Temple', 'Nakameguro Station Post Office', 'Naka-Meguro Station']
-# shibuya_addresses = ['Shibuya 101', 'Ichiran Shibuya', 'Tokyu Hands Shibuya', 'Hachiko Memorial Statue', 'Aoyama Gakuin University', 'Shibuya Post Office', 'Cat Street Gallery', 'NHK Hall', 'Shibuya Mark City', 'Josenji Temple']
-# random_addresses = ['Ueno Toshogu Shrine', 'Ueno Zoo', 'Ueno Station', 'Okachimachi Station', 'Tokyo National Museum', 'Yamabushi Park', 'Uenonomori Christian Church', 'Ueno Fire Station', 'Ueno Police Station', 'Shinobazu Pond']
 
 puts 'Wiping the development db...'
 User.destroy_all if Rails.env.development?
@@ -59,7 +53,8 @@ demo_user = [User.create!(
     phone_number: '012-345-6789')]
 
 puts 'Creating admins...'
-2.times do
+admins = []
+13.times do
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -87,66 +82,58 @@ other_users = []
   user.save!
 end
 
+puts 'Adding untracked cats...'
+scrape_addresses("places in tokyo").each do |result|
+  Cat.create!(cat_stats(nil, result['formatted_address']))
+end
+
+ueno_addresses = scrape_addresses("places in ueno").first(8)
+ueno_addresses.each do |result|
+  Cat.create!(cat_stats(nil, result['formatted_address']))
+end
+
 puts 'Creating colonies...'
-colony_addresses = ['Shinagawa', 'Gotanda', 'Meguro', 'Shibuya', 'Shinjuku', 'Ikebukuro', 'Asakusa', 'Omotesando', 'Odaiba', 'Hakusan', 'Akihabara', 'Ginza', 'Tsukishima', 'Kitasenju', 'Hanzomon']
+colony_addresses = ['Shinagawa', 'Roppongi', 'Meguro', 'Shibuya', 'Shinjuku', 'Ikebukuro', 'Asakusa', 'Odaiba', 'Kagurazaka', 'Akihabara', 'Ginza', 'Kitasenju', 'Hanzomon']
 colony_addresses.each do |address|
   Colony.create!(
     name: "#{address} Cat Colony",
     address: "#{address}",
-    description: generate_description),
-    radius: 1
-end
-# shinagawa = Colony.create!(
-#   name: 'Shinagawa Cat Colony',
-#   address: 'Shinagawa',
-#   description: "A small colony of 5 cats. They're very used to people but because of that they're all pretty fat from all the food they receive from old ladies.",
-#   radius: 1
-#   )
-
-# meguro = Colony.create!(
-#   name: 'Meguro Cat Colony',
-#   address: 'Meguro',
-#   description: "A medium sized colony of 8 cats. Newly established. These cats are very wary of people and can become aggressive when confronted.",
-#   radius: 1.5
-#   )
-
-# shibuya = Colony.create!(
-#   name: 'Shibuya Cat Colony',
-#   address: 'Shibuya',
-#   description: "A large colony of 12 cats, growing due to abundance of food scraps from tourists. They mostly hang out around the back alleys of izakayas in the area.",
-#   radius: 3
-#   )
-
-puts 'Adding untracked cats...'
-random_addresses.each do |address|
-  Cat.create!(cat_stats(nil, address))
+    description: generate_description,
+    radius: 1)
 end
 
 puts 'Adding cats to colonies...'
-5.times do
-  Cat.create!(cat_stats(shinagawa, shinagawa_addresses.sample, rand(0..5)))
-end
-
-8.times do
-  Cat.create!(cat_stats(meguro, meguro_addresses.sample, rand(0..5)))
-end
-
-12.times do
-  Cat.create!(cat_stats(shibuya, shibuya_addresses.sample, rand(0..5)))
+Colony.all.each do |colony|
+  addresses = scrape_addresses("places in #{colony.address}").first(rand(5..10))
+  addresses.each do |address|
+    Cat.create!(cat_stats(colony, address['formatted_address'], rand(0..5)))
+  end
+  colony.update(radius: colony.cats.length.to_f / 6)
+  colony.save!
 end
 
 puts 'Assigning admins to each colony...'
 admins.each_with_index do |admin, index|
-  admin.associations = [Association.create!(admin: true, user: admin, colony: colonies[index])]
+  admin.associations = [Association.create!(admin: true, user: admin, colony: Colony.all[index])]
 end
 
 puts 'Assigning volunteers to each colony...'
-other_users.each do |user|
-  Colony.all.sample.users << user
+Colony.all.each do |colony|
+  rand(8..10).times do
+    user = User.create!(
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      age: rand(15..60),
+      gender: ['Male', 'Female'].sample,
+      email: Faker::Internet.email,
+      password: '123456',
+      phone_number: Faker::PhoneNumber.cell_phone)
+    Association.create!(user: user, colony: colony)
+  end
 end
 
-puts 'Creating events...'
-colonies.each do |colony|
+puts 'Creating events and adding participants...'
+Colony.all.each do |colony|
   event_1 = Event.create!(
     title: 'TNR Meetup',
     description: "Gotta catch 'em all!",
@@ -156,16 +143,22 @@ colonies.each do |colony|
     colony: colony,
     phase: 0)
   Participation.create!(user: colony.admins.first, event: event_1)
+  rand(4..6).times do
+    Participation.create!(user: colony.non_admins.sample, event: event_1)
+  end
 
   event_2 = Event.create!(
     title: 'Monthly checkup',
     description: "Kitty roundup for the monthly checkup.",
     address: colony.address,
-    start: DateTime.now,
-    end: (DateTime.now.to_time + rand(3..8).hours).to_datetime,
+    start: DateTime.tomorrow,
+    end: (DateTime.tomorrow.to_time + rand(3..8).hours).to_datetime,
     colony: colony,
     phase: 3)
   Participation.create!(user: colony.admins.first, event: event_2)
+  rand(4..6).times do
+    Participation.create!(user: colony.non_admins.sample, event: event_2)
+  end
 end
 
 puts 'All seeded!'

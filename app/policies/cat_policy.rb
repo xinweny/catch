@@ -34,6 +34,8 @@ class CatPolicy < ApplicationPolicy
   end
 
   def user_is_member?
+    return false if user.nil?
+
     user.colonies.include?(record.colony)
   end
 end
