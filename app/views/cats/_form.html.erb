@@ -13,16 +13,18 @@
   <%= f.input :address, label: 'Last sighted at' %>
   <% unless cat.colony.nil? %>
     <%= f.input :status, collection: Cat.statuses.keys %>
-    <h3>For vet use</h3>
-    <%= f.input :age, label: 'Age (years)' %>
-    <%= f.input :health %>
-    <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
-    <%= f.input :colony_id, as: :hidden, input_html: { value: cat.colony.id } %>
-    <% if @event %>
-      <%= hidden_field_tag :event_id, @event.id %>
+    <h4>For vet use</h4>
+    <div class="vet-container mt-4" style=" border-radius: 10px; background-color: #f4f3eb;">
+      <%= f.input :age, label: 'Age (years)' %>
+      <%= f.input :health %>
+      <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
+      <%= f.input :colony_id, as: :hidden, input_html: { value: cat.colony.id } %>
+      <% if @event %>
+        <%= hidden_field_tag :event_id, @event.id %>
+      <% end %>
     <% end %>
-  <% end %>
-  <div class="content d-flex justify-content-between">
+    </div>
+  <div class="content mb-4 ml-5 mr-5 d-flex justify-content-between">
     <%= link_to "Back", root_path, class: "btn btn-search" %>
   <% if cat.id.nil? %>
     <%= f.submit 'Add', class: "btn btn-success" %>
