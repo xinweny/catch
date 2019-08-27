@@ -2,13 +2,13 @@
   <h4> Progress </h4>
   <h5 id="event-phase" data-phase="<%=  event.phase.capitalize %>">Phase: <%= event.phase %></h5>
   <div class="progress">
-    <% if @event.phase == Event.phases.keys[0] %>
+    <% if event.phase == Event.phases.keys[0] %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 0%;"></div>
-    <% elsif @event.phase == Event.phases.keys[1] %>
+    <% elsif event.phase == Event.phases.keys[1] %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 33%;"></div>
-    <% elsif @event.phase == Event.phases.keys[2] %>
+    <% elsif event.phase == Event.phases.keys[2] %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 66%;"></div>
-    <% elsif @event.phase == Event.phases.keys.last %>
+    <% elsif event.phase == Event.phases.keys.last %>
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 100%;"></div>
     <% end %>
   </div>
@@ -39,15 +39,35 @@
   </div>
 
   <div class="cat-progress">
-    <% if event.phase == 0 %>
-      <p>Spotted cats:</p>
-      <% event.colony.cats.where(status: 0).each do |cat| %>
-        <%= link_to cat.name, cat_path(cat) %>
-      <% end %>
-    <% elsif event.phase == 1 %>
-
-    <% elsif event.phase == 2 %>
-
+    <% if event.phase == 'trap' %>
+      <div class="d-flex">
+        <div class="phase-cats">
+          <p>Spotted cats</p>
+          <% event.colony.cats.where(status: 0).each do |cat| %>
+            <%= link_to cat.name, cat_path(cat) %>
+          <% end %>
+        </div>
+        <div class="phase-cats">
+          <p>Trapped cats</p>
+          <% event.colony.cats.where(status: 1).each do |cat| %>
+            <%= link_to cat.name, cat_path(cat) %>
+          <% end %>
+        </div>
+      </div>
+    <% elsif event.phase == 'neuter' %>
+      <div class="phase-cats">
+        <p>Neutered cats</p>
+        <% event.colony.cats.where(status: 2).each do |cat| %>
+          <%= link_to cat.name, cat_path(cat) %>
+        <% end %>
+      </div>
+    <% elsif event.phase == 'release' %>
+      <div class="phase-cats">
+        <p>Released cats</p>
+        <% event.colony.cats.where(status: 3).each do |cat| %>
+          <%= link_to cat.name, cat_path(cat) %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
