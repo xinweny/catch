@@ -23,14 +23,15 @@ def generate_description
   sentences = ["We are an active community of cat lovers.",
     "We believe in the inherent goodness of cats.",
     "We are happiest when helping cats.",
-    "Our community holds regular events for our feral cats.",
+    "Our dedicated community holds regular events for our feral cats.",
     "We strive to achieve quality care for stray cats.",
     "We love cats and work towards the best care possible for our strays.",
     "Our cats are fat, happy, and wise.",
     "Cats, cats, cats!",
     "Our cats are very well-fed.",
     "We try and rehome as many strays as possible and ensure the neutering process is as smooth as possible.",
-    "Our community believes in providing a five-star experience for our cats."]
+    "Our community believes in providing the five-star experience that our cats deserve.",
+    "These cats are very friendly and not afraid of humans, please treat them nicely!"]
 end
 
 puts 'Scraping Google Map addresses...'
