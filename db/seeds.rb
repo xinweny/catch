@@ -32,6 +32,8 @@ def generate_description
     "We try and rehome as many strays as possible and ensure the neutering process is as smooth as possible.",
     "Our community believes in providing the five-star experience that our cats deserve.",
     "These cats are very friendly and not afraid of humans, please treat them nicely!"]
+
+    sentences.sample(3..9).join(" ")
 end
 
 puts 'Scraping Google Map addresses...'
@@ -91,7 +93,8 @@ colony_addresses.each do |address|
   Colony.create!(
     name: "#{address} Cat Colony",
     address: "#{address}",
-    description: "")
+    description: generate_description),
+    radius: 1
 end
 # shinagawa = Colony.create!(
 #   name: 'Shinagawa Cat Colony',
@@ -113,8 +116,6 @@ end
 #   description: "A large colony of 12 cats, growing due to abundance of food scraps from tourists. They mostly hang out around the back alleys of izakayas in the area.",
 #   radius: 3
 #   )
-
-colonies = [shinagawa, meguro, shibuya]
 
 puts 'Adding untracked cats...'
 random_addresses.each do |address|
