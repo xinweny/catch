@@ -1,19 +1,33 @@
 <h4 class="mb-3 pb-2" style="border-bottom: solid 3px #f5593d;">Live updates</h4>
 <% event.colony.cats.each do |cat| %>
-  <div class="cat-update-card d-flex justify-content-between">
-    <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
-      <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle mr-2' %><p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
-    <% elsif cat.last_version.event == 'update' %>
-      <% cat.all_changes.each do |attribute, change| %>
-        <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %>.</p>
-      <% end %>
-    <% elsif cat.last_version.event == 'create' %>
-      <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %> at <%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %>.</p>
-    <% elsif cat.last_version.event == 'destroy' %>
-      <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
-    <% end %>
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>">Edit</button>
+  <div class="cat-update-card update-grid-container shadow-sm my-3 p-4" style="border-radius: 10px; display:grid; grid-template-columns: 2fr 1fr; ">
+    <div class="column">
+      <div class="sub-grid-container" style="display: grid; grid-template-columns: 1fr 2fr;">
+        <div class="sub-column d-flex pt-2 justify-content-center align-items-center">
+          <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
+            <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle mr-2' %>
+        </div>
+        <div class="sub-column d-flex align-items-center mt-3">
+            <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
+          <% elsif cat.last_version.event == 'update' %>
+            <% cat.all_changes.each do |attribute, change| %>
+              <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %>.</p>
+            <% end %>
+          <% elsif cat.last_version.event == 'create' %>
+            <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %> at <%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %>.</p>
+          <% elsif cat.last_version.event == 'destroy' %>
+            <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column d-flex justify-content-end align-items-center mt-2">
+      <button type="button" class="btn btn-info btn-lg btn-round" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>">Edit</button>
+    </div>
+
   </div>
+
   <div id="<%= "catModal_#{cat.id}" %>" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
