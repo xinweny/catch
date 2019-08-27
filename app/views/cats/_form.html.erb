@@ -1,6 +1,6 @@
 <%= simple_form_for [colony, cat] do |f| %>
   <% if cat.photo.url %>
-    <%= cl_image_tag cat.photo %>
+    <%= cl_image_tag cat.photo, class: "img-thumbnail" %>
   <% end %>
   <%= f.input :photo, label: cat.photo.url ? 'Update photo' : 'Photo' %>
   <%= f.input :photo_cache, as: :hidden %>
@@ -13,8 +13,8 @@
   <%= f.input :address, label: 'Last sighted at' %>
   <% unless cat.colony.nil? %>
     <%= f.input :status, collection: Cat.statuses.keys %>
-    <h4>For vet use</h4>
-    <div class="vet-container mt-4" style=" border-radius: 10px; background-color: #f4f3eb;">
+    <div class="vet-container mx-1 my-5 p-3" style=" border-radius: 10px; background-color: #f4f3eb;">
+      <h5>For vet use</h5>
       <%= f.input :age, label: 'Age (years)' %>
       <%= f.input :health %>
       <%= f.input :microchip_id, label: 'Microchip ID (if known)' %>
@@ -24,7 +24,7 @@
       <% end %>
     <% end %>
     </div>
-  <div class="content mb-4 ml-5 mr-5 d-flex justify-content-between">
+  <div class="content mb-4 mx-3 d-flex justify-content-between">
     <%= link_to "Back", root_path, class: "btn btn-search" %>
   <% if cat.id.nil? %>
     <%= f.submit 'Add', class: "btn btn-success" %>
