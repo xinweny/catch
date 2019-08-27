@@ -6,4 +6,4 @@ const clickRefresh = () => {
 }
 
 clickRefresh();
-setInterval(clickRefresh, 60 * 1000);
+setInterval(clickRefresh, 10 * 60 * 1000);
