@@ -63,7 +63,9 @@
             </div>
             </div>
         <% end %>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#membersModal">All Members</button>
+        <div class="content d-flex justify-content-end">
+          <button type="button" class="btn btn-link" data-toggle="modal" data-target="#membersModal">All Members</button>
+        </div>
       </div>
 
       <div id="<%= "membersModal" %>" class="modal fade" role="dialog">
@@ -118,8 +120,10 @@
             </div>
          </div>
         <% end %>
+      <div class="content d-flex justify-content-end">
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#catsModal">All Cats</button>
       </div>
-      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#catsModal">All Cats</button>
+     </div>
     </div>
 
     <div id="<%= "catsModal" %>" class="modal fade" role="dialog">
