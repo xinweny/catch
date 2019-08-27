@@ -63,6 +63,7 @@
             </div>
             </div>
         <% end %>
+        <p><%= link_to 'All members', colony_users_path(@colony) %></p>
       </div>
 
     <!-- cat section -->
@@ -76,8 +77,8 @@
             <%= link_to '+ Add a cat', new_colony_cat_path(@colony), class: "btn btn-success" %>
           <% end %>
         </div>
-     </div>
-       <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
+      </div>
+      <div class="content p-3" style="background-color: #f7f5e6; border-radius: 10px;">
         <% @colony.cats.each do |cat| %>
           <div class="container d-flex py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px; position: relative;">
             <div class="content mt-2">
@@ -95,6 +96,7 @@
          </div>
         <% end %>
       </div>
+      <p><%= link_to 'All cats', colony_cats_path(@colony) %></p>
     </div>
 
     <div class="column p-4" style="background-color: white; border-radius: 10px">
