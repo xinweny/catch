@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_event, only: %i[show edit update destroy update_cats]
   before_action :set_colony, only: %i[new create]
 
   def show
@@ -51,6 +51,13 @@ class EventsController < ApplicationController
     colony = @event.colony
     @event.destroy
     redirect_to colony_path(colony)
+  end
+
+  def update_cats
+    respond_to do |format|
+      format.js
+      format.html { render 'events/show' }
+    end
   end
 
   private

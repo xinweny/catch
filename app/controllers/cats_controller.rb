@@ -3,25 +3,9 @@ class CatsController < ApplicationController
   before_action :set_cat, only: %i[show edit update destroy]
   before_action :set_paper_trail_whodunnit, only: %i[create update destroy]
 
-  # def index
-  #   if params[:query].present?
-  #     @cats = policy_scope(Cat).near(params[:query], 5)
-  #   else
-  #     @cats = policy_scope(Cat).geocoded
-  #   end
-
-  #   authorize @cats
-  #   @cats = @cats.reject { |cat| cat.status == 'adopted' || cat.status == 'deceased' }
-
-  #   @markers = @cats.map do |cat|
-  #     {
-  #       lat: cat.latitude,
-  #       lng: cat.longitude,
-  #       infoWindow: { content: render_to_string(partial: "/cats/info_window", locals: { cat: cat }) }
-  #       # image_url: helpers.asset_url('parktwo.svg')
-  #     }
-  #   end
-  # end
+  def index
+    @cats = policy_scope(Cat).where(colony: params[:colony_id])
+  end
 
   def show
   end

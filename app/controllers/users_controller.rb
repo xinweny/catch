@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
 
   def index
-    @users = policy_scope(User)
+    @users = policy_scope(User).select { |user| user.colonies.include?(Colony.find(params[:colony_id])) }
   end
 
   def show

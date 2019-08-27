@@ -68,18 +68,21 @@
                   </div>
                 </div>
               <% end %>
+              <%= render 'events/updates', event: @event %>
             </div>
           </div>
         </div>
       </div>
-
+      <%= form_tag update_cats_path(@event), method: :get, remote: true do %>
+        <%= submit_tag '', style: 'display: none', class: 'refresh-button' %>
+      <% end %>
       <div class="container d-flex">
         <div class="container p-5 d-flex flex-column justify-content-center" style="background-color: white; border-bottom-left-radius: 10px; border-top-left-radius: 10px;">
           <div class="content">
             <h6 style="text-transform: uppercase"><%= @event.colony.name %></h6>
             <h3><%= @event.title %></h3>
-            <h5 style="color: #51bcda"><%= @event.start.strftime("%-l:%M %p %b %-d %Y") %> to
-            <%= @event.end.strftime("%-l:%M %p %b %-d %Y") %></h5>
+            <h5 style="color: #51bcda">Start: <%= @event.start.strftime("%-l:%M %p %b %-d %Y") %></h5>
+            <h5 style="color: #51bcda">End: <%= @event.end.strftime("%-l:%M %p %b %-d %Y") %></h5>
             <br>
             <p><%= @event.description %></p>
           </div>
@@ -123,3 +126,7 @@
     </div>
   </div>
 </div>
+
+<%= content_for :after_js do %>
+  <%= javascript_pack_tag 'refresh_partial' %>
+<% end %>
