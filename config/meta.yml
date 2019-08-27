@@ -1,0 +1,5 @@
+meta_product_name: "Catch"
+meta_title: "Catch - A Trap, Neuter, and Release (TNR) Platform"
+meta_description: "Find and help cats near you."
+meta_image: "smallcat.jpg"
+twitter_account: "@product_twitter_account"   # required for Twitter Cards # should exist in `app/assets/images/`
