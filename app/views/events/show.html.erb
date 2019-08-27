@@ -38,7 +38,7 @@
               <% @event.colony.cats.each do |cat| %>
                 <div class="content d-flex justify-content-between">
                   <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
-                    <p><i class="fas fa-cat p-2 mr-2" style="background-color: #fbc658; border-radius: 10px;"></i> No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
+                    <p><%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle mr-2' %> No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
                   <% elsif cat.last_version.event == 'update' %>
                     <% cat.all_changes.each do |attribute, change| %>
                       <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_version.changeset[:updated_at][1] %>.</p>
