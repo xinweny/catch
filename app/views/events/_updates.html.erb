@@ -1,4 +1,37 @@
 <h4 class="mb-3 pb-2" style="border-bottom: solid 3px #f5593d;">Live updates</h4>
+<div class="cat-progress">
+  <% if event.phase == 'trap' %>
+    <div class="d-flex">
+      <div class="phase-cats">
+        <p>Spotted cats</p>
+        <% event.colony.cats.where(status: 0).each do |cat| %>
+          <%= link_to cat.name, cat_path(cat) %>
+        <% end %>
+      </div>
+      <div class="phase-cats">
+        <p>Trapped cats</p>
+        <% event.colony.cats.where(status: 1).each do |cat| %>
+          <%= link_to cat.name, cat_path(cat) %>
+        <% end %>
+      </div>
+    </div>
+  <% elsif event.phase == 'neuter' %>
+    <div class="phase-cats">
+      <p>Neutered cats</p>
+      <% event.colony.cats.where(status: 2).each do |cat| %>
+        <%= link_to cat.name, cat_path(cat) %>
+      <% end %>
+    </div>
+  <% elsif event.phase == 'release' %>
+    <div class="phase-cats">
+      <p>Released cats</p>
+      <% event.colony.cats.where(status: 3).each do |cat| %>
+        <%= link_to cat.name, cat_path(cat) %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
 <% event.colony.cats.each do |cat| %>
   <div class="cat-update-card update-grid-container shadow-sm my-3 p-4" style="border-radius: 10px; display:grid; grid-template-columns: 2fr 1fr; ">
     <div class="column">

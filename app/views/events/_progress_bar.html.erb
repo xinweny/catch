@@ -37,37 +37,4 @@
       <% end %>
     </div>
   </div>
-
-  <div class="cat-progress">
-    <% if event.phase == 'trap' %>
-      <div class="d-flex">
-        <div class="phase-cats">
-          <p>Spotted cats</p>
-          <% event.colony.cats.where(status: 0).each do |cat| %>
-            <%= link_to cat.name, cat_path(cat) %>
-          <% end %>
-        </div>
-        <div class="phase-cats">
-          <p>Trapped cats</p>
-          <% event.colony.cats.where(status: 1).each do |cat| %>
-            <%= link_to cat.name, cat_path(cat) %>
-          <% end %>
-        </div>
-      </div>
-    <% elsif event.phase == 'neuter' %>
-      <div class="phase-cats">
-        <p>Neutered cats</p>
-        <% event.colony.cats.where(status: 2).each do |cat| %>
-          <%= link_to cat.name, cat_path(cat) %>
-        <% end %>
-      </div>
-    <% elsif event.phase == 'release' %>
-      <div class="phase-cats">
-        <p>Released cats</p>
-        <% event.colony.cats.where(status: 3).each do |cat| %>
-          <%= link_to cat.name, cat_path(cat) %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
 </div>
