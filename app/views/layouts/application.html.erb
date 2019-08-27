@@ -7,7 +7,8 @@
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
-    <link rel="icon" type="image/png" href="<%= image_url 'favicon.ico' %>"/>
+    <%= favicon_link_tag %>
+    <link href="/assets/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <title><%= meta_title %></title>
