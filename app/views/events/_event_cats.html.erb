@@ -24,7 +24,6 @@
 
           <div class="content d-flex justify-content-around px-3 align-items-center">
           <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
-
             <%= image_tag cat.photo.url(:thumbnail), class: 'img-size' %>
             <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
             <% elsif cat.last_version.event == 'update' %>

@@ -8,7 +8,6 @@ class Colony < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :address, presence: true
-  validates :radius, presence: true, numericality: true
 
   mount_uploader :photo, PhotoUploader
 
