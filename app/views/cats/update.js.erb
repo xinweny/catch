@@ -1,4 +1,10 @@
-console.log('hi');
+function closeModal() {
+  const closeButton = document.getElementById('modal-close');
+  if (closeButton){
+    closeButton.click();
+  }
+}
+
 function refreshCats(innerHTML) {
   const cats = document.querySelector('.updates-cats');
   cats.innerHTML = innerHTML;
@@ -6,9 +12,11 @@ function refreshCats(innerHTML) {
 
 function moveTabs() {
   const catStatus = "<%= j @cat.status %>"
-  document.getElementById(`nav-${catStatus}-tab`).click();
+  const tab = document.getElementById(`nav-${catStatus}-tab`);
+  tab.classList.remove('active');
+  tab.click();
 }
 
-
+closeModal();
 refreshCats("<%= j render 'events/updates_cats', event: @event %>");
 moveTabs();
