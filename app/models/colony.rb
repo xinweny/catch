@@ -11,6 +11,9 @@ class Colony < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
+  include PgSearch
+  multisearchable against: %i[name description address]
+
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 

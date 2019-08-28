@@ -50,6 +50,7 @@
             <h3><%= @event.title %></h3>
             <h5 style="color: #51bcda">Start: <%= @event.start.strftime("%-l:%M %p %b %-d %Y") %></h5>
             <h5 style="color: #51bcda">End: <%= @event.end.strftime("%-l:%M %p %b %-d %Y") %></h5>
+            <p>Meeting point: <%= @event.address %></p>
             <br>
             <p><%= @event.description %></p>
           </div>
