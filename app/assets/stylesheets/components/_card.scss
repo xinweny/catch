@@ -5,7 +5,8 @@
 
 .card-image {
   width: 200px;
-  height: 200px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .join-card {

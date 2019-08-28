@@ -79,14 +79,14 @@
                 <%= image_tag user_avatar(user), class: "avatar-size ml-2 rounded-circle"%>
               </div>
             </div>
-            <div class="column d-flex flex-column justify-content-center mt-3 ml-2">
+            <div class="column d-flex flex-column justify-content-center mt-3 ml-2 mb-3">
               <h5><%= link_to user.full_name, user_path(user) %></h5>
-              <p>
-              <i class="fas fa-phone"></i> <%=user.phone_number %>
-              <div class="content d-inline-flex align-items-center" style="overflow-wrap: break-word;">
-                <i class="far fa-envelope"></i><%=user.email %>
+              <div class="d-inline-flex align-items-center" style="overflow-wrap: break-word;">
+              <i class="fas fa-phone mr-1"></i> <%=user.phone_number %>
               </div>
-              </p>
+              <div class="d-inline-flex align-items-center" style="overflow-wrap: break-word;">
+                <i class="far fa-envelope mr-2"></i><%=user.email %>
+              </div>
             </div>
           </div>
         <% end %>
