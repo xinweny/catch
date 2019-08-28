@@ -1,17 +1,21 @@
 <div class="cat-map my-5">
   <% if params[:location].nil? %>
-    <h4 class="search-cats-title">Sighted cats in the area</h4>
+    <p class="search-cats-title">Sighted cats in the area</p>
   <% else %>
     <h4 class="search-cats-title">Cats near <%= params[:location].capitalize %> (<%= cats.length %>)</h4>
   <% end %>
   <% if cats.empty? %>
     <p>No cats found.</p>
   <% else %>
+
+ <!-- cat list  -->
     <div class="d-flex my-4" style="height: 100vh">
       <div class="sighted-cats p-3" style = "background-color: #f4f3eb; overflow-y: scroll; width: 250px">
+        <div class="category-choices">
         <% cats.each do |cat| %>
           <div class="sighted-cat sighted-cat-card my-3 p-3 unchecked" style="position: relative">
             <div class="checkbox-list">
+
               <%= check_box_tag 'colony[cat_ids][]', cat.id, false, style: "display: none; position: absolute;" %>
             </div>
             <div class="cat-name">
@@ -19,7 +23,9 @@
             </div>
           </div>
         <% end %>
+        </div>
       </div>
+
       <div
         id="map"
         style="width: 100%;
