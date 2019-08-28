@@ -1,14 +1,24 @@
 <% event_cats.each do |cat| %>
-  <div class="cat-update-card update-grid-container shadow-sm my-3 p-4" style="border-radius: 10px; display:grid; grid-template-columns: 2fr 1fr; ">
-    <div class="column">
-      <div class="sub-grid-container" style="display: grid; grid-template-columns: 1fr 2fr;">
-        <div class="sub-column d-flex pt-2 justify-content-center align-items-center">
-          <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
+  <div class="cat-grid-container shadow-sm p-4" style="display: grid; grid-template-columns: 4fr 1fr;">
+     <div class="column d-flex">
+      <div class="content">
+        <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
             <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle mr-2' %>
-        </div>
-        <div class="sub-column d-flex justify-content-between align-items-center mt-3">
             <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
-          <% elsif cat.last_version.event == 'update' %>
+        <% elsif cat.last_version.event == 'update' %>
+      </div>
+        <% unless cat.status == Cat.statuses.keys.first %>
+            <!-- <div class="next-button"> -->
+              <%= simple_form_for cat, remote: true do |f| %>
+                <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) - 1] } %>
+                <%= hidden_field_tag :event_id, @event.id %>
+                <%= button_tag(type: 'submit', class: 'move-status') do %>
+                  <i class="fas fa-chevron-left"></i>
+                <% end %>
+              <% end %>
+          <% end %>
+
+        <div class="container">
             <% cat.all_changes.each do |attribute, change| %>
               <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %>.</p>
             <% end %>
@@ -18,36 +28,29 @@
             <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
           <% end %>
         </div>
-      </div>
-    </div>
-    <% if policy(cat).update? %>
-      <div class="column d-flex justify-content-end align-items-center mt-2">
-        <button type="button" class="" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>"><i class="fas fa-edit"></i></button>
-      </div>
-      <% unless cat.status == Cat.statuses.keys.first %>
-        <div class="next-button">
-          <%= simple_form_for cat, remote: true do |f| %>
-            <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) - 1] } %>
-            <%= hidden_field_tag :event_id, @event.id %>
-            <%= button_tag(type: 'submit', class: 'move-status') do %>
-              <i class="fas fa-chevron-left"></i>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
+
       <% unless cat.status == Cat.statuses.keys[4] %>
-        <div class="next-button">
+    <!--         <div class="next-button"> -->
           <%= simple_form_for cat, remote: true do |f| %>
             <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) + 1] } %>
             <%= hidden_field_tag :event_id, @event.id %>
             <%= button_tag(type: 'submit', class: 'move-status') do %>
               <i class="fas fa-chevron-right"></i>
             <% end %>
+      </div>
+    <div class="column d-flex justify-content-end align-items-center">
           <% end %>
+          <% if policy(cat).update? %>
+        <button type="button" class="" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>"><i class="fas fa-edit"></i></button>
         </div>
-      <% end %>
     <% end %>
-  </div>
+  <% end %>
+</div>
+
+
+
+<!-- Click on edit button -->
+
 
   <div id="<%= "catModal_#{cat.id}" %>" class="modal fade" role="dialog">
     <div class="modal-dialog">

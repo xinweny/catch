@@ -7,11 +7,15 @@
   <% if cats.empty? %>
     <p>No cats found.</p>
   <% else %>
+
+ <!-- cat list  -->
     <div class="d-flex my-4" style="height: 100vh">
       <div class="sighted-cats p-3" style = "background-color: #f4f3eb; overflow-y: scroll; width: 250px">
+        <div class="category-choices">
         <% cats.each do |cat| %>
           <div class="sighted-cat sighted-cat-card d-flex justify-content-around align-items-center my-3 p-3">
             <div class="checkbox-list">
+
               <%= check_box_tag 'colony[cat_ids][]', cat.id %>
             </div>
             <div class="cat-name">
@@ -19,7 +23,9 @@
             </div>
           </div>
         <% end %>
+        </div>
       </div>
+
       <div
         id="map"
         style="width: 100%;
