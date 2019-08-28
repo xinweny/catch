@@ -14,7 +14,7 @@
   <div class="cat-grid-container px-5 mb-5" style="display:grid; grid-template-columns: 1fr 2fr;">
 
     <div class="column">
-      <%= cl_image_tag @cat.photo, class: "cat-pic" %>
+      <%= image_tag cat_photo(@cat), class: "cat-pic" %>
     </div>
 
     <div class="column ml-5 d-flex flex-column justify-content-center align-items-center">
