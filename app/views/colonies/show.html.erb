@@ -9,7 +9,7 @@
       <% end %>
       <% if policy(@association).create? %>
         <%= simple_form_for [@colony, @association] do |f| %>
-          <%= f.submit 'Join', class: "btn btn-primary" %>
+          <%= f.submit 'Join', class: "btn btn-danger" %>
         <% end %>
       <% end %>
       <% if policy(@association).destroy? %>
@@ -171,6 +171,7 @@
       <% @colony.events.each do |event| %>
         <div class="card join-card d-flex my-4 shadow align-items-center text-center" style="width: 40em;">
             <div class="card-body mt-2">
+              <h4><i class="far fa-calendar-alt"></i></h4>
               <h4 class="card-title"> <%=event.title %> </h4>
               <h5 class="card-subtitle"> <%=event.start.strftime("%-d %B %Y") %> to <%=event.end.strftime("%-d %B %Y") %> </h5>
               <p class="card-text"><%=event.description %></p>

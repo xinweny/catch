@@ -8,7 +8,7 @@
         <div class="content d-inline-flex">
           <% if policy(@participation).create? %>
             <%= simple_form_for [@event, @participation] do |f| %>
-              <%= f.submit 'Join', class: "btn btn-primary mr-2" %>
+              <%= f.submit 'Join', class: "btn btn-danger mr-2" %>
             <% end %>
           <% end %>
           <% if policy(@participation).destroy? %>
@@ -82,8 +82,10 @@
             <div class="column d-flex flex-column justify-content-center mt-3 ml-2">
               <h5><%= link_to user.full_name, user_path(user) %></h5>
               <p>
-              <i class="fas fa-phone"></i> <%=user.phone_number %><br>
-              <i class="far fa-envelope"></i> <%=user.email %>
+              <i class="fas fa-phone"></i> <%=user.phone_number %>
+              <div class="content d-inline-flex align-items-center" style="overflow-wrap: break-word;">
+                <i class="far fa-envelope"></i><%=user.email %>
+              </div>
               </p>
             </div>
           </div>
