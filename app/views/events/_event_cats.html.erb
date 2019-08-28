@@ -9,7 +9,7 @@
               <%= simple_form_for cat, remote: true do |f| %>
                 <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) - 1] } %>
                 <%= hidden_field_tag :event_id, @event.id %>
-                <%= button_tag(type: 'submit', class: 'move-status btn btn-primary mr-3') do %>
+                <%= button_tag(type: 'submit', class: 'move-status btn btn-next mr-3') do %>
                   <i class="fas fa-chevron-left"></i>
                 <% end %>
               <% end %>
@@ -22,13 +22,13 @@
             <p style="border-bottom: 1px solid #eee;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
           </div>
 
-          <div class="content d-flex justify-content-around px-3">
+          <div class="content d-flex justify-content-around px-3 align-items-center">
           <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
 
             <%= image_tag cat.photo.url(:thumbnail), class: 'img-size' %>
             <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
             <% elsif cat.last_version.event == 'update' %>
-            <%= image_tag cat.photo.url, class: 'img-size mt-2 mr-3' %>
+            <%= image_tag cat.photo.url, class: 'img-size mr-3' %>
               <% cat.all_changes.each do |attribute, change| %>
                 <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %>.</p>
               <% end %>
@@ -45,7 +45,7 @@
           <%= simple_form_for cat, remote: true do |f| %>
             <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) + 1] } %>
             <%= hidden_field_tag :event_id, @event.id %>
-            <%= button_tag(type: 'submit', class: 'move-status btn btn-primary ml-4') do %>
+            <%= button_tag(type: 'submit', class: 'move-status btn btn-next ml-4') do %>
               <i class="fas fa-chevron-right"></i>
             <% end %>
           <% end %>
@@ -56,7 +56,7 @@
 
   <div class="column d-flex justify-content-center align-items-center">
       <% if policy(cat).update? %>
-          <button type="button" class="btn btn-primary mt-3 mr-2" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>"><i class="fas fa-edit"></i></button>
+          <button type="button" class="btn btn-next mt-3 mr-2" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>"><i class="fas fa-edit"></i></button>
       <% end %>
   </div>
 </div>
