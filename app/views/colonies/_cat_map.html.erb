@@ -1,6 +1,6 @@
 <div class="cat-map my-5">
   <% if params[:location].nil? %>
-    <h4 class="search-cats-title">Sighted cats in the area</h4>
+    <p class="search-cats-title">Sighted cats in the area</p>
   <% else %>
     <h4 class="search-cats-title">Cats near <%= params[:location].capitalize %> (<%= cats.length %>)</h4>
   <% end %>
@@ -15,12 +15,8 @@
         <% cats.each do |cat| %>
           <div class="sighted-cat sighted-cat-card my-3 p-3 unchecked" style="position: relative">
             <div class="checkbox-list">
-<<<<<<< HEAD
 
-              <%= check_box_tag 'colony[cat_ids][]', cat.id %>
-=======
               <%= check_box_tag 'colony[cat_ids][]', cat.id, false, style: "display: none; position: absolute;" %>
->>>>>>> master
             </div>
             <div class="cat-name">
               <p class="m-0"><%= cat.name %></p>

@@ -17,6 +17,16 @@
   border: none;
 }
 
+.btn-photo {
+  background-color: none;
+  color: $teal;
+  border: solid 2px $teal;
+}
+
+.btn-photo:hover {
+  background-color: $teal;
+}
+
 .btn-next .btn:hover {
   color: black;
 }
