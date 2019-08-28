@@ -2,7 +2,9 @@
   <% if cat.photo.url %>
     <%= cl_image_tag cat.photo, class: "img-thumbnail" %>
   <% end %>
-  <%= f.input :photo, label: cat.photo.url ? 'Update photo' : 'Photo' %>
+  <input type="file" id="file" accept="image/*" capture="camera" name="cat[photo]" />
+  <label for="file"><i class="fas fa-camera"> Snap a picture!</i></label>
+  <%= f.input :photo, label: 'Upload photo' %>
   <%= f.input :photo_cache, as: :hidden %>
   <div class="d-flex justify-content-between">
     <%= f.input :name, hint: 'Give a nickname!' %>
@@ -34,3 +36,5 @@
   </div>
 <% end %>
 
+<%# test on mobile - ngrok (connect to localhost on phone) %>
+<%# how to take input from camera -> database (safari) - need iphone cord %>
