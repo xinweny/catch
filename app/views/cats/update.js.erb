@@ -1,5 +1,6 @@
 function closeModal() {
-  const closeButton = document.getElementById('modal-close');
+  const catId = "<%= j @cat.id.to_s %>";
+  const closeButton = document.getElementById(`modal-close-${catId}`);
   if (closeButton){
     closeButton.click();
   }

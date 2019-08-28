@@ -68,7 +68,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title"><%= cat.name %></h4>
-          <button id="modal-close" type="button" class="close" data-dismiss="modal">&times;</button>
+          <button id="<%= "modal-close-#{cat.id}" %>" type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
           <%= render 'cats/form', colony: @event.colony, cat: cat %>
