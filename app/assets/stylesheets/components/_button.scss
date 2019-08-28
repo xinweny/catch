@@ -11,6 +11,25 @@
   margin: 0px 0px 10px;
 }
 
+.btn-next {
+  background-color: none;
+  color: $gray-dark;
+  border: none;
+}
+
+.btn-photo {
+  background-color: none;
+  color: $teal;
+  border: solid 2px $teal;
+}
+
+.btn-photo:hover {
+  background-color: $teal;
+}
+
+.btn-next .btn:hover {
+  color: black;
+}
 
 .btn-round {
   border-radius: 30px;

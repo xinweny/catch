@@ -34,13 +34,20 @@
           <%end%>
         <% end %>
       </div>
-      <div class="container mt-4" style="border-left: solid 5px #6bd098;">
-        <p>Member since <%= @user.created_at.strftime("%B %Y") %></p>
-        <p><i class="far fa-envelope"></i>  <%= @user.email %></p>
-        <p><i class="fas fa-phone"></i>  <%= @user.phone_number %>
-        </p>
+      <div class="container mt-4" style="border-left: solid 5px #6bd098; line-height: 2;">
+        <div class="content">
+          Member since <%= @user.created_at.strftime("%B %Y") %>
+        </div>
+        <div class="d-inline-flex align-items-center">
+          <i class="far fa-envelope mr-2"></i>  <%= @user.email %>
+        </div>
+        <br>
+        <div class="d-inline-flex align-items-center">
+          <i class="fas fa-phone mr-2"></i>  <%= @user.phone_number %>
+        </div>
       </div>
     </div>
+
 
     <div class="container p-5" style="width: 25rem;">
       <h4>Colonies</h4>
@@ -55,7 +62,6 @@
       <% end %>
       </div>
     </div>
-
 <!--
      -->
    </div>
