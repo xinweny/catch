@@ -2,7 +2,6 @@ const refreshButton = document.querySelector(".refresh-button")
 
 const clickRefresh = () => {
   refreshButton.click();
-  console.log("!");
 }
 
 clickRefresh();

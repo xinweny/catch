@@ -24,26 +24,28 @@
       <div class="column d-flex justify-content-end align-items-center mt-2">
         <button type="button" class="" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>"><i class="fas fa-edit"></i></button>
       </div>
-    <% end %>
-    <% unless @event.phase == Event.phases.keys.first %>
-      <div class="next-button">
-        <%= simple_form_for cat, remote: true do |f| %>
-          <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) - 1] } %>
-          <%= button_tag(type: 'submit') do %>
-            <i class="fas fa-chevron-left"></i>
+      <% unless cat.status == Cat.statuses.keys.first %>
+        <div class="next-button">
+          <%= simple_form_for cat, remote: true do |f| %>
+            <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) - 1] } %>
+            <%= hidden_field_tag :event_id, @event.id %>
+            <%= button_tag(type: 'submit', class: 'move-status') do %>
+              <i class="fas fa-chevron-left"></i>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
-    <% unless @event.phase == Event.phases.keys.last %>
-      <div class="next-button">
-        <%= simple_form_for cat, remote: true do |f| %>
-          <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) + 1] } %>
-          <%= button_tag(type: 'submit') do %>
-            <i class="fas fa-chevron-right"></i>
+        </div>
+      <% end %>
+      <% unless cat.status == Cat.statuses.keys[4] %>
+        <div class="next-button">
+          <%= simple_form_for cat, remote: true do |f| %>
+            <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) + 1] } %>
+            <%= hidden_field_tag :event_id, @event.id %>
+            <%= button_tag(type: 'submit', class: 'move-status') do %>
+              <i class="fas fa-chevron-right"></i>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 
