@@ -16,6 +16,9 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :age, numericality: { only_integer: true }
 
+  include PgSearch
+  multisearchable against: %i[first_name last_name description]
+
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end

@@ -1,0 +1,40 @@
+<h2>Search results for <%= params[:query] %></h2>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-colonies-tab" data-toggle="tab" href="#nav-colonies" role="tab" aria-controls="nav-colonies" aria-selected="true">Colonies</a>
+    <a class="nav-item nav-link" id="nav-events-tab" data-toggle="tab" href="#nav-events" role="tab" aria-controls="nav-events" aria-selected="false">Events</a>
+    <a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="false">Users</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-colonies" role="tabpanel" aria-labelledby="nav-colonies-tab">
+    <% if @colonies.empty? %>
+      <p>No colonies found.</p>
+    <% else %>
+      <% @colonies.each do |colony| %>
+        <h5><%= link_to Colony.find(colony.searchable_id).name, colony_path(colony.searchable_id) %></h5>
+        <p><%= colony.content %></p>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="tab-pane fade" id="nav-events" role="tabpanel" aria-labelledby="nav-events-tab">
+    <% if @events.empty? %>
+      <p>No events found.</p>
+    <% else %>
+      <% @events.each do |event| %>
+        <h5><%= link_to Event.find(event.searchable_id).title, event_path(event.searchable_id) %></h5>
+        <p><%= event.content %></p>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab">
+    <% if @users.empty? %>
+      <p>No users found.</p>
+    <% else %>
+      <% @users.each do |user| %>
+        <h5><%= link_to User.find(user.searchable_id).full_name, user_path(user.searchable_id) %></h5>
+        <p><%= user.content %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

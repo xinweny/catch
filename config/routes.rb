@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
   get 'dashboard', to: 'pages#dashboard', as: :dashboard
+  get 'search', to: 'pages#search', as: :search
   get 'uikit', to: 'pages#uikit'
   get 'colonies/new/cats', to: 'colonies#search_cats', as: :search_cats
 

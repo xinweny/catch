@@ -12,6 +12,9 @@ class Event < ApplicationRecord
   validates :end, presence: true
   validates :phase, presence: true
 
+  include PgSearch
+  multisearchable against: %i[title description start end address]
+
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 end
