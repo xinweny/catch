@@ -1,6 +1,6 @@
 function refreshUpdates(innerHTML) {
-  const updates = document.querySelector('.live-updates');
+  const updates = document.querySelector('.updates-cats');
   updates.innerHTML = innerHTML;
 }
 
-refreshUpdates("<%= j render 'events/updates', event: @event %>");
+refreshUpdates("<%= j render 'events/updates_cats', event: @event %>");

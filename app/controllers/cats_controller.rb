@@ -31,14 +31,25 @@ class CatsController < ApplicationController
   def update
     @cat.update(cat_params)
     authorize @cat
-    if @cat.save
-      if params[:event_id]
-        redirect_to event_path(params[:event_id])
+    if params[:event_id]
+      @event = Event.find(params[:event_id])
+      if @cat.save
+        respond_to do |format|
+          format.js
+          format.html { redirect_to event_path(params[:event_id]) }
+        end
       else
-        redirect_to cat_path(@cat)
+        respond_to do |format|
+          format.js
+          format.html { render 'cats/show' }
+        end
       end
     else
-      render :edit
+      if @cat.save
+        redirect_to cat_path(@cat)
+      else
+        render :edit
+      end
     end
   end
 
