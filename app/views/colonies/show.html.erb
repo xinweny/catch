@@ -13,7 +13,7 @@
         <% end %>
       <% end %>
       <% if policy(@association).destroy? %>
-        <%= link_to 'Leave', association_path(@association), method: :delete, data: { confirm: 'Leave this group?'}, class: "btn btn-primary mx-1" %>
+        <%= link_to 'Leave', association_path(@association), method: :delete, data: { confirm: 'Leave this group?'}, class: "btn btn-danger mx-1" %>
       <% end %>
       <% if policy(@colony).destroy? %>
         <%= link_to 'Delete', colony_path(@colony), method: :delete, data: { confirm: 'Permanently delete this colony?' }, class: "btn btn-danger" %>
@@ -118,7 +118,7 @@
         <% @colony.cats.each do |cat| %>
           <div class="container d-flex py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px; position: relative;">
             <div class="content mt-2">
-              <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle' %>
+              <%= image_tag cat_photo(cat), class: 'rounded-circle thumbnail' %>
             </div>
             <div class="content mt-2 ml-4">
               <div class="button" style="position: absolute; right: 10px; top: 10px;">

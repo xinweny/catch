@@ -50,8 +50,7 @@ window.googleMaps = function() {
           fillColor: '#cc8fcb',
           fillOpacity: 0.4,
           map: map.map,
-          center: { lat: marker.lat, lng: marker.lng },
-          radius: marker.radius * 1000
+          center: { lat: marker.lat, lng: marker.lng }
         });
       });
     }
