@@ -1,0 +1,14 @@
+console.log('hi');
+function refreshCats(innerHTML) {
+  const cats = document.querySelector('.updates-cats');
+  cats.innerHTML = innerHTML;
+}
+
+function moveTabs() {
+  const catStatus = "<%= j @cat.status %>"
+  document.getElementById(`nav-${catStatus}-tab`).click();
+}
+
+
+refreshCats("<%= j render 'events/updates_cats', event: @event %>");
+moveTabs();
