@@ -1,6 +1,6 @@
 <% event_cats.each do |cat| %>
   <div class="cat-grid-container shadow-sm p-4" style="display: grid; grid-template-columns: 4fr 1fr;">
-     <div class="column d-flex">
+     <div class="column d-flex mt-2">
       <div class="content">
         <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
             <%= image_tag cat.photo.url(:thumbnail), class: 'rounded-circle mr-2' %>
@@ -18,7 +18,7 @@
               <% end %>
           <% end %>
 
-        <div class="container">
+        <div class="container mx-3">
             <% cat.all_changes.each do |attribute, change| %>
               <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= link_to cat.name, cat_path(cat) %>'s <%= attribute %> from <%= change[0] %> to <%= change[1] %> at <%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %>.</p>
             <% end %>
