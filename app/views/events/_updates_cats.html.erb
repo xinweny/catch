@@ -3,34 +3,34 @@
     <% if event.colony.cats.where(status: 0).empty? %>
       <p>No cats to show.</p>
     <% else %>
-      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 0) %>
+      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 0).sort { |a, b| b.last_updated <=> a.last_updated } %>
     <% end %>
   </div>
   <div class="tab-pane fade" id="nav-trapped" role="tabpanel" aria-labelledby="nav-trapped-tab" style="overflow-y: scroll; height: 300px;">
     <% if event.colony.cats.where(status: 1).empty? %>
       <p>No cats to show.</p>
     <% else %>
-      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 1) %>
+      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 1).sort { |a, b| b.last_updated <=> a.last_updated } %>
     <% end %>
   </div>
   <div class="tab-pane fade" id="nav-at-vet" role="tabpanel" aria-labelledby="nav-at-vet-tab" style="overflow-y: scroll; height: 300px;">
     <% if event.colony.cats.where(status: 2).empty? %>
       <p>No cats to show.</p>
     <% else %>
-      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 2) %>
+      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 2).sort { |a, b| b.last_updated <=> a.last_updated } %>
     <% end %>
   </div>
   <div class="tab-pane fade" id="nav-neutered" role="tabpanel" aria-labelledby="nav-neutered-tab" style="overflow-y: scroll; height: 300px;">
     <% if event.colony.cats.where(status: 3).empty? %>
       <p>No cats to show.</p>
     <% else %>
-      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 3) %>
+      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 3).sort { |a, b| b.last_updated <=> a.last_updated } %>
     <% end %>
   </div>
   <div class="tab-pane fade" id="nav-released" role="tabpanel" aria-labelledby="nav-released-tab" style="overflow-y: scroll; height: 300px;">
     <% if event.colony.cats.where(status: 4).empty? %>
       <p>No cats to show.</p>
     <% else %>
-      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 4) %>
+      <%= render 'events/event_cats', event_cats: event.colony.cats.where(status: 4).sort { |a, b| b.last_updated <=> a.last_updated } %>
     <% end %>
   </div>
