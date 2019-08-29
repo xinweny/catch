@@ -19,7 +19,11 @@ function moveTabs() {
 }
 
 function autoUpdate() {
-  const eventPhase = "<%= %>"
+  const spottedCats = <%= @cat.colony.has_cats?(0) %>;
+  const trappedCats = <%= @cat.colony.has_cats?(1) %>;
+  const vetCats = <%= @cat.colony.has_cats?(2) %>;
+  const neuteredCats = <%= @cat.colony.has_cats?(3) %>;
+  const releasedCats = <%= @cat.colony.has_cats?(4) %>;
 }
 
 closeModal();

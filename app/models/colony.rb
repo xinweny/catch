@@ -44,7 +44,11 @@ class Colony < ApplicationRecord
   end
 
   def has_cats?(status_index)
-    cats.select { |cat| cat.status == Cat.statuses.keys[status_index] }
+    selected_cats = cats.select { |cat| cat.status == Cat.statuses.keys[status_index] }
+
+    return true if Cat.statuses.keys[status_index] == 4 && selected_cats.length == cats.length
+
+    !selected_cats.empty?
   end
 
   private
