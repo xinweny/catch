@@ -34,7 +34,9 @@
             <%= render 'progress_bar', colony: @colony, event: @event %>
 
             <div class="live-updates mt-5">
-              <%= render 'events/updates_tab', event: @event %>
+              <div class="event-tabs">
+                <%= render 'events/updates_tab', event: @event %>
+              </div>
               <%= render 'events/updates_cats', event: @event %>
             </div>
           </div>

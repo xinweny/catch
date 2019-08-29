@@ -6,9 +6,11 @@ function closeModal() {
   }
 }
 
-function refreshCats(innerHTML) {
+function refreshCats(innerHTML1, innerHTML2) {
+  const tabs = document.querySelector('.event-tabs');
   const cats = document.querySelector('.updates-cats');
-  cats.innerHTML = innerHTML;
+  cats.innerHTML = innerHTML1;
+  tabs.innerHTML = innerHTML2;
 }
 
 function moveTabs() {
@@ -40,6 +42,6 @@ function autoUpdate(innerHTML) {
 }
 
 closeModal();
-refreshCats("<%= j render 'events/updates_cats', event: @event %>");
+refreshCats("<%= j render 'events/updates_cats', event: @event %>", "<%= j render 'events/updates_tab', event: @event %>");
 moveTabs();
 autoUpdate("<%= j render 'events/progress_bar', colony: @colony, event: @event %>");
