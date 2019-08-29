@@ -1,68 +1,77 @@
 <% event_cats.each do |cat| %>
-  <div class="cat-update-card update-grid-container shadow-sm d-flex justify-content-center align-items-center" style="border-radius: 10px; display:grid; grid-template-columns: 2fr 1fr; position: relative;">
-    <div class="column p-4">
+  <div class="cat-update-card update-grid-container shadow-sm d-flex justify-content-center align-items-center pt-3" style="border-radius: 10px; display:grid; grid-template-columns: 1fr 2fr 1fr; position: relative;">
 
-      <div class="content d-flex justify-content-center align-items-center">
-
-        <% if policy(cat).update? %>
-          <% unless cat.status == Cat.statuses.keys.first %>
-              <%= simple_form_for cat, remote: true do |f| %>
-                <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) - 1] } %>
-                <%= hidden_field_tag :event_id, @event.id %>
-                <%= button_tag(type: 'submit', class: 'hover-teal move-status btn btn-next mr-3') do %>
-                  <i class="fas fa-chevron-left hover-teal"></i>
-                <% end %>
+<div class="column">
+    <div class="content d-flex justify-content-center align-items-center" style="position: absolute; left: 5px; top: 50px;">
+      <% if policy(cat).update? %>
+        <% unless cat.status == Cat.statuses.keys.first %>
+            <%= simple_form_for cat, remote: true do |f| %>
+              <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) - 1] } %>
+              <%= hidden_field_tag :event_id, @event.id %>
+              <%= button_tag(type: 'submit', class: 'hover-teal move-status btn btn-next mr-3') do %>
+                <i class="fas fa-chevron-left hover-teal"></i>
               <% end %>
-          <% end %>
-        <% end %>
-
-        <div class="text d-flex flex-column m-2" style="position: relative">
-
-          <div class="content text-center">
-            <p style="border-bottom: 1px solid #eee;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
-          </div>
-
-          <div class="content d-flex justify-content-around px-3 align-items-center">
-            <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
-              <%= image_tag cat.photo.url(:thumbnail), class: 'img-size' %>
-              <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
-            <% elsif cat.last_version.event == 'update' %>
-              <%= image_tag cat.photo.url, class: 'img-size mr-3' %>
-
-              <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= attribute %> from <%= change[0] %> to <%= change[1] %>.</p>
-
-              <% cat.all_changes.each do |attribute, change| %>
-                <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= attribute %> from <%= change[0] %> to <%= change[1] %>.</p>
-              <% end %>
-            <% elsif cat.last_version.event == 'create' %>
-              <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %>.</p>
-            <% elsif cat.last_version.event == 'destroy' %>
-              <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
             <% end %>
-          </div>
-          <div class="update-time text-right">
-            <p style="color: #66615b;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
-          </div>
-        </div>
-
-    <% if policy(cat).update? %>
-      <% unless cat.status == Cat.statuses.keys[4] %>
-          <%= simple_form_for cat, remote: true do |f| %>
-            <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) + 1] } %>
-            <%= hidden_field_tag :event_id, @event.id %>
-            <%= button_tag(type: 'submit', class: 'hover-teal move-status btn btn-next ml-4') do %>
-              <i class="fas fa-chevron-right hover-teal"></i>
-            <% end %>
-          <% end %>
         <% end %>
       <% end %>
     </div>
   </div>
 
-  <div style="position: absolute; top: 5px; right: 5px;">
-      <% if policy(cat).update? %>
-          <button type="button" class="hover-teal btn btn-next mt-3 mr-2" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>"><i class="hover-teal fas fa-edit"></i></button>
-      <% end %>
+<div class="column">
+
+  <div class="text d-flex flex-column m-2" style="position: relative">
+
+            <div class="content text-center">
+              <p style="border-bottom: 1px solid #eee;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
+            </div>
+
+            <div class="content d-flex justify-content-around align-items-center" style="width: 600px;">
+              <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
+                <%= image_tag cat.photo.url(:thumbnail), class: 'img-size' %>
+                <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
+              <% elsif cat.last_version.event == 'update' %>
+                <%= image_tag cat.photo.url, class: 'img-size mr-3' %>
+
+                  <div class="text d-flex flex-column">
+                    <p style="line-height: 0;"><% cat.all_changes.each do |attribute, change| %>
+                      <%= User.find(cat.last_version.whodunnit).full_name %> updated <%= attribute %> from <%= change[0] %> to <%= change[1] %>.</p>
+                    <% end %>
+                  </div>
+
+                <% elsif cat.last_version.event == 'create' %>
+                  <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %>.</p>
+                <% elsif cat.last_version.event == 'destroy' %>
+                  <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
+                <% end %>
+            </div>
+            <div class="update-time text-right">
+              <p style="color: #66615b;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
+            </div>
+          </div>
+  </div>
+
+<div class="column">
+  <div class="content"  style="position: absolute; right: 5px; top: 50px;">
+        <% if policy(cat).update? %>
+          <% unless cat.status == Cat.statuses.keys[4] %>
+              <%= simple_form_for cat, remote: true do |f| %>
+                <%= f.input :status, as: :hidden, input_html: { value: Cat.statuses.keys[Cat.statuses.keys.index(cat.status) + 1] } %>
+                <%= hidden_field_tag :event_id, @event.id %>
+                <%= button_tag(type: 'submit', class: 'hover-teal move-status btn btn-next ml-4') do %>
+                  <i class="fas fa-chevron-right hover-teal"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+  </div>
+
+
+
+      <div style="position: absolute; top: 5px; right: 5px;">
+          <% if policy(cat).update? %>
+              <button type="button" class="hover-teal btn btn-next mt-3 mr-2" data-toggle="modal" data-target="<%= "#catModal_#{cat.id}" %>"><i class="hover-teal fas fa-edit"></i></button>
+          <% end %>
+      </div>
   </div>
 </div>
 
