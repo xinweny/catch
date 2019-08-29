@@ -30,6 +30,7 @@
               <%= image_tag cat.photo.url, class: 'img-size mr-3' %>
               <% cat.all_changes.each do |attribute, change| %>
                 <p><%= User.find(cat.last_version.whodunnit).full_name %> updated <%= attribute %> from <%= change[0] %> to <%= change[1] %>.</p>
+                <p><%= Updated <%= attribute %> from <%= change[0] %> to <%= change[1] %>.</p>
               <% end %>
             <% elsif cat.last_version.event == 'create' %>
               <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> added a new cat <%= link_to cat.name, cat_path(cat) %>.</p>
@@ -38,7 +39,7 @@
             <% end %>
           </div>
           <div class="update-time text-right">
-            <p><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
+            <p style="color: #66615b;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
           </div>
         </div>
 
