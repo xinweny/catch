@@ -17,24 +17,25 @@ window.checkboxColour = function() {
         }
       });
     });
-
-    selectAllButton.addEventListener('click', (event) => {
-      if (selectAllButton.innerText === "SELECT ALL") {
-        sightedCats.forEach((cat) => {
-          if (cat.classList.contains('unchecked')) {
-            cat.click();
-          }
-        });
-        selectAllButton.innerText = "DESELECT ALL";
-      } else {
-        sightedCats.forEach((cat) => {
-          if (cat.classList.contains('checked')) {
-            cat.click();
-          }
-        });
-        selectAllButton.innerText = "SELECT ALL";
-      }
-    });
+    if (selectAllButton) {
+      selectAllButton.addEventListener('click', (event) => {
+        if (selectAllButton.innerText === "SELECT ALL") {
+          sightedCats.forEach((cat) => {
+            if (cat.classList.contains('unchecked')) {
+              cat.click();
+            }
+          });
+          selectAllButton.innerText = "DESELECT ALL";
+        } else {
+          sightedCats.forEach((cat) => {
+            if (cat.classList.contains('checked')) {
+              cat.click();
+            }
+          });
+          selectAllButton.innerText = "SELECT ALL";
+        }
+      });
+    }
   }
 };
 
