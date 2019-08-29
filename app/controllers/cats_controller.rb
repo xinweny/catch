@@ -34,6 +34,7 @@ class CatsController < ApplicationController
     if params[:event_id]
       @event = Event.find(params[:event_id])
       if @cat.save
+        update_event
         respond_to do |format|
           format.js
           format.html { redirect_to event_path(params[:event_id]) }
@@ -60,6 +61,28 @@ class CatsController < ApplicationController
   end
 
   private
+
+  def update_event
+    spotted = @cat.colony.has_cats?(0)
+    trapped = @cat.colony.has_cats?(1)
+    at_vet = @cat.colony.has_cats?(2)
+    neutered = @cat.colony.has_cats?(3)
+    released = @cat.colony.has_cats?(4)
+
+    if spotted
+      @event.update(phase: 0)
+    elsif trapped
+      @event.update(phase: 1)
+    elsif at_vet
+      @event.update(phase: 1)
+    elsif neutered
+      @event.update(phase: 2)
+    elsif released
+      @event.update(phase: 5)
+    end
+
+    @event.save
+  end
 
   def cat_params
     params.require(:cat).permit(:name, :description, :sex, :age, :photo, :health, :microchip_id, :status, :longitude, :latitude, :address, :colony_id)

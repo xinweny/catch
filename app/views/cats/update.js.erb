@@ -18,11 +18,28 @@ function moveTabs() {
   tab.click();
 }
 
-function autoUpdate() {
-  const eventPhase = "<%= %>"
+function autoUpdate(innerHTML) {
+  const newProgressBar = document.getElementById('progress-bar');
+  newProgressBar.innerHTML = innerHTML;
+
+  const buttons = document.querySelectorAll('.update-button');
+  if (buttons) {
+    const phase = document.getElementById('event-phase');
+    if (phase.dataset.phase === "Complete") {
+      buttons.forEach((button) => {
+        button.disabled = true;
+      });
+    }
+
+    buttons.forEach((button) => {
+      if (button.value === phase.dataset.phase) {
+        button.disabled = true;
+      }
+    });
+  }
 }
 
 closeModal();
 refreshCats("<%= j render 'events/updates_cats', event: @event %>");
 moveTabs();
-autoUpdate();
+autoUpdate("<%= j render 'events/progress_bar', colony: @colony, event: @event %>");
