@@ -18,15 +18,28 @@ function moveTabs() {
   tab.click();
 }
 
-function autoUpdate() {
-  const spottedCats = <%= @cat.colony.has_cats?(0) %>;
-  const trappedCats = <%= @cat.colony.has_cats?(1) %>;
-  const vetCats = <%= @cat.colony.has_cats?(2) %>;
-  const neuteredCats = <%= @cat.colony.has_cats?(3) %>;
-  const releasedCats = <%= @cat.colony.has_cats?(4) %>;
+function autoUpdate(innerHTML) {
+  const newProgressBar = document.getElementById('progress-bar');
+  newProgressBar.innerHTML = innerHTML;
+
+  const buttons = document.querySelectorAll('.update-button');
+  if (buttons) {
+    const phase = document.getElementById('event-phase');
+    if (phase.dataset.phase === "Complete") {
+      buttons.forEach((button) => {
+        button.disabled = true;
+      });
+    }
+
+    buttons.forEach((button) => {
+      if (button.value === phase.dataset.phase) {
+        button.disabled = true;
+      }
+    });
+  }
 }
 
 closeModal();
 refreshCats("<%= j render 'events/updates_cats', event: @event %>");
 moveTabs();
-autoUpdate();
+autoUpdate("<%= j render 'events/progress_bar', colony: @colony, event: @event %>");
