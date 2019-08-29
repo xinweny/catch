@@ -1,11 +1,11 @@
 <h4 class="mb-3 pb-2" style="border-bottom: solid 3px #f5593d;">Updates</h4>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-spotted-tab" data-toggle="tab" href="#nav-spotted" role="tab" aria-controls="nav-home" aria-selected="true">Spotted</a>
-    <a class="nav-item nav-link" id="nav-trapped-tab" data-toggle="tab" href="#nav-trapped" role="tab" aria-controls="nav-profile" aria-selected="false">Trapped</a>
-    <a class="nav-item nav-link" id="nav-at_vet-tab" data-toggle="tab" href="#nav-at-vet" role="tab" aria-controls="nav-contact" aria-selected="false">At vet</a>
-    <a class="nav-item nav-link" id="nav-neutered-tab" data-toggle="tab" href="#nav-neutered" role="tab" aria-controls="nav-contact" aria-selected="false">Neutered</a>
-    <a class="nav-item nav-link" id="nav-released-tab" data-toggle="tab" href="#nav-released" role="tab" aria-controls="nav-contact" aria-selected="false">Released</a>
+    <a class="nav-item nav-link active text-center" id="nav-spotted-tab" data-toggle="tab" href="#nav-spotted" role="tab" aria-controls="nav-home" aria-selected="true">Spotted<br><%= event.colony.cats.select { |cat| cat.status == 'spotted' }.length %></a>
+    <a class="nav-item nav-link text-center" id="nav-trapped-tab" data-toggle="tab" href="#nav-trapped" role="tab" aria-controls="nav-profile" aria-selected="false">Trapped<br><%= event.colony.cats.select { |cat| cat.status == 'trapped' }.length %></a>
+    <a class="nav-item nav-link text-center" id="nav-at_vet-tab" data-toggle="tab" href="#nav-at-vet" role="tab" aria-controls="nav-contact" aria-selected="false">At vet<br><%= event.colony.cats.select { |cat| cat.status == 'at_vet' }.length %></a>
+    <a class="nav-item nav-link text-center" id="nav-neutered-tab" data-toggle="tab" href="#nav-neutered" role="tab" aria-controls="nav-contact" aria-selected="false">Neutered<br><%= event.colony.cats.select { |cat| cat.status == 'neutered' }.length %></a>
+    <a class="nav-item nav-link text-center" id="nav-released-tab" data-toggle="tab" href="#nav-released" role="tab" aria-controls="nav-contact" aria-selected="false">Released<br><%= event.colony.cats.select { |cat| cat.status == 'released' }.length %></a>
   </div>
 </nav>
 </div>
