@@ -18,22 +18,27 @@
       </div>
 
     <div class="column">
-      <div class="text d-flex flex-column m-2" style="position: relative">
-        <div class="content text-center">
-          <p style="border-bottom: 1px solid #eee;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
+      <div class="text d-flex flex-column" style="position: relative">
+        <div class="content">
+          <p style="border-bottom: 1px solid #eee; margin-left: 11px;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
         </div>
 
-        <div class="content d-flex justify-content-around align-items-center" style="width: 600px;">
+        <div class="content d-flex justify-content-around align-items-center pb-3" style="width: 500px;">
           <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
             <%= image_tag cat.photo.url(:thumbnail), class: 'img-size' %>
             <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
           <% elsif cat.last_version.event == 'update' %>
-            <%= image_tag cat.photo.url, class: 'img-size mr-3' %>
+            <%= image_tag cat.photo.url, class: 'img-size' %>
 
-              <div class="text d-flex flex-column">
-                <p style="line-height: 0;"><% cat.all_changes.each do |attribute, change| %>
+              <div class="d-flex flex-column text-right">
+                <p><% cat.all_changes.each do |attribute, change| %>
                   <%= User.find(cat.last_version.whodunnit).full_name %> updated <%= attribute %> from <%= change[0] %> to <%= change[1] %>.</p>
+
+
                 <% end %>
+                <div class="update-time text-right">
+                  <p style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
+                </div>
               </div>
 
             <% elsif cat.last_version.event == 'create' %>
@@ -42,9 +47,6 @@
               <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
             <% end %>
           </div>
-        <div class="update-time text-right">
-          <p style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
-        </div>
       </div>
     </div>
 
