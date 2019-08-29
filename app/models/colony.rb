@@ -43,6 +43,10 @@ class Colony < ApplicationRecord
     user.admin_groups.include?(self)
   end
 
+  def has_cats?(status_index)
+    cats.select { |cat| cat.status == Cat.statuses.keys[status_index] }
+  end
+
   private
 
   def remove_colony_from_cats

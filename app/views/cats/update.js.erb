@@ -18,6 +18,11 @@ function moveTabs() {
   tab.click();
 }
 
+function autoUpdate() {
+  const eventPhase = "<%= %>"
+}
+
 closeModal();
 refreshCats("<%= j render 'events/updates_cats', event: @event %>");
 moveTabs();
+autoUpdate();

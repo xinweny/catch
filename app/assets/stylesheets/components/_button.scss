@@ -79,3 +79,9 @@
 .btn-link.red-card:hover {
   color: $gray-light;
 }
+
+.hover-teal {
+  &:hover {
+    color: $teal;
+  }
+}
