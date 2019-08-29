@@ -1,5 +1,5 @@
 <% event_cats.each do |cat| %>
-  <div class="cat-update-card update-grid-container shadow-sm d-flex justify-content-center align-items-center" style="border-radius: 10px; display:grid; grid-template-columns: 2fr 1fr; position: relative;">
+  <div class="cat-update-card update-grid-container shadow-sm d-flex justify-content-center align-items-center" style="border-radius: 10px; display:grid; grid-template-columns: 3fr 1fr; position: relative;">
     <div class="column p-4">
 
       <div class="content d-flex justify-content-center align-items-center">
@@ -38,7 +38,7 @@
             <% end %>
           </div>
           <div class="update-time text-right">
-            <p><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
+            <p style= "font-size: 12px;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
           </div>
         </div>
 
