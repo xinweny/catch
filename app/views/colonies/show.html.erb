@@ -55,7 +55,7 @@
           <div class="update-grid-container py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px;">
             <div class="column d-flex ml-2 align-items-center justify-content-center">
               <div class="card-content">
-                <%= image_tag user_avatar(user), class: "ml-2 w-100 h-auto rounded-circle"%>
+                <%= image_tag user_avatar(user), class: "ml-2 avatar-size rounded-circle"%>
               </div>
             </div>
             <div class="column d-flex flex-column justify-content-center mt-3 ml-2">
@@ -79,8 +79,8 @@
               <% @colony.users.each do |user| %>
                 <div class="card shadow-sm">
                   <div class="member-grid-container" style="display:grid; grid-template-columns: 1fr 2fr; background-color: #f4f3eb">
-                    <div class="column mt-2">
-                      <%= image_tag user_avatar(user), class: "ml-3 w-75 h-auto my-3 rounded-circle"%>
+                    <div class="column mt-2 d-flex justify-content-around align-items-center">
+                      <%= image_tag user_avatar(user), class: "ml-3 avatar-size my-3 rounded-circle"%>
                     </div>
                     <div class="column mt-4">
                       <p><%= link_to user.full_name, user_path(user) %></p>
@@ -118,7 +118,7 @@
         <% @colony.cats.each do |cat| %>
           <div class="container d-flex py-2 my-2 shadow-sm" style="background-color: white; border-radius: 10px; position: relative;">
             <div class="content mt-2">
-              <%= image_tag cat_photo(cat), class: 'rounded-circle thumbnail' %>
+              <%= image_tag cat_photo(cat), class: 'rounded-circle avatar-size' %>
             </div>
             <div class="content mt-2 ml-4">
               <div class="button" style="position: absolute; right: 10px; top: 10px;">

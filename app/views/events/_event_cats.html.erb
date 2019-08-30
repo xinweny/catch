@@ -24,7 +24,7 @@
           <p style="border-bottom: 1px solid #eee; margin-left: 11px;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
         </div>
 
-        <div class="content d-flex justify-content-between align-items-center" style="width: 600px;">
+        <div class="content d-flex justify-content-between align-items-center pb-3" style="width: 500px;">
           <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
             <%= image_tag cat.photo.url, class: 'img-size' %>
             <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
@@ -32,12 +32,14 @@
             <%= image_tag cat.photo.url, class: 'img-size' %>
 
               <div class="text d-flex flex-column">
-                <p style="line-height: 0;"><% cat.all_changes.each do |attribute, change| %>
-                  <% change[0] = "at vet" if change[0] == "at_vet" %>
-                  <strong><%= User.find(cat.last_version.whodunnit).full_name %></strong> updated <strong><%= attribute %></strong> from <strong>"<%= change[0] %>"</strong> to <strong>"<%= change[1] %>"</strong>.</p>
-                <% end %>
-                <div class="update-time text-right">
-                  <p style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
+                <div class="update">
+                  <% cat.all_changes.each do |attribute, change| %>
+                    <p style="line-height: 0;">
+                      <% change[0] = "at vet" if change[0] == "at_vet" %>
+                      <strong><%= User.find(cat.last_version.whodunnit).full_name %></strong> updated <strong><%= attribute %></strong> from <strong>"<%= change[0] %>"</strong> to <strong>"<%= change[1] %>"</strong>.
+                    </p>
+                  <% end %>
+                  <p class="text-right m-0" style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
                 </div>
               </div>
 
