@@ -19,9 +19,9 @@
       </div>
 
     <div class="column">
-      <div class="text d-flex flex-column m-2" style="position: relative">
-        <div class="content text-center">
-          <p style="border-bottom: 1px solid #eee;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
+      <div class="text d-flex flex-column" style="position: relative">
+        <div class="content">
+          <p style="border-bottom: 1px solid #eee; margin-left: 11px;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
         </div>
 
         <div class="content d-flex justify-content-between align-items-center" style="width: 600px;">
@@ -36,6 +36,9 @@
                   <% change[0] = "at vet" if change[0] == "at_vet" %>
                   <strong><%= User.find(cat.last_version.whodunnit).full_name %></strong> updated <strong><%= attribute %></strong> from <strong>"<%= change[0] %>"</strong> to <strong>"<%= change[1] %>"</strong>.</p>
                 <% end %>
+                <div class="update-time text-right">
+                  <p style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
+                </div>
               </div>
 
             <% elsif cat.last_version.event == 'create' %>
@@ -44,9 +47,6 @@
               <p class="cat-update"><%= User.find(cat.last_version.whodunnit).full_name %> removed <%= link_to cat.name, cat_path(cat) %> from the database.</p>
             <% end %>
           </div>
-        <div class="update-time text-right">
-          <p style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
-        </div>
       </div>
     </div>
 

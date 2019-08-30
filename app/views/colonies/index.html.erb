@@ -6,12 +6,13 @@
     height: 800px;"
     data-markers="<%= @markers.to_json %>"
 ></div>
-<div class="content" style="position: absolute; top: 60px; 800px; height: 400px; z-index: 1000002;">
+<div class="content" style="position: absolute; top: 60px; right:650px; 800px; height: 400px; z-index: 1000002;">
   <% if params[:query].present? %>
         <div class="container ml-5 pb-2 pt-4 pr-3 shadow rounded" style="position: absolute; top: 5px; left: 20px; width: 550px; height: 180px; background-color: white;">
           <h3 style="color: #f5593d"><strong>Your results</strong></h3>
           <h3><%= @colonies.length %> colonies near <%= params[:query].capitalize %></h3>
         <% else %>
+        <div class="container ml-5 pb-2 pt-4 pr-3 shadow rounded" style="position: absolute; top: 5px; left: 20px; width: 550px; height: 150px; background-color: white;">
           <h3>All colonies (<%= @colonies.length %>)</h3>
         <% end %>
         <%= form_tag colonies_path, method: :get do %>
@@ -20,6 +21,7 @@
             <%= submit_tag "Search", class: "btn btn-danger m-0 mt-2" %>
           </div>
         </div>
+      </div>
      <% end%>
   </div>
 </div>
