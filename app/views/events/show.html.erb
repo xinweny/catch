@@ -8,7 +8,7 @@
         <div class="content d-inline-flex">
           <% if policy(@participation).create? %>
             <%= simple_form_for [@event, @participation] do |f| %>
-              <%= f.submit 'Join', class: "btn btn-danger mr-2" %>
+              <%= f.submit 'Join', class: "btn btn-primary mr-2" %>
             <% end %>
           <% end %>
           <% if policy(@participation).destroy? %>
