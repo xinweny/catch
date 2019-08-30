@@ -10,6 +10,7 @@
                   <%= hidden_field_tag :event_id, @event.id %>
                   <%= button_tag(type: 'submit', class: 'hover-teal move-status btn btn-next mr-3') do %>
                     <i class="fas fa-chevron-left hover-teal"></i>
+                    <p>Back</p>
                   <% end %>
                 <% end %>
             <% end %>
@@ -23,21 +24,22 @@
           <p style="border-bottom: 1px solid #eee; margin-left: 11px;"><strong><%= link_to cat.name, cat_path(cat) %></strong></p>
         </div>
 
-        <div class="content d-flex justify-content-around align-items-center pb-3" style="width: 500px;">
+        <div class="content d-flex justify-content-between align-items-center pb-3" style="width: 500px;">
           <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
-            <%= image_tag cat.photo.url(:thumbnail), class: 'img-size' %>
+            <%= image_tag cat.photo.url, class: 'img-size' %>
             <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
           <% elsif cat.last_version.event == 'update' %>
             <%= image_tag cat.photo.url, class: 'img-size' %>
 
-              <div class="d-flex flex-column text-right">
-                <p><% cat.all_changes.each do |attribute, change| %>
-                  <%= User.find(cat.last_version.whodunnit).full_name %> updated <%= attribute %> from <%= change[0] %> to <%= change[1] %>.</p>
-
-
-                <% end %>
-                <div class="update-time text-right">
-                  <p style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
+              <div class="text d-flex flex-column">
+                <div class="update">
+                  <% cat.all_changes.each do |attribute, change| %>
+                    <p style="line-height: 0;">
+                      <% change[0] = "at vet" if change[0] == "at_vet" %>
+                      <strong><%= User.find(cat.last_version.whodunnit).full_name %></strong> updated <strong><%= attribute %></strong> from <strong>"<%= change[0] %>"</strong> to <strong>"<%= change[1] %>"</strong>.
+                    </p>
+                  <% end %>
+                  <p class="text-right m-0" style="color: #66615b; font-size: 12px; text-transform: uppercase;"><%= cat.last_updated.strftime("%-l:%M %p, #{cat.last_updated.day.ordinalize} %B %Y") %></p>
                 </div>
               </div>
 
@@ -59,6 +61,15 @@
               <%= hidden_field_tag :event_id, @event.id %>
               <%= button_tag(type: 'submit', class: 'hover-teal move-status btn btn-next ml-4') do %>
                 <i class="fas fa-chevron-right hover-teal"></i>
+                <% if cat.status === 'spotted' %>
+                  <p>Trap</p>
+                <% elsif cat.status === 'trapped' %>
+                  <p>Vet</p>
+                <% elsif cat.status === 'at_vet' %>
+                  <p>Neuter</p>
+                <% elsif cat.status === 'neutered' %>
+                  <p>Release</p>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>

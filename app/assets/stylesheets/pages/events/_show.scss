@@ -2,7 +2,7 @@
 .events-grid-container {
   display:grid;
   grid-column-gap: 10px;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 4fr 1fr;
 }
 
 .update-grid-container {
@@ -13,5 +13,6 @@
 
 .avatar-size {
   width: 60px;
-  height: auto;
+  height: 60px;
+  object-fit: cover;
 }

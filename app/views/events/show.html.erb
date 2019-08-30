@@ -27,7 +27,7 @@
         <div class="update-grid" style="background-color: white; border-top-right-radius: 10px; border-top-left-radius: 10px;">
           <div class="column">
             <div class="content text-center pt-5 pb-3" style="background-color: #51cbce; border-top-right-radius: 10px; border-top-left-radius: 10px; height: 100%; text-align: center;">
-              <h4 style="color: white;">Updates</h4>
+              <h4 style="color: white;"><%= @event.title %></h4>
             </div>
           </div>
           <div class="column p-5">
@@ -86,10 +86,10 @@
             <div class="column d-flex flex-column justify-content-center mt-3 ml-2 mb-3">
               <h5><%= link_to user.full_name, user_path(user) %></h5>
               <div class="d-inline-flex align-items-center" style="overflow-wrap: break-word;">
-              <i class="fas fa-phone mr-1"></i> <%= user.phone_number %>
+                <!-- <i class="fas fa-phone mr-1"></i> <%= user.phone_number %> -->
               </div>
               <div class="d-inline-flex align-items-center" style="overflow-wrap: break-word;">
-                <i class="far fa-envelope mr-2"></i><%= user.email %>
+                <!-- <i class="far fa-envelope mr-2"></i><%= user.email %> -->
               </div>
             </div>
           </div>

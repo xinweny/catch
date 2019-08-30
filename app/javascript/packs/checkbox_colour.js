@@ -1,5 +1,7 @@
 window.checkboxColour = function() {
   const sightedCats = document.querySelectorAll('.sighted-cat-card');
+  const selectAllButton = document.getElementById('select-all-button');
+
   if (sightedCats) {
     sightedCats.forEach((cat) => {
       cat.addEventListener('click', (event) => {
@@ -15,6 +17,25 @@ window.checkboxColour = function() {
         }
       });
     });
+    if (selectAllButton) {
+      selectAllButton.addEventListener('click', (event) => {
+        if (selectAllButton.innerText === "SELECT ALL") {
+          sightedCats.forEach((cat) => {
+            if (cat.classList.contains('unchecked')) {
+              cat.click();
+            }
+          });
+          selectAllButton.innerText = "DESELECT ALL";
+        } else {
+          sightedCats.forEach((cat) => {
+            if (cat.classList.contains('checked')) {
+              cat.click();
+            }
+          });
+          selectAllButton.innerText = "SELECT ALL";
+        }
+      });
+    }
   }
 };
 
