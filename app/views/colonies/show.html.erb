@@ -9,7 +9,7 @@
       <% end %>
       <% if policy(@association).create? %>
         <%= simple_form_for [@colony, @association] do |f| %>
-          <%= f.submit 'Join', class: "btn btn-danger" %>
+          <%= f.submit 'Join', class: "btn btn-primary" %>
         <% end %>
       <% end %>
       <% if policy(@association).destroy? %>
