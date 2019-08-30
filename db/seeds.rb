@@ -6,7 +6,7 @@ def scrape_addresses(query)
   addresses = JSON.parse(open(url).read)['results']
 end
 
-def cat_stats(colony, address, status = 0)
+def cat_stats(colony, address, status = 0, url = 'https://cataas.com/cat')
   return {
   name: Faker::Creature::Cat.name,
   description: Faker::Creature::Cat.breed,
@@ -14,7 +14,7 @@ def cat_stats(colony, address, status = 0)
   sex: rand(0..1),
   age: rand(0..10),
   status: status,
-  remote_photo_url: 'https://cataas.com/cat',
+  remote_photo_url: url,
   colony: colony
   }
 end
@@ -33,7 +33,11 @@ def generate_description
     "Our community believes in providing the five-star experience that our cats deserve.",
     "These cats are very friendly and not afraid of humans, please treat them nicely!"]
 
-    sentences.sample(rand(3..9)).join(" ")
+    sentences.sample(rand(3..6)).join(" ")
+end
+
+def user_photo
+  JSON.parse(open('https://randomuser.me/api/').read)['results'].first['picture']['large']
 end
 
 puts 'Wiping the development db...'
@@ -48,13 +52,14 @@ demo_user = [User.create!(
     last_name: 'Chung',
     age: 21,
     gender: 'Female',
-    email: 'test@gmail.com',
+    email: 'cats@gmail.com',
     password: '123456',
-    phone_number: '012-345-6789')]
+    phone_number: '012-345-6789',
+    remote_photo_url: 'http://3.bp.blogspot.com/_E1YGCX_3p2g/S6agCOOqRsI/AAAAAAAAAtY/YhP3Je9uaQs/s320/DSC_0031.JPG')]
 
 puts 'Creating admins...'
 admins = []
-13.times do
+12.times do
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -62,7 +67,8 @@ admins = []
     gender: ['Male', 'Female'].sample,
     email: Faker::Internet.email,
     password: '123456',
-    phone_number: Faker::PhoneNumber.cell_phone)
+    phone_number: Faker::PhoneNumber.cell_phone,
+    remote_photo_url: user_photo)
   admins << user
   user.save!
 end
@@ -77,23 +83,32 @@ other_users = []
     gender: ['Male', 'Female'].sample,
     email: Faker::Internet.email,
     password: '123456',
-    phone_number: Faker::PhoneNumber.cell_phone)
+    phone_number: Faker::PhoneNumber.cell_phone,
+    remote_photo_url: user_photo)
   other_users << user
   user.save!
 end
 
 puts 'Adding untracked cats...'
-scrape_addresses("places in tokyo").each do |result|
+scrape_addresses("places in tokyo").first(10).each do |result|
   Cat.create!(cat_stats(nil, result['formatted_address']))
 end
 
-ueno_addresses = scrape_addresses("places in ueno").first(8)
-ueno_addresses.each do |result|
-  Cat.create!(cat_stats(nil, result['formatted_address']))
+puts 'Adding demo cats...'
+stray_pics = ['https://www.advocates4animals.com/wp-content/uploads/2015/11/straycat.jpg',
+  'https://assets3.thrillist.com/v1/image/2696152/size/tmg-article_tall;jpeg_quality=20.jpg',
+  'https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2018/05/14/yq-strayce-140518.jpg?itok=7mb6uzo8&timestamp=1526285651',
+  'https://www.columbusdirect.com/media/26269/stray-cat.jpg?width=800',
+  'https://www.wur.nl/upload_mm/b/1/a/56da25e2-e6e1-4b94-a5f7-5144a7fdcbdc_shutterstock_126340361_b0820920_490x330.jpg'
+]
+
+meguro_addresses = scrape_addresses("places in meguro").first(5)
+meguro_addresses.each_with_index do |result, index|
+  Cat.create!(cat_stats(nil, result['formatted_address'], 0, stray_pics[index]))
 end
 
 puts 'Creating colonies...'
-colony_addresses = ['Shinagawa', 'Roppongi', 'Meguro', 'Shibuya', 'Shinjuku', 'Ikebukuro', 'Asakusa', 'Odaiba', 'Kagurazaka', 'Akihabara', 'Ginza', 'Kitasenju', 'Hanzomon']
+colony_addresses = ['Roppongi', 'Ueno', 'Shibuya', 'Shinjuku', 'Ikebukuro', 'Asakusa', 'Odaiba', 'Kagurazaka', 'Akihabara', 'Kitasenju', 'Hanzomon', 'Shinagawa']
 colony_addresses.each do |address|
   Colony.create!(
     name: "#{address} Cat Colony",
@@ -103,14 +118,25 @@ colony_addresses.each do |address|
 end
 
 puts 'Adding cats to colonies...'
-Colony.all.each do |colony|
-  addresses = scrape_addresses("places in #{colony.address}").first(rand(5..10))
-  addresses.each do |address|
-    Cat.create!(cat_stats(colony, address['formatted_address'], rand(0..5)))
+Colony.all.each_with_index do |colony, index|
+  addresses = scrape_addresses("places in #{colony.address}").first(rand(4..7))
+  if index == (Colony.all.length - 1)
+    addresses.each_with_index do |address, index|
+      if index == (addresses.length - 1)
+        Cat.create!(cat_stats(colony, address['formatted_address'], 0))
+      else
+        Cat.create!(cat_stats(colony, address['formatted_address'], 4))
+      end
+    end
+  else
+    addresses.each do |address|
+      Cat.create!(cat_stats(colony, address['formatted_address'], rand(0..5)))
+    end
   end
   colony.update(radius: colony.cats.length.to_f / 6)
   colony.save!
 end
+
 
 puts 'Assigning admins to each colony...'
 admins.each_with_index do |admin, index|
@@ -119,7 +145,7 @@ end
 
 puts 'Assigning volunteers to each colony...'
 Colony.all.each do |colony|
-  rand(8..10).times do
+  rand(5..8).times do
     user = User.create!(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
@@ -127,7 +153,8 @@ Colony.all.each do |colony|
       gender: ['Male', 'Female'].sample,
       email: Faker::Internet.email,
       password: '123456',
-      phone_number: Faker::PhoneNumber.cell_phone)
+      phone_number: Faker::PhoneNumber.cell_phone,
+      remote_photo_url: user_photo)
     Association.create!(user: user, colony: colony)
   end
 end
@@ -143,7 +170,7 @@ Colony.all.each do |colony|
     colony: colony,
     phase: 0)
   Participation.create!(user: colony.admins.first, event: event_1)
-  rand(4..6).times do
+  rand(2..4).times do
     Participation.create!(user: colony.non_admins.sample, event: event_1)
   end
 
@@ -156,7 +183,7 @@ Colony.all.each do |colony|
     colony: colony,
     phase: 3)
   Participation.create!(user: colony.admins.first, event: event_2)
-  rand(4..6).times do
+  rand(2..4).times do
     Participation.create!(user: colony.non_admins.sample, event: event_2)
   end
 end

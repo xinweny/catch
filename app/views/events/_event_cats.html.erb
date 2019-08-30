@@ -26,10 +26,10 @@
 
         <div class="content d-flex justify-content-between align-items-center" style="width: 600px;">
           <% if cat.all_changes == {} || cat.versions.empty? || cat.last_version.whodunnit.nil? %>
-            <%= image_tag cat.photo.url(:thumbnail), class: 'img-size' %>
+            <%= image_tag cat.photo.url, class: 'img-size' %>
             <p class="cat-update">No updates to show for <%= link_to cat.name, cat_path(cat) %>.</p>
           <% elsif cat.last_version.event == 'update' %>
-            <%= image_tag cat.photo.url, class: 'img-size mr-3' %>
+            <%= image_tag cat.photo.url, class: 'img-size' %>
 
               <div class="text d-flex flex-column">
                 <p style="line-height: 0;"><% cat.all_changes.each do |attribute, change| %>
