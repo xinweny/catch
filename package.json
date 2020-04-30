@@ -8,7 +8,7 @@
     "dotenv": "^8.1.0",
     "flatpickr": "^4.6.2",
     "gmaps": "^0.4.24",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mapbox-gl": "^1.2.1",
     "popper.js": "^1.15.0"
   },
